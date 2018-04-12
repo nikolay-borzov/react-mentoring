@@ -8,6 +8,10 @@
   src: url('./assets/fonts/TitilliumWeb-Bold.ttf') format('opentype');
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: 'Regular';
   font-size: 100%;
@@ -28,9 +32,18 @@ body {
   height: 100%;
 }
 
+.component {
+  border: dotted #000 3px;
+  padding: 1em;
+}
+
+.component + .component {
+  margin-top: 0.5em;
+}
+
 figure {
   background: #fafafa;
-  padding: 1.2em 1.2em 0 1.2em;
+  padding: 1.2em;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px;
 }
 
