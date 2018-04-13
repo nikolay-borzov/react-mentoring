@@ -1,64 +1,88 @@
-const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const opn = require('opn')
-
-const config = require('./webpack.dev.js')
 
 const port = process.env.PORT || 3000
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-const dist = config.output.path
-const indexFile = path.join(dist, 'index.html')
-
 const app = express()
-const compiler = webpack(config)
 
-let listenCallback = () => {}
+const configure = isDevelopment
+  ? configureForDevelopment
+  : configureForProduction
 
-if (isDevelopment) {
-  const devMiddlewareIntance = webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
+configure(app)
+  .then(({ callback }) => {
+    app.listen(port, callback)
+  })
+  .catch(({ err, stats }) => {
+    console.log(stats)
   })
 
-  app.use(devMiddlewareIntance)
+function configureForDevelopment(app) {
+  return new Promise(resolve => {
+    const webpackDevMiddleware = require('webpack-dev-middleware')
+    const webpackHotMiddleware = require('webpack-hot-middleware')
+    const opn = require('opn')
 
-  app.use(webpackHotMiddleware(compiler))
+    const config = require('./webpack.dev.js')
 
-  /* TODO: Remove? Looks like server works without it.
-  app.get('*', (req, res) => {
-    //res.sendFile(indexFile)
-    devMiddlewareIntance.waitUntilValid(() => {
-      compiler.outputFileSystem.readFile(indexFile, function(err, result) {
-        if (err) {
-          return next(err)
-        }
-        res.set('content-type', 'text/html')
-        res.send(result)
-        res.end()
+    const compiler = webpack(config)
+
+    app.use(
+      webpackDevMiddleware(compiler, {
+        publicPath: config.output.publicPath
       })
+    )
+
+    app.use(webpackHotMiddleware(compiler))
+
+    resolve({
+      callback: () => {
+        const url = `http://localhost:${port}`
+
+        console.log('Listening at', url)
+        opn(url)
+      }
     })
-  })*/
-
-  listenCallback = () => {
-    const url = `http://localhost:${port}`
-
-    console.log('Listening at', url)
-    opn(url)
-  }
-} else {
-  app.use(express.static(dist))
-
-  app.get('*', (req, res) => {
-    res.sendFile(indexFile)
   })
-
-  listenCallback = () => {
-    console.log('Listening at', `http://localhost:${port}`)
-  }
 }
 
-app.listen(port, listenCallback)
+function configureForProduction(app) {
+  return new Promise((resolve, reject) => {
+    const path = require('path')
+
+    const config = require('./webpack.prod.js')
+
+    const dist = config.output.path
+    const indexFile = path.join(dist, 'index.html')
+    // Serve bundle
+    app.use(express.static(dist))
+    // Return index.html
+    app.get('*', (req, res) => {
+      res.sendFile(indexFile)
+    })
+
+    webpack(config, (err, stats) => {
+      if (err || stats.hasErrors()) {
+        if (err) {
+          console.log(err)
+        } else if (stats.hasErrors()) {
+          console.log(
+            stats.toString({
+              chunks: false,
+              colors: true
+            })
+          )
+        }
+
+        reject()
+      } else {
+        resolve({
+          callback: () => {
+            console.log('Ready')
+          }
+        })
+      }
+    })
+  })
+}

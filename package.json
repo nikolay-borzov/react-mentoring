@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
+    "start:prod": "cross-env NODE_ENV=production node server.js",
     "build": "webpack --config webpack.prod.js",
-    "preserver": "npm run build",
-    "server": "cross-env NODE_ENV=production node server.js"
+    "start:analyze": "cross-env ANALIZE=true node server.js",
+    "start:prod:analyze": "cross-env NODE_ENV=production ANALIZE=true node server.js"
   },
   "repository": {
     "type": "git",
@@ -51,6 +52,7 @@
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.4",
     "webpack": "^4.5.0",
+    "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.14",
     "webpack-dev-middleware": "^3.1.2",
     "webpack-hot-middleware": "^2.22.0",
