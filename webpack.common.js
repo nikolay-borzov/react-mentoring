@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const srcRoot = path.resolve(__dirname, 'src')
-const assetsRoot = path.resolve(__dirname, 'src/assets')
+const assetsRoot = path.join(srcRoot, 'assets')
 const distRoot = path.resolve(__dirname, 'dist')
 
 module.exports = {
@@ -22,7 +22,7 @@ module.exports = {
       logo: path.join(assetsRoot, 'favicon.png'),
       emitStats: false,
       background: '#4F5D73',
-      title: 'Movie Search',
+      title: 'Film Search',
       icons: {
         android: false,
         appleIcon: false,
@@ -45,14 +45,16 @@ module.exports = {
   },
 
   resolve: {
+    modules: ['node_modules', 'src'],
+    extensions: ['.js', '.jsx'],
     symlinks: false
   },
 
   module: {
     rules: [
-      // JS
+      // JS/JSX
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         include: srcRoot,
         loader: 'babel-loader'
       },

@@ -28,7 +28,7 @@ if (isDevelopment) {
 
   app.use(webpackHotMiddleware(compiler))
 
-  /* TODO: Remove? Looks like ii server works without it.
+  /* TODO: Remove? Looks like server works without it.
   app.get('*', (req, res) => {
     //res.sendFile(indexFile)
     devMiddlewareIntance.waitUntilValid(() => {
