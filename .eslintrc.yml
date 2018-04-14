@@ -3,4 +3,15 @@ root: true
 env:
   jest: true 
 
-extends: standard
+plugins:
+  react
+
+parser: babel-eslint
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+
+extends: 
+  standard
+  plugin:react/recommended
