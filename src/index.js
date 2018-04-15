@@ -25,7 +25,7 @@ class ComponentEx extends React.Component {
 }
 
 // React.PureComponent
-class PureComponentEx extends React.Component {
+class PureComponentEx extends React.PureComponent {
   render() {
     return (
       <div className="component">
