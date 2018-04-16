@@ -1,5 +1,4 @@
-# react-mentoring
-React Study Project
+# React Study Project
 
 # Development
 
@@ -16,7 +15,14 @@ npm run build
 
 To run server (will build beforehead)
 ```
-npm run server
+npm run start:prod
+```
+
+
+# Tests
+
+```
+npm run test
 ```
 
 # Attributions
