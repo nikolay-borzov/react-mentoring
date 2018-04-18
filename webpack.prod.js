@@ -22,6 +22,7 @@ module.exports = merge(common, {
       sourceMap: true
     }),
 
+    // TODO: Remove. Webpack sets it automatically from `mode`
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),

@@ -40,6 +40,7 @@ module.exports = env => {
   }
 
   return {
+    // TODO: Remove
     entry: {
       index: './src/index.js'
     },
@@ -48,7 +49,7 @@ module.exports = env => {
 
     output: {
       filename: '[name].bundle.js',
-      path: distRoot,
+      path: distRoot, // TODO: Remove
       publicPath: '/'
     },
 
