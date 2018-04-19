@@ -40,14 +40,15 @@ module.exports = env => {
   }
 
   return {
+    // Webpack default is './src/index.js '
     entry: {
-      index: './src/index.js'
+      main: './src/index.js'
     },
 
     plugins,
 
     output: {
-      filename: '[name].bundle.js',
+      filename: '[name].js',
       path: distRoot,
       publicPath: '/'
     },
@@ -56,6 +57,29 @@ module.exports = env => {
       modules: ['node_modules', 'src'],
       extensions: ['.js', '.jsx'],
       symlinks: false
+    },
+
+    // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
+    optimization: {
+      runtimeChunk: 'single', // Separate chunk for webpack runtime
+      splitChunks: {
+        chunks: 'all',
+        minSize: 0,
+        minChunks: 2,
+        cacheGroups: {
+          vendors: {
+            name: 'vendors',
+            test: /node_modules/,
+            priority: 2,
+            enforce: true
+          },
+          commons: {
+            name: 'commons',
+            priority: 1,
+            reuseExistingChunk: true
+          }
+        }
+      }
     },
 
     module: {

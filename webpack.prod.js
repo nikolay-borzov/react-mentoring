@@ -1,16 +1,16 @@
 const path = require('path')
-const webpack = require('webpack')
 const merge = require('webpack-merge')
-
-const common = require('./webpack.common.js')()
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+const common = require('./webpack.common.js')()
+
 const srcRoot = path.resolve(__dirname, 'src')
 
 module.exports = merge(common, {
+  // Webpack 4 sets process.env.NODE_ENV='production' automatically
   mode: 'production',
 
   devtool: 'source-map',
@@ -22,18 +22,8 @@ module.exports = merge(common, {
       sourceMap: true
     }),
 
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-
     new ExtractTextPlugin('styles.css')
   ],
-
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
-  },
 
   module: {
     rules: [

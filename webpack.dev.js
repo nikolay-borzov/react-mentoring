@@ -6,7 +6,7 @@ module.exports = merge(common, {
   mode: 'development',
 
   entry: {
-    index: [common.entry.index, 'webpack-hot-middleware/client']
+    main: [common.entry.main, 'webpack-hot-middleware/client']
   },
 
   devtool: 'inline-source-map',

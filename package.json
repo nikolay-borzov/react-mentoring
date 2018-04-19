@@ -7,7 +7,8 @@
     "test": "jest",
     "start": "node server.js",
     "start:prod": "cross-env NODE_ENV=production node server.js",
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js",
     "start:analyze": "cross-env ANALIZE=true node server.js",
     "start:prod:analyze": "cross-env NODE_ENV=production ANALIZE=true node server.js"
   },
