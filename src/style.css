@@ -9,18 +9,25 @@
 }*/
 
 :root {
-  --color-primary: #F55363;
-  --focus: 3px solid rgba(245, 83, 99, 0.6);
+  --color-primary: rgb(245, 83, 99);
+  --color-primary-light: rgba(245, 83, 99, 0.6);
+  --focus: 3px solid var(--color-primary-light);
   --color-default: #555;
   --color-text-light: #fafafa;
   --color-text-alt: #999;
   --color-bc-alt: rgba(0, 0, 0, 0.9);
-  --padding-header: 1em 5em;
+  --padding-content: 1em 5em;
   --padding-button: .4em 2em;
   --padding-input: .7em;
   --padding-button-small: 0.25em 1.5em;
   --margin-input: 1em;
   --transition-duration: 350ms;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --padding-content: 1em 15%;
+  }
 }
 
 html,
@@ -41,6 +48,11 @@ body {
   outline: var(--focus);
 }
 
+::selection {
+  background-color: var(--color-primary-light);
+  color: var(--color-text-light);
+}
+
 /* HELPERS */
 
 .primary {
@@ -53,6 +65,10 @@ body {
 
 .alt-background label {
   color: var(--color-text-light);
+}
+
+.font-bold {
+  font-weight: bold;
 }
 
 .flex-grow {
@@ -83,6 +99,7 @@ body {
 main {
   display: flex;
   flex-grow: 1;
+  flex-direction: column;
 }
 
 header,
@@ -93,7 +110,7 @@ footer {
 
 header,
 footer {
-  padding: var(--padding-header);
+  padding: var(--padding-content);
 }
 
 /* COMPONENTS */
@@ -104,13 +121,19 @@ footer {
 }
 
 .search-form-container {
-  padding: var(--padding-header)
+  padding: var(--padding-content)
 }
 
 .empty-search-message {
   font-size: 5em;
   font-weight: 700;
   color: var(--color-text-alt)
+}
+
+.search-results-panel {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--padding-content);
 }
 
 /* BUTTONS */
@@ -124,6 +147,7 @@ footer {
   box-sizing: border-box;
   border: none;
   color: var(--color-text-light);
+  user-select: none;
 }
 
 .button:hover {
