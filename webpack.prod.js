@@ -3,7 +3,6 @@ const merge = require('webpack-merge')
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const common = require('./webpack.common.js')()
 
@@ -20,9 +19,7 @@ module.exports = merge(common, {
 
     new UglifyJSPlugin({
       sourceMap: true
-    }),
-
-    new ExtractTextPlugin('styles.css')
+    })
   ],
 
   module: {
@@ -31,14 +28,6 @@ module.exports = merge(common, {
       {
         include: [/node_modules/, path.join(srcRoot, '**/*.js')],
         sideEffects: false
-      },
-      // CSS
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
       }
     ]
   }

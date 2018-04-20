@@ -2,6 +2,7 @@ const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const srcRoot = path.resolve(__dirname, 'src')
 const assetsRoot = path.join(srcRoot, 'assets')
@@ -30,7 +31,8 @@ module.exports = env => {
         yandex: false,
         windows: true
       }
-    })
+    }),
+    new ExtractTextPlugin('[name].css')
   ]
 
   if (process.env.ANALIZE) {
@@ -90,7 +92,20 @@ module.exports = env => {
           include: srcRoot,
           loader: 'babel-loader'
         },
-
+        // CSS
+        {
+          test: /\.css$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: { importLoaders: 1, sourceMap: true }
+              },
+              { loader: 'postcss-loader', options: { sourceMap: true } }
+            ]
+          })
+        },
         // Images
         {
           test: /\.(png|svg|jpg|gif)$/,
