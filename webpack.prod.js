@@ -1,55 +1,52 @@
 const path = require('path')
-const webpack = require('webpack')
 const merge = require('webpack-merge')
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 const common = require('./webpack.common.js')
 
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
 const srcRoot = path.resolve(__dirname, 'src')
 
-module.exports = merge(common, {
+const fileLoaderFilename = '[name].[ext]?v=[hash:7]'
+
+module.exports = merge(common.getConfig(), {
+  // Webpack 4 sets process.env.NODE_ENV='production' automatically
   mode: 'production',
 
   devtool: 'source-map',
 
   plugins: [
-    new CleanWebpackPlugin([common.output.path]),
-
+    new ExtractTextPlugin('[name].css?v=[chunkhash:7]'),
     new UglifyJSPlugin({
       sourceMap: true
-    }),
-
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-
-    new ExtractTextPlugin('styles.css')
+    })
   ],
 
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
+  output: {
+    filename: '[name].js?v=[chunkhash:7]'
   },
 
   module: {
     rules: [
-      // Tree Shaking
-      {
-        include: [/node_modules/, path.join(srcRoot, '**/*.js')],
-        sideEffects: false
-      },
       // CSS
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
+          // Exclude 'style-loader'
+          use: common.cssRule.use.slice(1)
         })
-      }
+      },
+      // Tree Shaking
+      {
+        include: [/node_modules/, path.join(srcRoot, '**/*.js')],
+        sideEffects: false
+      },
+      // Images
+      common.getImageRule(fileLoaderFilename),
+      // Fonts
+      common.getFontRule(fileLoaderFilename)
     ]
   }
 })
