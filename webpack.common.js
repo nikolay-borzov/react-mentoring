@@ -1,5 +1,6 @@
 const path = require('path')
 
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -10,6 +11,7 @@ const distRoot = path.resolve(__dirname, 'dist')
 
 module.exports = env => {
   const plugins = [
+    new CleanWebpackPlugin([distRoot]),
     new HtmlWebpackPlugin({
       template: 'index.html',
       inject: true
@@ -32,7 +34,7 @@ module.exports = env => {
         windows: true
       }
     }),
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css?v=[hash:7]')
   ]
 
   if (process.env.ANALIZE) {
@@ -50,7 +52,7 @@ module.exports = env => {
     plugins,
 
     output: {
-      filename: '[name].js',
+      filename: '[name].js?v=[hash:7]',
       path: distRoot,
       publicPath: '/'
     },
