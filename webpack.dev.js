@@ -7,6 +7,9 @@ const baseConfig = common.getConfig()
 
 const fileLoaderFilename = '[name].[ext]'
 
+const cssRule = common.getCssRule()
+cssRule.use.unshift('style-loader')
+
 // Don't use [chunkhash] or [hash] for development
 // https://github.com/webpack/webpack-dev-server/issues/377#issuecomment-241258405
 module.exports = merge(baseConfig, {
@@ -29,7 +32,8 @@ module.exports = merge(baseConfig, {
 
   module: {
     rules: [
-      common.cssRule,
+      // common.getCssRule,
+      cssRule,
       // Images
       common.getImageRule(fileLoaderFilename),
       // Fonts

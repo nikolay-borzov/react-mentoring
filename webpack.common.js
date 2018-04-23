@@ -9,16 +9,18 @@ const assetsRoot = path.join(srcRoot, 'assets')
 const distRoot = path.resolve(__dirname, 'dist')
 
 module.exports = {
-  cssRule: {
-    test: /\.css$/,
-    use: [
-      'style-loader',
-      {
-        loader: 'css-loader',
-        options: { importLoaders: 1, sourceMap: true }
-      },
-      { loader: 'postcss-loader', options: { sourceMap: true } }
-    ]
+  getCssRule() {
+    return {
+      test: /\.css$/,
+      use: [
+        // 'style-loader',
+        {
+          loader: 'css-loader',
+          options: { importLoaders: 1, sourceMap: true }
+        },
+        { loader: 'postcss-loader', options: { sourceMap: true } }
+      ]
+    }
   },
 
   getImageRule(filename) {
@@ -111,6 +113,12 @@ module.exports = {
               name: 'commons',
               priority: 1,
               reuseExistingChunk: true
+            },
+            styles: {
+              name: 'styles',
+              test: /\.css$/,
+              chunks: 'all',
+              enforce: true
             }
           }
         }
