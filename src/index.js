@@ -3,13 +3,18 @@ import './style.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import { configureAjax } from './core/ajax'
+
+import { ErrorBoundary } from './core/components/error-boundary'
 import { SearchContainer } from './search/search-container'
+
+configureAjax()
 
 function App() {
   return (
-    <React.Fragment>
+    <ErrorBoundary>
       <SearchContainer />
-    </React.Fragment>
+    </ErrorBoundary>
   )
 }
 

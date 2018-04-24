@@ -2,6 +2,7 @@
   font-family: 'Regular';
   src: url('./assets/fonts/TitilliumWeb-Regular.ttf') format('opentype');
 }
+
 /*
 @font-face {
   font-family: 'Regular Bold';
@@ -13,6 +14,7 @@
   --color-primary-light: rgba(245, 83, 99, 0.6);
   --focus: 3px solid var(--color-primary-light);
   --color-default: #555;
+  --color-alt: #777;
   --color-text-light: #fafafa;
   --color-text-alt: #999;
   --color-bc-alt: rgba(0, 0, 0, 0.9);
@@ -38,10 +40,15 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Regular';
   font-size: 100%;
   line-height: 1.5;
   letter-spacing: 0.05em;
+  color: var(--color-default);
+}
+
+body,
+input {
+  font-family: 'Regular', serif;
 }
 
 *:focus {
@@ -59,6 +66,10 @@ body {
   color: var(--color-primary);
 }
 
+.color-alt {
+  color: var(--color-alt);
+}
+
 .alt-background {
   background-color: var(--color-bc-alt);
 }
@@ -69,6 +80,10 @@ body {
 
 .font-bold {
   font-weight: bold;
+}
+
+.font-small {
+  font-size: 80%;
 }
 
 .uppercase {
@@ -245,19 +260,42 @@ footer {
 */
 
 .film-grid {
-  display: flex;
-  flex-flow: row wrap;
-  padding: 2em 3em;
+  display: grid;
+  grid-gap: 3.5em;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  justify-content: center;
+  padding: 2em 3em 3.5em;
+}
+
+@media (min-width: 1200px) {
+  .film-grid {
+    padding: 2em 10% 3.5em;
+  }
 }
 
 .film-grid-item {
-  flex: 0 1 auto;
-  max-width: 300px;
-  min-width: 250px;
-  margin: 1em;
-  border: solid 1px red;
+  display: flex;
+  flex-direction: column;
 }
 
-.film-grid-item__cover img {
-  max-width: 100%
+.film-grid-item__cover {
+  max-width: 100%;
+  margin-bottom: .5em;
+}
+
+.film-grid-item__row {
+  padding: .4em .5em
+}
+
+.film-grid-item__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.film-grid-item__date {
+  border: solid 1px var(--color-alt);
+  padding: .1em .5em;
+  border-radius: .2em;
+  margin-left: 1em;
 }

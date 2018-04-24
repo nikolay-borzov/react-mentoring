@@ -7,7 +7,8 @@ import { FilmGrid } from '../core/components/film-grid'
 
 export class SearchResults extends React.Component {
   static propTypes = {
-    foundCount: PropTypes.number
+    foundCount: PropTypes.number.isRequired,
+    films: PropTypes.arrayOf(PropTypes.object).isRequired
   }
 
   constructor(props) {
@@ -45,7 +46,7 @@ export class SearchResults extends React.Component {
             />
           </div>
         </SearchResultsPanel>
-        <FilmGrid />
+        <FilmGrid {...this.props} />
       </React.Fragment>
     )
   }

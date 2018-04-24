@@ -3,6 +3,7 @@ module.exports = {
   env: {
     jest: true
   },
+  globals: { API_URL: true },
   plugins: ['react'],
   parser: 'babel-eslint',
   parserOptions: {

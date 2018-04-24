@@ -40,7 +40,7 @@ function configureForDevelopment(app) {
       callback: () => {
         const url = `http://localhost:${port}`
 
-        console.log('Listening at', url)
+        console.log('Listening on', url)
         opn(url)
       }
     })
@@ -79,7 +79,7 @@ function configureForProduction(app) {
       } else {
         resolve({
           callback: () => {
-            console.log('Listening at', port)
+            console.log('Listening on', port)
           }
         })
       }

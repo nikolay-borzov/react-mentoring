@@ -1,4 +1,7 @@
 const path = require('path')
+const webpack = require('webpack')
+
+require('dotenv').config()
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -43,6 +46,9 @@ module.exports = {
 
   getConfig(env) {
     const plugins = [
+      new webpack.DefinePlugin({
+        API_URL: JSON.stringify(process.env.API_URL)
+      }),
       new CleanWebpackPlugin([distRoot]),
       new HtmlWebpackPlugin({
         template: 'index.html',
