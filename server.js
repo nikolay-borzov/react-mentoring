@@ -14,8 +14,8 @@ configure(app)
   .then(({ callback }) => {
     app.listen(port, callback)
   })
-  .catch(({ err, stats }) => {
-    console.log(stats)
+  .catch(error => {
+    console.log(error)
   })
 
 function configureForDevelopment(app) {
@@ -75,11 +75,11 @@ function configureForProduction(app) {
           )
         }
 
-        reject()
+        reject(err)
       } else {
         resolve({
           callback: () => {
-            console.log('Ready')
+            console.log('Listening at', port)
           }
         })
       }

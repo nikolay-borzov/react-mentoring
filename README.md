@@ -2,22 +2,30 @@
 
 # Development
 
+To start dev server
 ```
 npm start
 ```
 
-# Production
+To build using dev config
+```
+npm build
+```
 
-To build
-```
-npm run build
-```
+
+# Production
 
 To run server (will build beforehead)
 ```
 npm run start:prod
 ```
 
+
+
+To build
+```
+npm run build:prod
+```
 
 # Tests
 
