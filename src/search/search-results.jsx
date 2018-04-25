@@ -29,14 +29,18 @@ export class SearchResults extends React.Component {
   }
 
   render() {
+    const filmsFound = (
+      <div>
+        {this.props.foundCount}&nbsp;
+        {this.props.foundCount > 1 ? 'movies' : 'movie'}
+        &nbsp;found
+      </div>
+    )
+
     return (
       <React.Fragment>
         <SearchResultsPanel>
-          <div>
-            {this.props.foundCount}&nbsp;
-            {this.props.foundCount > 1 ? 'movies' : 'movie'}
-            &nbsp;found
-          </div>
+          {filmsFound}
           <div className="flex">
             <Radio
               name="sortBy"

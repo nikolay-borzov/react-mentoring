@@ -11,30 +11,38 @@ export class ErrorBoundary extends React.Component {
     this.state = { hasError: false }
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error, errorInfo) {
     this.setState({
       hasError: true,
       error: error,
-      info: info
+      errorInfo: errorInfo
     })
 
-    // console.log(error, info)
+    // TODO: Send error details to the server
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="centered">
+        <div className="centered alt-background">
           <div>
             <h1>Something went wrong.</h1>
-            <div>
-              <label htmlFor="error">Error</label>
-              <textarea>{this.state.error}</textarea>
-            </div>
-            <div>
-              <label htmlFor="info">Info</label>
-              <textarea>{JSON.stringify(this.state.info)}</textarea>
-            </div>
+
+            <details style={{ whiteSpace: 'pre-wrap' }}>
+              <summary>
+                Details<br />
+              </summary>
+              {this.state.error && this.state.error.toString()}
+              <br />
+              {this.state.errorInfo.componentStack}
+            </details>
+
+            <p itemProp="telephone">
+              Please try again later or contact support at&nbsp;
+              <a href="tel:+46771793336" rel="nofollow">
+                46 771 793 336
+              </a>
+            </p>
           </div>
         </div>
       )

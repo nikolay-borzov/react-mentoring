@@ -83,7 +83,7 @@ module.exports = {
     return {
       // Webpack default is './src/index.js '
       entry: {
-        main: './src/index.js'
+        main: ['url-search-params-polyfill', './src/index.js']
       },
 
       plugins,
@@ -128,7 +128,11 @@ module.exports = {
           {
             test: /\.jsx?$/,
             include: srcRoot,
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              // Enable caching results in ./node_modules/.cache/babel-loader/ directory for faster rebuilds.
+              cacheDirectory: true
+            }
           }
         ]
       }

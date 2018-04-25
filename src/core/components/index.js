@@ -8,3 +8,4 @@ export * from './film-grid'
 export * from './film-grid-item'
 
 export * from './radio'
+export * from './loading'
