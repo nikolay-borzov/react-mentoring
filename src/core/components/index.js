@@ -9,3 +9,4 @@ export * from './film-grid-item'
 
 export * from './radio'
 export * from './loading'
+export * from './image-loading'

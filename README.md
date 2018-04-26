@@ -43,4 +43,4 @@ Then run `build` or `start` command
 # Attributions
  - Favicon by [Nick Roach](http://www.elegantthemes.com/)
  - Titillium Web font by Accademia di Belle Arti di Urbino and students of MA course of Visual design
- - Spinner animation by [tobiasahlin](https://github.com/tobiasahlin/SpinKit)
+ - Spinner animations by [tobiasahlin](https://github.com/tobiasahlin/SpinKit)

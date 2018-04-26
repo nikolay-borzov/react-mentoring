@@ -1,6 +1,7 @@
 module.exports = ({ file, options, env }) => {
   const cssnanoOptions = {
-    preset: 'default'
+    preset: 'default',
+    reduceIdents: false // reduceIdents sometimes breaks animations
   }
 
   // TODO: Only minimize for production build `env === production`

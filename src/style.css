@@ -19,8 +19,8 @@
   --color-text-alt: #999;
   --color-bc-alt: rgba(0, 0, 0, 0.9);
   --padding-content: 1em 5em;
-  --padding-button: .6em 2em;
-  --padding-input: .7em;
+  --padding-button: 0.6em 2em;
+  --padding-input: 0.7em;
   --padding-button-small: 0.25em 1.5em;
   --margin-input: 1em;
   --transition-duration: 350ms;
@@ -73,6 +73,8 @@ input {
 .alt-background {
   color: var(--color-text-light);
   background-color: var(--color-bc-alt);
+
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23999999' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .alt-background a {
@@ -139,9 +141,9 @@ footer {
 
 /* PHONE LINKS */
 
-a[href^="tel:"]:before {
+a[href^='tel:']:before {
   display: inline-block;
-  content: "\1F57F";
+  content: '\1F57F';
   margin-right: 0.5em;
   text-decoration: none;
 }
@@ -154,13 +156,13 @@ a[href^="tel:"]:before {
 }
 
 .search-form-container {
-  padding: var(--padding-content)
+  margin-top: 1em;
 }
 
 .empty-search-message {
   font-size: 5em;
   font-weight: 700;
-  color: var(--color-text-alt)
+  color: var(--color-text-alt);
 }
 
 .search-results-panel {
@@ -176,7 +178,8 @@ a[href^="tel:"]:before {
   text-transform: uppercase;
   font-size: 1.2em;
   font-weight: 700;
-  transition: background-color var(--transition-duration), box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),
+    box-shadow var(--transition-duration);
   box-sizing: border-box;
   border: none;
   color: var(--color-text-light);
@@ -204,7 +207,7 @@ a[href^="tel:"]:before {
 
 .form-row + .form-row {
   padding-top: var(--margin-input);
-} 
+}
 
 .form-label {
   margin-right: var(--margin-input);
@@ -228,33 +231,86 @@ a[href^="tel:"]:before {
 }
 
 /* https://github.com/tobiasahlin/SpinKit */
-.spinner {
+.loading-spinner {
   text-align: center;
 }
 
-.spinner__bounce {
-  width: .8em;
-  height: .8em;
+.loading-spinner__bounce {
+  width: 0.8em;
+  height: 0.8em;
   background-color: var(--color-default);
 
   border-radius: 100%;
   display: inline-block;
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  transform-origin: center center;
 }
 
-.spinner__bounce--1 {
+.loading-spinner__bounce--1 {
   animation-delay: -0.32s;
 }
 
-.spinner__bounce--2 {
+.loading-spinner__bounce--2 {
   animation-delay: -0.16s;
 }
 
 @keyframes sk-bouncedelay {
-  0%, 80%, 100% { 
+  0%,
+  80%,
+  100% {
     transform: scale(0);
-  } 40% { 
-    transform: scale(1.0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* IMAGE LOADING INDICATOR */
+
+/* https://github.com/tobiasahlin/SpinKit */
+.image-loading-indicator {
+  position: relative;
+  width: 100%;
+  /* Keep aspect ratio */
+  padding-top: 150%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.image-spinner {
+  width: 5em;
+  height: 5em;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image-spinner__bounce1,
+.image-spinner__bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--color-default);
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  animation: sk-bounce 2s infinite ease-in-out;
+}
+
+.image-spinner__bounce2 {
+  animation-delay: -1s;
+}
+
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
   }
 }
 
@@ -278,7 +334,8 @@ a[href^="tel:"]:before {
   text-transform: uppercase;
   font-size: 1em;
   font-weight: 700;
-  transition: background-color var(--transition-duration), box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),
+    box-shadow var(--transition-duration);
   box-sizing: border-box;
   border: none;
   color: var(--color-text-light);
@@ -330,11 +387,15 @@ a[href^="tel:"]:before {
 
 .film-grid-item__cover {
   max-width: 100%;
-  margin-bottom: .5em;
+  display: block;
+}
+
+.film-grid-item__info {
+  margin-top: 0.5em;
 }
 
 .film-grid-item__row {
-  padding: .4em .5em
+  padding: 0.4em 0.5em;
 }
 
 .film-grid-item__title {
@@ -345,7 +406,7 @@ a[href^="tel:"]:before {
 
 .film-grid-item__date {
   border: solid 1px var(--color-alt);
-  padding: .1em .5em;
-  border-radius: .2em;
+  padding: 0.1em 0.5em;
+  border-radius: 0.2em;
   margin-left: 1em;
 }

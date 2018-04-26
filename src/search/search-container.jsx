@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 import { Header, Footer, SiteName, Loading } from '../core/components'
 
@@ -7,15 +8,25 @@ import { SeachForm } from './search-form'
 import { SearchResults } from './search-results'
 import { SearchResultsEmpty } from './search-results-empty'
 
+import { QueryParams } from '../core/entities'
+
+import { sortBy } from '../core/enums'
+
 export class SearchContainer extends React.Component {
   constructor(props) {
     super(props)
+
+    this.queryParams = new QueryParams()
+      .limit(15)
+      .searchBy('title')
+      .sortBy(sortBy.releaseDate)
 
     this.state = {
       error: null,
       isLoaded: false,
       films: [],
-      foundCount: 0
+      foundCount: 0,
+      queryParams: this.queryParams.getParams()
     }
   }
 
@@ -26,11 +37,13 @@ export class SearchContainer extends React.Component {
       throw new Error('Error Boundary test')
     }
 
+    this.loadFilms(this.state.queryParams)
+  }
+
+  loadFilms(queryParams) {
     axios
       .get('/movies', {
-        params: {
-          limit: 17
-        }
+        params: queryParams
       })
       .then(({ data }) => {
         this.setState({
@@ -40,13 +53,43 @@ export class SearchContainer extends React.Component {
         })
       })
       .catch(error => {
-        // TODO: Show user-friendly message
-        console.log(error)
         this.setState({
           error,
           isLoaded: true
         })
+
+        toast.error(
+          <div>
+            Unable to load movies:<br />
+            {error.toString()}
+          </div>,
+          {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: false
+          }
+        )
       })
+  }
+
+  reloadFilms() {
+    this.updateQueryParams()
+    this.loadFilms(this.queryParams.getParams())
+  }
+
+  updateQueryParams() {
+    this.setState({
+      queryParams: this.queryParams.getParams()
+    })
+  }
+
+  onSortByChange(sortBy) {
+    this.queryParams.sortBy(sortBy)
+    this.reloadFilms()
+  }
+
+  onSearchChange(search) {
+    this.queryParams.search(search)
+    this.reloadFilms()
   }
 
   render() {
@@ -58,6 +101,8 @@ export class SearchContainer extends React.Component {
           <SearchResults
             films={this.state.films}
             foundCount={this.state.foundCount}
+            sortBy={this.state.queryParams.sortBy}
+            onSortByChange={this.onSortByChange.bind(this)}
           />
         ) : (
           <SearchResultsEmpty />
@@ -70,8 +115,8 @@ export class SearchContainer extends React.Component {
       <React.Fragment>
         <Header>
           <SiteName />
+          <SeachForm />
         </Header>
-        <SeachForm />
         <main className="content">{content}</main>
         <Footer />
       </React.Fragment>

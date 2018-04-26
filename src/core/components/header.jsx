@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 export class Header extends React.Component {
   static propTypes = {
-    children: PropTypes.element.isRequired
+    children: PropTypes.any.isRequired
   }
 
   render() {

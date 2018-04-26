@@ -20,9 +20,14 @@ export class SeachForm extends React.PureComponent {
     }
   }
 
+  // TODO: Move to props
+  onSearchByChange(value) {
+    console.log('onSearchByChange', value)
+  }
+
   render() {
     return (
-      <div className="search-form-container alt-background">
+      <div className="search-form-container">
         <form name="search-form">
           <div className="form-row">
             <label className="form-label uppercase">Find your movie</label>
@@ -38,6 +43,7 @@ export class SeachForm extends React.PureComponent {
               label="Search by"
               value="title"
               options={this.state.searchByOptions}
+              onChange={this.onSearchByChange.bind(this)}
               style="button"
             />
 

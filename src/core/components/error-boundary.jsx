@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 export class ErrorBoundary extends React.Component {
   static propTypes = {
-    children: PropTypes.element.isRequired
+    children: PropTypes.any.isRequired
   }
 
   constructor(props) {

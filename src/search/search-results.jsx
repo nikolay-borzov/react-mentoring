@@ -2,30 +2,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { SearchResultsPanel } from './search-results-panel'
-import { Radio } from '../core/components/radio'
-import { FilmGrid } from '../core/components/film-grid'
+import { Radio, FilmGrid } from '../core/components'
+
+import { sortBy } from '../core/enums'
 
 export class SearchResults extends React.Component {
   static propTypes = {
     foundCount: PropTypes.number.isRequired,
-    films: PropTypes.arrayOf(PropTypes.object).isRequired
+    films: PropTypes.arrayOf(PropTypes.object).isRequired,
+    sortBy: PropTypes.oneOf(Object.values(sortBy)),
+    onSortByChange: PropTypes.func.isRequired
   }
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      sortOptions: [
-        {
-          name: 'release date',
-          value: 'dateRelease'
-        },
-        {
-          name: 'rating',
-          value: 'rating'
-        }
-      ]
-    }
+    this.sortOptions = [
+      {
+        name: 'release date',
+        value: sortBy.releaseDate
+      },
+      {
+        name: 'rating',
+        value: sortBy.rating
+      }
+    ]
   }
 
   render() {
@@ -45,8 +46,9 @@ export class SearchResults extends React.Component {
             <Radio
               name="sortBy"
               label="Sort by"
-              value="dateRelease"
-              options={this.state.sortOptions}
+              value={this.props.sortBy}
+              options={this.sortOptions}
+              onChange={this.props.onSortByChange}
             />
           </div>
         </SearchResultsPanel>

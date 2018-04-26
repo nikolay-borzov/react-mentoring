@@ -18,6 +18,7 @@ export class Radio extends React.PureComponent {
         selected: PropTypes.bool
       })
     ).isRequired,
+    onChange: PropTypes.func.isRequired,
     style: PropTypes.oneOf(['button', 'plain'])
   }
 
@@ -35,6 +36,14 @@ export class Radio extends React.PureComponent {
     return option.value === this.props.value
   }
 
+  getOptionInputId(option) {
+    return `${this.props.name}_${option.value}`
+  }
+
+  onChange = changeEvent => {
+    this.props.onChange(changeEvent.target.value)
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -42,19 +51,18 @@ export class Radio extends React.PureComponent {
         {this.props.options.map(option => (
           <div
             key={option.value}
-            className={`radio-input ${this.styleClassName}`}
-          >
+            className={`radio-input ${this.styleClassName}`}>
             <input
               type="radio"
-              id={`${this.props.name}_${option.value}`}
+              id={this.getOptionInputId(option)}
               name={this.props.name}
               value={option.value}
               defaultChecked={this.isOptionSelected(option)}
+              onChange={this.onChange}
             />
             <label
-              htmlFor={`${this.props.name}_${option.value}`}
-              className="radio-input__label"
-            >
+              htmlFor={this.getOptionInputId(option)}
+              className="radio-input__label">
               {option.name}
             </label>
           </div>
