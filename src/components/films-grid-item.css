@@ -1,0 +1,30 @@
+.film-grid-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.film-grid-item__cover {
+  max-width: 100%;
+  display: block;
+}
+
+.film-grid-item__info {
+  margin-top: 0.5em;
+}
+
+.film-grid-item__row {
+  padding: 0.4em 0.5em;
+}
+
+.film-grid-item__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.film-grid-item__date {
+  border: solid 1px var(--color-alt);
+  padding: 0.1em 0.5em;
+  border-radius: 0.2em;
+  margin-left: 1em;
+}

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './radio.css'
+
 const styleClassMap = {
   button: 'radio-input--style-button',
   plain: 'radio-input--style-plain'

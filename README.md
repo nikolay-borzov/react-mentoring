@@ -39,6 +39,11 @@ API_URL=https://moviedb.net/api
 
 Then run `build` or `start` command
 
+# Query string params
+
+ - `throwError=1`: throws error to test error boundaries
+ - `limit=50`: sets displayed results count
+
 
 # Attributions
  - Favicon by [Nick Roach](http://www.elegantthemes.com/)

@@ -6,9 +6,9 @@ import App from './app'
 import React from 'react'
 import { render } from 'react-dom'
 
-import { configureAjax } from './core/ajax'
+import { apiService } from './services/api-service'
 
-configureAjax()
+apiService.init()
 
 const renderApp = () => {
   render(<App />, document.getElementById('root'))

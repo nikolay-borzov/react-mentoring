@@ -1,16 +1,15 @@
 import React from 'react'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
-import { Header, Footer, SiteName, Loading } from '../core/components'
+import { filmService } from '../../services/film-service'
+import { QueryParams } from '../../entities'
+import { sortBy, searchBy, sortOrder } from '../../enums'
 
-import { SeachForm } from './search-form'
-import { SearchResults } from './search-results'
-import { SearchResultsEmpty } from './search-results-empty'
+import { Header, Footer, SiteName, Loading } from '../../components'
 
-import { QueryParams } from '../core/entities'
-
-import { sortBy, searchBy, sortOrder } from '../core/enums'
+import { SeachForm } from './components/search-form'
+import { SearchResults } from './components/search-results'
+import { SearchResultsEmpty } from './components/search-results-empty'
 
 export class SearchContainer extends React.Component {
   constructor(props) {
@@ -18,6 +17,7 @@ export class SearchContainer extends React.Component {
 
     this.queryParams = new QueryParams()
       .limit(17)
+      .search('')
       .searchBy(searchBy.title)
       .sortBy(sortBy.releaseDate)
       .sortOrder(sortOrder.desc)
@@ -32,24 +32,34 @@ export class SearchContainer extends React.Component {
   }
 
   componentDidMount() {
+    const queryStringParams = new URLSearchParams(location.search)
+
     // Simulate error to test error boundary
-    const params = new URLSearchParams(location.search)
-    if (params.get('throwError') === '1') {
+    if (queryStringParams.get('throwError') === '1') {
       throw new Error('Error Boundary test')
     }
 
-    this.loadFilms(this.state.queryParams)
+    const limit = queryStringParams.has('limit')
+      ? parseInt(queryStringParams.get('limit'), 10)
+      : 17
+
+    this.queryParams.limit(limit)
+
+    this.loadFilms()
   }
 
-  loadFilms(queryParams) {
-    axios
-      .get('/movies', {
-        params: queryParams
-      })
-      .then(({ data }) => {
+  loadFilms() {
+    this.setState({
+      isLoaded: false,
+      queryParams: this.queryParams.getParams()
+    })
+
+    filmService
+      .getFilms(this.queryParams)
+      .then(result => {
         this.setState({
-          films: data.data,
-          foundCount: data.total,
+          films: result.data,
+          foundCount: result.total,
           isLoaded: true
         })
       })
@@ -72,25 +82,15 @@ export class SearchContainer extends React.Component {
       })
   }
 
-  reloadFilms() {
-    this.updateQueryParams()
-    this.loadFilms(this.queryParams.getParams())
-  }
-
-  updateQueryParams() {
-    this.setState({
-      queryParams: this.queryParams.getParams()
-    })
-  }
-
-  onSortByChange(sortBy) {
+  onSortByChange = sortBy => {
     this.queryParams.sortBy(sortBy)
-    this.reloadFilms()
+    this.loadFilms()
   }
 
-  onSearchChange(search) {
+  onSearchChange = ({ search, searchBy }) => {
     this.queryParams.search(search)
-    this.reloadFilms()
+    this.queryParams.searchBy(searchBy)
+    this.loadFilms()
   }
 
   render() {
@@ -102,8 +102,9 @@ export class SearchContainer extends React.Component {
           <SearchResults
             films={this.state.films}
             foundCount={this.state.foundCount}
+            displayCount={this.state.queryParams.limit}
             sortBy={this.state.queryParams.sortBy}
-            onSortByChange={this.onSortByChange.bind(this)}
+            onSortByChange={this.onSortByChange}
           />
         ) : (
           <SearchResultsEmpty />
@@ -116,7 +117,11 @@ export class SearchContainer extends React.Component {
       <React.Fragment>
         <Header>
           <SiteName />
-          <SeachForm />
+          <SeachForm
+            search={this.state.queryParams.search}
+            searchBy={this.state.queryParams.searchBy}
+            onSearchChange={this.onSearchChange}
+          />
         </Header>
         <main className="content">{content}</main>
         <Footer />

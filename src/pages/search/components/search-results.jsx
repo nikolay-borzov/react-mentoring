@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { SearchResultsPanel } from './search-results-panel'
-import { Radio, FilmGrid } from '../core/components'
+import { Radio, SearchResultsPanel, FilmsGrid } from '../../../components'
 
-import { sortBy } from '../core/enums'
+import { sortBy } from '../../../enums'
 
 export class SearchResults extends React.Component {
   static propTypes = {
     foundCount: PropTypes.number.isRequired,
+    displayCount: PropTypes.number.isRequired,
     films: PropTypes.arrayOf(PropTypes.object).isRequired,
     sortBy: PropTypes.oneOf(Object.values(sortBy)),
     onSortByChange: PropTypes.func.isRequired
@@ -34,7 +34,7 @@ export class SearchResults extends React.Component {
       <div>
         {this.props.foundCount}&nbsp;
         {this.props.foundCount > 1 ? 'movies' : 'movie'}
-        &nbsp;found
+        &nbsp;found ({this.props.displayCount} shown)
       </div>
     )
 
@@ -52,7 +52,7 @@ export class SearchResults extends React.Component {
             />
           </div>
         </SearchResultsPanel>
-        <FilmGrid {...this.props} />
+        <FilmsGrid films={this.props.films} />
       </React.Fragment>
     )
   }

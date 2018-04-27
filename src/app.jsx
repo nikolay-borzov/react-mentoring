@@ -1,9 +1,9 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
-
-import { ErrorBoundary } from './core/components/error-boundary'
 import { ToastContainer, Slide } from 'react-toastify'
-import { SearchContainer } from './search/search-container'
+
+import { ErrorBoundary } from './components/error-boundary'
+import { SearchContainer } from './pages/search/search-container'
 
 function App() {
   return (

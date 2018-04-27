@@ -3,12 +3,6 @@
   src: url('./assets/fonts/TitilliumWeb-Regular.ttf') format('opentype');
 }
 
-/*
-@font-face {
-  font-family: 'Regular Bold';
-  src: url('./assets/fonts/TitilliumWeb-Bold.ttf') format('opentype');
-}*/
-
 :root {
   --color-primary: rgb(245, 83, 99);
   --color-primary-light: rgba(245, 83, 99, 0.6);
@@ -154,29 +148,6 @@ a[href^='tel:']:before {
   text-decoration: none;
 }
 
-/* COMPONENTS */
-
-.site-name {
-  color: var(--color-primary);
-  font-weight: 700;
-}
-
-.search-form-container {
-  margin-top: 1em;
-}
-
-.empty-search-message {
-  font-size: 5em;
-  font-weight: 700;
-  color: var(--color-text-alt);
-}
-
-.search-results-panel {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--padding-content);
-}
-
 /* BUTTONS */
 .button {
   display: flex;
@@ -185,7 +156,7 @@ a[href^='tel:']:before {
   font-size: 1.2em;
   font-weight: 700;
   transition: background-color var(--transition-duration),
-    box-shadow var(--transition-duration);
+              box-shadow var(--transition-duration);
   box-sizing: border-box;
   border: none;
   color: var(--color-text-light);
@@ -228,191 +199,4 @@ a[href^='tel:']:before {
   border-bottom: 2px solid var(--color-primary);
   padding: var(--padding-input);
   color: var(--color-text-light);
-}
-
-/* LOADING INDICATOR */
-
-.loading-indicator {
-  font-size: 250%;
-}
-
-/* https://github.com/tobiasahlin/SpinKit */
-.loading-spinner {
-  text-align: center;
-}
-
-.loading-spinner__bounce {
-  width: 0.8em;
-  height: 0.8em;
-  background-color: var(--color-default);
-
-  border-radius: 100%;
-  display: inline-block;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  transform-origin: center center;
-}
-
-.loading-spinner__bounce--1 {
-  animation-delay: -0.32s;
-}
-
-.loading-spinner__bounce--2 {
-  animation-delay: -0.16s;
-}
-
-@keyframes sk-bouncedelay {
-  0%,
-  80%,
-  100% {
-    transform: scale(0);
-  }
-  40% {
-    transform: scale(1);
-  }
-}
-
-/* IMAGE LOADING INDICATOR */
-
-/* https://github.com/tobiasahlin/SpinKit */
-.image-loading-indicator {
-  position: relative;
-  width: 100%;
-  /* Keep aspect ratio */
-  padding-top: 150%;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.image-spinner {
-  width: 5em;
-  height: 5em;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.image-spinner__bounce1,
-.image-spinner__bounce2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: var(--color-default);
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  animation: sk-bounce 2s infinite ease-in-out;
-}
-
-.image-spinner__bounce2 {
-  animation-delay: -1s;
-}
-
-@keyframes sk-bounce {
-  0%,
-  100% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1);
-  }
-}
-
-/* RADIO INPUT */
-.radio-input {
-  margin-right: var(--margin-input);
-}
-
-.radio-input input {
-  opacity: 0;
-  position: absolute;
-}
-
-.radio-input__label {
-  user-select: none;
-}
-
-.radio-input--style-button .radio-input__label {
-  display: flex;
-  padding: var(--padding-button-small);
-  text-transform: uppercase;
-  font-size: 1em;
-  font-weight: 700;
-  transition: background-color var(--transition-duration),
-    box-shadow var(--transition-duration);
-  box-sizing: border-box;
-  border: none;
-  color: var(--color-text-light);
-  background-color: var(--color-default);
-}
-
-.radio-input--style-button .radio-input__label:hover {
-  box-shadow: 0 0 20px var(--color-primary), 2px 2px 2px #000;
-}
-
-.radio-input--style-button input:checked + .radio-input__label {
-  background-color: var(--color-primary);
-}
-
-.radio-input--style-plain .radio-input__label {
-  padding: 0.25em 0.5em;
-}
-
-.radio-input--style-plain input:checked + .radio-input__label {
-  color: var(--color-primary);
-}
-
-.radio-input input:focus + .radio-input__label {
-  outline: var(--focus);
-}
-
-/*
-  FILM GRID
-*/
-
-.film-grid {
-  display: grid;
-  grid-gap: 3.5em;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
-  justify-content: center;
-  padding: 2em 3em 3.5em;
-}
-
-@media (min-width: 1200px) {
-  .film-grid {
-    padding: 2em 10% 3.5em;
-  }
-}
-
-.film-grid-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.film-grid-item__cover {
-  max-width: 100%;
-  display: block;
-}
-
-.film-grid-item__info {
-  margin-top: 0.5em;
-}
-
-.film-grid-item__row {
-  padding: 0.4em 0.5em;
-}
-
-.film-grid-item__title {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-}
-
-.film-grid-item__date {
-  border: solid 1px var(--color-alt);
-  padding: 0.1em 0.5em;
-  border-radius: 0.2em;
-  margin-left: 1em;
 }

@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './films-grid-item.css'
+
 import ImageLoader from 'react-load-image'
 import { ImageLoading } from './image-loading'
 
-export class FilmGridItem extends React.PureComponent {
+export class FilmsGridItem extends React.PureComponent {
   static propTypes = {
     film: PropTypes.object.isRequired
   }
@@ -19,7 +21,7 @@ export class FilmGridItem extends React.PureComponent {
     return (
       <div className="film-grid-item" tabIndex={0}>
         <ImageLoader src={this.film.poster_path}>
-          <img className="film-grid-item__cover" />
+          <img className="film-grid-item__cover" title={this.film.overview} />
           <div>Error</div>
           <ImageLoading />
         </ImageLoader>

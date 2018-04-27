@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { FilmGridItem } from './film-grid-item'
+import './films-grid.css'
 
-export class FilmGrid extends React.PureComponent {
+import { FilmsGridItem } from './films-grid-item'
+
+export class FilmsGrid extends React.PureComponent {
   static propTypes = {
     films: PropTypes.arrayOf(PropTypes.object).isRequired
   }
@@ -12,7 +14,7 @@ export class FilmGrid extends React.PureComponent {
     return (
       <div className="film-grid">
         {this.props.films.map(film => (
-          <FilmGridItem film={film} key={film.id} />
+          <FilmsGridItem film={film} key={film.id} />
         ))}
       </div>
     )

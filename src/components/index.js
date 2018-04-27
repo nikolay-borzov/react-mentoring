@@ -4,8 +4,9 @@ export * from './footer'
 export * from './header'
 
 export * from './site-name'
-export * from './film-grid'
-export * from './film-grid-item'
+export * from './films-grid'
+export * from './films-grid-item'
+export * from './search-results-panel'
 
 export * from './radio'
 export * from './loading'

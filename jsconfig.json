@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "checkJs": false,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "module": "commonjs"
+  },
+  "exclude": ["node_modules", "dist"]
+}
