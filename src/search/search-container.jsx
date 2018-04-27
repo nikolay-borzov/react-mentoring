@@ -10,16 +10,17 @@ import { SearchResultsEmpty } from './search-results-empty'
 
 import { QueryParams } from '../core/entities'
 
-import { sortBy } from '../core/enums'
+import { sortBy, searchBy, sortOrder } from '../core/enums'
 
 export class SearchContainer extends React.Component {
   constructor(props) {
     super(props)
 
     this.queryParams = new QueryParams()
-      .limit(15)
-      .searchBy('title')
+      .limit(17)
+      .searchBy(searchBy.title)
       .sortBy(sortBy.releaseDate)
+      .sortOrder(sortOrder.desc)
 
     this.state = {
       error: null,

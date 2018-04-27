@@ -1,8 +1,9 @@
 export class QueryParams {
   constructor() {
     this._search = ''
-    this._searchBy = 'title'
+    this._searchBy = ''
     this._sortBy = ''
+    this._sortOrder = ''
     this._limit = 15
   }
 
@@ -11,6 +12,7 @@ export class QueryParams {
       search: this._search,
       searchBy: this._searchBy,
       sortBy: this._sortBy,
+      sortOrder: this._sortOrder,
       limit: this._limit
     }
   }
@@ -27,6 +29,11 @@ export class QueryParams {
 
   sortBy(sortBy) {
     this._sortBy = sortBy
+    return this
+  }
+
+  sortOrder(_sortOrder) {
+    this._sortOrder = _sortOrder
     return this
   }
 

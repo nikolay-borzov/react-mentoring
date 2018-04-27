@@ -32,6 +32,12 @@
   }
 }
 
+@media (max-width: 600px) {
+  :root {
+    --padding-content: 1em 1em;
+  }
+}
+
 html,
 body {
   width: 100%;
