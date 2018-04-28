@@ -7,47 +7,30 @@ import { searchBy } from '../../../enums'
 
 import { Radio } from '../../../components'
 
-export class SeachForm extends React.PureComponent {
+export class SearchForm extends React.PureComponent {
   static propTypes = {
     search: PropTypes.string.isRequired,
     searchBy: PropTypes.string.isRequired,
     onSearchChange: PropTypes.func.isRequired
   }
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      search: this.props.search,
-      searchBy: this.props.searchBy
+  searchByOptions = [
+    {
+      name: 'Title',
+      value: searchBy.title
+    },
+    {
+      name: 'Genre',
+      value: searchBy.genres
     }
-
-    this.searchByOptions = [
-      {
-        name: 'Title',
-        value: searchBy.title
-      },
-      {
-        name: 'Genre',
-        value: searchBy.genres
-      }
-    ]
-  }
-
-  onSearchChange = event => {
-    this.setState({ search: event.target.value })
-  }
-
-  onSearchByChange = searchBy => {
-    this.setState({ searchBy })
-  }
+  ]
 
   onSubmit = event => {
     event.preventDefault()
 
     this.props.onSearchChange({
-      search: this.state.search,
-      searchBy: this.state.searchBy
+      search: this.searchInput.value,
+      searchBy: this.searchByInput.value
     })
   }
 
@@ -61,20 +44,20 @@ export class SeachForm extends React.PureComponent {
 
           <div className="form-row">
             <input
+              ref={input => (this.searchInput = input)}
               type="text"
               className="text-input"
-              value={this.state.search}
-              onChange={this.onSearchChange}
+              defaultValue={this.props.search}
             />
           </div>
 
           <div className="form-row uppercase">
             <Radio
+              ref={input => (this.searchByInput = input)}
               name="searchBy"
               label="Search by"
-              value={this.state.searchBy}
+              defaultValue={this.props.searchBy}
               options={this.searchByOptions}
-              onChange={this.onSearchByChange}
               style="button"
             />
 

@@ -7,7 +7,7 @@ import { sortBy, searchBy, sortOrder } from '../../enums'
 
 import { Header, Footer, SiteName, Loading } from '../../components'
 
-import { SeachForm } from './components/search-form'
+import { SearchForm } from './components/search-form'
 import { SearchResults } from './components/search-results'
 import { SearchResultsEmpty } from './components/search-results-empty'
 
@@ -117,7 +117,7 @@ export class SearchContainer extends React.Component {
       <React.Fragment>
         <Header>
           <SiteName />
-          <SeachForm
+          <SearchForm
             search={this.state.queryParams.search}
             searchBy={this.state.queryParams.searchBy}
             onSearchChange={this.onSearchChange}

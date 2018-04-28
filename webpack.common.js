@@ -74,7 +74,7 @@ module.exports = {
       })
     ]
 
-    if (process.env.ANALIZE) {
+    if (process.env.ANALYZE) {
       const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
         .BundleAnalyzerPlugin
       plugins.push(new BundleAnalyzerPlugin())

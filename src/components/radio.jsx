@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isUndefined } from 'lodash-es'
 
 import './radio.css'
 
@@ -12,15 +13,25 @@ export class Radio extends React.PureComponent {
   static propTypes = {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: function(props, propName) {
+      if (!isUndefined(props.value)) {
+        if (isUndefined(props.onChange)) {
+          return new Error(`'onChange' must be specified if 'value' is set`)
+        } else if (!isUndefined(props.defaultValue)) {
+          return new Error(
+            `'defaultValue' must not be specified if 'value' is set`
+          )
+        }
+      }
+    },
+    defaultValue: PropTypes.string,
     options: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-        selected: PropTypes.bool
+        value: PropTypes.string.isRequired
       })
     ).isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     style: PropTypes.oneOf(['button', 'plain'])
   }
 
@@ -31,11 +42,16 @@ export class Radio extends React.PureComponent {
   constructor(props) {
     super(props)
 
+    this.isControlled =
+      !isUndefined(props.value) && !isUndefined(props.onChange)
+
+    this.value = this.isControlled ? this.props.value : this.props.defaultValue
+
     this.styleClassName = styleClassMap[props.style]
   }
 
-  isOptionSelected(option) {
-    return option.value === this.props.value
+  isDefaultChecked(option) {
+    return option.value === this.value
   }
 
   getOptionInputId(option) {
@@ -43,7 +59,13 @@ export class Radio extends React.PureComponent {
   }
 
   onChange = changeEvent => {
-    this.props.onChange(changeEvent.target.value)
+    const value = changeEvent.target.value
+
+    if (this.isControlled) {
+      this.props.onChange(value)
+    } else {
+      this.value = value
+    }
   }
 
   render() {
@@ -59,7 +81,7 @@ export class Radio extends React.PureComponent {
               id={this.getOptionInputId(option)}
               name={this.props.name}
               value={option.value}
-              defaultChecked={this.isOptionSelected(option)}
+              defaultChecked={this.isDefaultChecked(option)}
               onChange={this.onChange}
             />
             <label

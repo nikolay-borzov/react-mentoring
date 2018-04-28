@@ -14,20 +14,16 @@ export class SearchResults extends React.Component {
     onSortByChange: PropTypes.func.isRequired
   }
 
-  constructor(props) {
-    super(props)
-
-    this.sortOptions = [
-      {
-        name: 'release date',
-        value: sortBy.releaseDate
-      },
-      {
-        name: 'rating',
-        value: sortBy.rating
-      }
-    ]
-  }
+  sortOptions = [
+    {
+      name: 'release date',
+      value: sortBy.releaseDate
+    },
+    {
+      name: 'rating',
+      value: sortBy.rating
+    }
+  ]
 
   render() {
     const filmsFound = (

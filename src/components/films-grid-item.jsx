@@ -6,39 +6,31 @@ import './films-grid-item.css'
 import ImageLoader from 'react-load-image'
 import { ImageLoading } from './image-loading'
 
-export class FilmsGridItem extends React.PureComponent {
-  static propTypes = {
-    film: PropTypes.object.isRequired
-  }
+FilmsGridItem.propTypes = {
+  film: PropTypes.object.isRequired
+}
 
-  constructor(props) {
-    super(props)
+export function FilmsGridItem(props) {
+  return (
+    <div className="film-grid-item" tabIndex={0}>
+      <ImageLoader src={props.film.poster_path}>
+        <img className="film-grid-item__cover" title={props.film.overview} />
+        <div>Error</div>
+        <ImageLoading />
+      </ImageLoader>
 
-    this.film = this.props.film
-  }
+      <div className="film-grid-item__info">
+        <div className="film-grid-item__row film-grid-item__title">
+          <span className="uppercase font-bold">{props.film.title}</span>
+          <span className="film-grid-item__date font-small color-alt">
+            {props.film.release_date.substring(0, 4)}
+          </span>
+        </div>
 
-  render() {
-    return (
-      <div className="film-grid-item" tabIndex={0}>
-        <ImageLoader src={this.film.poster_path}>
-          <img className="film-grid-item__cover" title={this.film.overview} />
-          <div>Error</div>
-          <ImageLoading />
-        </ImageLoader>
-
-        <div className="film-grid-item__info">
-          <div className="film-grid-item__row film-grid-item__title">
-            <span className="uppercase font-bold">{this.film.title}</span>
-            <span className="film-grid-item__date font-small color-alt">
-              {this.film.release_date.substring(0, 4)}
-            </span>
-          </div>
-
-          <div className="film-grid-item__row color-alt">
-            {this.film.genres.join(', ')}
-          </div>
+        <div className="film-grid-item__row color-alt">
+          {props.film.genres.join(', ')}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }

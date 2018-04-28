@@ -5,18 +5,14 @@ import './films-grid.css'
 
 import { FilmsGridItem } from './films-grid-item'
 
-export class FilmsGrid extends React.PureComponent {
-  static propTypes = {
-    films: PropTypes.arrayOf(PropTypes.object).isRequired
-  }
+FilmsGrid.propTypes = {
+  films: PropTypes.arrayOf(PropTypes.object).isRequired
+}
 
-  render() {
-    return (
-      <div className="film-grid">
-        {this.props.films.map(film => (
-          <FilmsGridItem film={film} key={film.id} />
-        ))}
-      </div>
-    )
-  }
+export function FilmsGrid(props) {
+  return (
+    <div className="film-grid">
+      {props.films.map(film => <FilmsGridItem film={film} key={film.id} />)}
+    </div>
+  )
 }
