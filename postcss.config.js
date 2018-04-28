@@ -11,7 +11,16 @@ module.exports = ({ file, options, env }) => {
 
   return {
     plugins: {
-      autoprefixer: true,
+      'postcss-import': {},
+      'postcss-cssnext': {
+        features: {
+          customProperties: {
+            preserve: true,
+            // https://github.com/MoOx/postcss-cssnext/issues/186
+            warnings: false
+          }
+        }
+      },
       cssnano: cssnanoOptions
     }
   }

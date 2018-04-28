@@ -1,3 +1,5 @@
+@import '../styles/variables.css';
+
 .search-results-panel {
   display: flex;
   justify-content: space-between;

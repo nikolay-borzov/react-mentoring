@@ -1,3 +1,5 @@
+@import '../../styles/variables.css';
+
 .loading-indicator {
   font-size: 250%;
 }
@@ -16,6 +18,10 @@
   display: inline-block;
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
   transform-origin: center center;
+
+  @nest .alt-background & {
+    background-color: var(--color-text-light);
+  }
 }
 
 .loading-spinner__bounce--1 {

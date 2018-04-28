@@ -10,5 +10,9 @@ export const filmService = {
         params: queryParams.getParams()
       })
       .then(({ data }) => data)
+  },
+
+  getFilm(id) {
+    return axios.get(`/movies/${id}`).then(({ data }) => data)
   }
 }

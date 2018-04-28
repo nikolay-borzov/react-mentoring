@@ -1,8 +1,8 @@
 import React from 'react'
 
-import './loading.css'
+import './loading-indicator.css'
 
-export function Loading() {
+export function LoadingIndicator() {
   return (
     <div className="centered loading-indicator font-bold">
       <div>

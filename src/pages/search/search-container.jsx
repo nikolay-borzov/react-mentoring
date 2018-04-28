@@ -5,7 +5,13 @@ import { filmService } from '../../services/film-service'
 import { QueryParams } from '../../entities'
 import { sortBy, searchBy, sortOrder } from '../../enums'
 
-import { Header, Footer, SiteName, Loading } from '../../components'
+import {
+  Header,
+  Footer,
+  SiteName,
+  LoadingBlock,
+  ToastError
+} from '../../components'
 
 import { SearchForm } from './components/search-form'
 import { SearchResults } from './components/search-results'
@@ -16,7 +22,7 @@ export class SearchContainer extends React.Component {
     super(props)
 
     this.queryParams = new QueryParams()
-      .limit(17)
+      .limit(50)
       .search('')
       .searchBy(searchBy.title)
       .sortBy(sortBy.releaseDate)
@@ -32,15 +38,15 @@ export class SearchContainer extends React.Component {
   }
 
   componentDidMount() {
-    const queryStringParams = new URLSearchParams(location.search)
+    const searchParams = new URLSearchParams(location.search)
 
     // Simulate error to test error boundary
-    if (queryStringParams.get('throwError') === '1') {
+    if (searchParams.get('throwError') === '1') {
       throw new Error('Error Boundary test')
     }
 
-    const limit = queryStringParams.has('limit')
-      ? parseInt(queryStringParams.get('limit'), 10)
+    const limit = searchParams.has('limit')
+      ? parseInt(searchParams.get('limit'), 10)
       : 17
 
     this.queryParams.limit(limit)
@@ -59,26 +65,22 @@ export class SearchContainer extends React.Component {
       .then(result => {
         this.setState({
           films: result.data,
-          foundCount: result.total,
-          isLoaded: true
+          foundCount: result.total
         })
       })
       .catch(error => {
         this.setState({
-          error,
-          isLoaded: true
+          error
         })
 
         toast.error(
-          <div>
-            Unable to load movies:<br />
-            {error.toString()}
-          </div>,
-          {
-            position: toast.POSITION.BOTTOM_CENTER,
-            autoClose: false
-          }
+          <ToastError message="Unable to load movies" error={error} />
         )
+      })
+      .finally(() => {
+        this.setState({
+          isLoaded: true
+        })
       })
   }
 
@@ -94,25 +96,6 @@ export class SearchContainer extends React.Component {
   }
 
   render() {
-    let content
-
-    if (this.state.isLoaded) {
-      content =
-        this.state.foundCount > 0 ? (
-          <SearchResults
-            films={this.state.films}
-            foundCount={this.state.foundCount}
-            displayCount={this.state.queryParams.limit}
-            sortBy={this.state.queryParams.sortBy}
-            onSortByChange={this.onSortByChange}
-          />
-        ) : (
-          <SearchResultsEmpty />
-        )
-    } else {
-      content = <Loading />
-    }
-
     return (
       <React.Fragment>
         <Header>
@@ -123,7 +106,21 @@ export class SearchContainer extends React.Component {
             onSearchChange={this.onSearchChange}
           />
         </Header>
-        <main className="content">{content}</main>
+        <main className="content">
+          <LoadingBlock isLoaded={this.state.isLoaded}>
+            {this.state.foundCount > 0 ? (
+              <SearchResults
+                films={this.state.films}
+                foundCount={this.state.foundCount}
+                displayCount={this.state.queryParams.limit}
+                sortBy={this.state.queryParams.sortBy}
+                onSortByChange={this.onSortByChange}
+              />
+            ) : (
+              <SearchResultsEmpty />
+            )}
+          </LoadingBlock>
+        </main>
         <Footer />
       </React.Fragment>
     )
