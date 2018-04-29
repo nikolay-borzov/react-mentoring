@@ -9,5 +9,5 @@ export * from './search-results-panel'
 
 export * from './radio'
 export * from './loading-block/loading-block'
-export * from './image-loading'
 export * from './toast-error'
+export * from './content-image/content-image'

@@ -7,7 +7,8 @@
   --color-text-light: #fafafa;
   --color-text-alt: #999;
   --color-bc-alt: rgba(0, 0, 0, 0.9);
-  --padding-content: 1em 5em;
+  --padding-content: 2em 3em;
+  --padding-controls: 2em 5em;
   --padding-button: 0.6em 2em;
   --padding-input: 0.7em;
   --padding-button-small: 0.25em 1.5em;
@@ -26,14 +27,20 @@
 }
 
 /* MEDIA QUERIES (will not work in browsers that don't support custom properties) */
+@media (min-width: 1200px) {
+  :root {
+    --padding-content: 2em 10%;
+  }
+}
+
 @media (min-width: 900px) {
   :root {
-    --padding-content: 1em 15%;
+    --padding-controls: 1em 15%;
   }
 }
 
 @media (max-width: 600px) {
   :root {
-    --padding-content: 1em 1em;
+    --padding-controls: 1em 1em;
   }
 }

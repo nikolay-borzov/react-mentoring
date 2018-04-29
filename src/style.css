@@ -29,9 +29,18 @@ input {
   outline: var(--focus);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 ::selection {
   background-color: var(--color-primary-light);
   color: var(--color-text-light);
+}
+
+h1 {
+  color: var(--color-primary);
+  font-weight: bold;
 }
 
 /* LAYOUT */
@@ -55,11 +64,6 @@ footer {
   flex-shrink: 0;
 }
 
-header,
-footer {
-  padding: var(--padding-content);
-}
-
 /* PHONE LINKS */
 
 a[href^='tel:']:before {
@@ -74,6 +78,7 @@ a[href^='tel:']:before {
   display: flex;
   padding: var(--padding-button);
   text-transform: uppercase;
+  text-decoration: none;
   font-size: 1.2em;
   font-weight: 700;
   transition: background-color var(--transition-duration),
@@ -93,6 +98,10 @@ a[href^='tel:']:before {
 
 .button--primary {
   background-color: var(--color-primary);
+}
+
+a.button--primary {
+  color: var(--color-text-light);
 }
 
 /* FORM */

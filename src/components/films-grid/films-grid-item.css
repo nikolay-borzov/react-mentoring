@@ -9,11 +9,6 @@
   @apply --hover-effect;
 }
 
-.film-grid-item__cover {
-  max-width: 100%;
-  display: block;
-}
-
 .film-grid-item__info {
   margin-top: 0.5em;
 }

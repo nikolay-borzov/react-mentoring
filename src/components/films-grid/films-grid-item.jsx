@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 import './films-grid-item.css'
 
-import ImageLoader from 'react-load-image'
-import { ImageLoading } from '../image-loading'
+import { ContentImage } from '../'
 
 FilmsGridItem.propTypes = {
   film: PropTypes.object.isRequired
@@ -13,11 +12,7 @@ FilmsGridItem.propTypes = {
 export function FilmsGridItem(props) {
   return (
     <a href={`?id=${props.film.id}`} className="film-grid-item" tabIndex={0}>
-      <ImageLoader src={props.film.poster_path}>
-        <img className="film-grid-item__cover" title={props.film.overview} />
-        <div>Error</div>
-        <ImageLoading />
-      </ImageLoader>
+      <ContentImage src={props.film.poster_path} title={props.film.overview} />
 
       <div className="film-grid-item__info">
         <div className="film-grid-item__row film-grid-item__title">

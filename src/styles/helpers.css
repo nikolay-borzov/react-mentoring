@@ -27,12 +27,20 @@
   font-size: 80%;
 }
 
+.font-big {
+  font-size: 120%;
+}
+
 .uppercase {
   text-transform: uppercase;
 }
 
 .flex {
   display: flex;
+}
+
+.flex-align-center {
+  align-items: center;
 }
 
 .flex-grow {
@@ -51,6 +59,10 @@
   align-items: center;
 }
 
-.content-padding {
+.padding-content {
   padding: var(--padding-content);
+}
+
+.padding-controls {
+  padding: var(--padding-controls);
 }

@@ -4,7 +4,7 @@ import { SiteName } from './site-name'
 
 export function Footer() {
   return (
-    <footer className="alt-background">
+    <footer className="alt-background padding-controls">
       <SiteName />
     </footer>
   )

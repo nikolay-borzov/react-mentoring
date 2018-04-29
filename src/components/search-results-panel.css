@@ -3,5 +3,5 @@
 .search-results-panel {
   display: flex;
   justify-content: space-between;
-  padding: var(--padding-content);
+  background-color: var(--color-text-light);
 }

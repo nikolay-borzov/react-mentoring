@@ -25,7 +25,7 @@ export class ErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div className="centered alt-background">
-          <div className="content-padding">
+          <div className="padding-content">
             <h1>Something went wrong.</h1>
 
             <details style={{ whiteSpace: 'pre-wrap' }}>

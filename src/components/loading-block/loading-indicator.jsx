@@ -1,8 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './loading-indicator.css'
 
-export function LoadingIndicator() {
+LoadingIndicator.propTypes = {
+  hideText: PropTypes.bool.isRequired
+}
+
+export function LoadingIndicator(props) {
   return (
     <div className="centered loading-indicator font-bold">
       <div>
@@ -11,7 +16,9 @@ export function LoadingIndicator() {
           <div className="loading-spinner__bounce loading-spinner__bounce--2" />
           <div className="loading-spinner__bounce" />
         </div>
-        Loading&hellip;
+        {props.hideText ? null : (
+          <React.Fragment>Loading&hellip;</React.Fragment>
+        )}
       </div>
     </div>
   )

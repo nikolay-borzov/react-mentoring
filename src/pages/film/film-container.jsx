@@ -11,8 +11,12 @@ import {
   Footer,
   SiteName,
   LoadingBlock,
-  ToastError
+  ToastError,
+  FilmsGrid,
+  SearchResultsPanel
 } from '../../components'
+
+import { FilmDetails } from './components/film-details'
 
 export class FilmContainer extends React.Component {
   static propTypes = {
@@ -32,7 +36,10 @@ export class FilmContainer extends React.Component {
     this.state = {
       error: null,
       isFilmLoaded: false,
-      film: null
+      film: null,
+      genre: '',
+      relatedFilms: [],
+      isRelatedFilmsLoaded: false
     }
   }
 
@@ -42,18 +49,52 @@ export class FilmContainer extends React.Component {
     filmService
       .getFilm(queryStringParams.get('id'))
       .then(film => {
+        const genre = film.genres[0]
+
         this.setState({
           film,
+          genre
+        })
+
+        this.loadRelatedFilms(genre)
+      })
+      .catch(error => {
+        this.setState({
+          error
+        })
+
+        toast.error(<ToastError message="Unable to load movie" error={error} />)
+      })
+      .finally(() => {
+        this.setState({
           isFilmLoaded: true
+        })
+      })
+  }
+
+  loadRelatedFilms(genre) {
+    this.queryParams.search(genre)
+
+    filmService
+      .getFilms(this.queryParams)
+      .then(result => {
+        this.setState({
+          relatedFilms: result.data
         })
       })
       .catch(error => {
         this.setState({
-          error,
-          isFilmLoaded: true
+          error
         })
 
-        toast.error(<ToastError message="Unable to load movie" error={error} />)
+        toast.error(
+          <ToastError message="Unable to load related movies" error={error} />
+        )
+      })
+      .finally(() => {
+        this.setState({
+          isRelatedFilmsLoaded: true
+        })
       })
   }
 
@@ -61,14 +102,29 @@ export class FilmContainer extends React.Component {
     return (
       <React.Fragment>
         <Header>
-          <SiteName />
-          <LoadingBlock isLoaded={this.state.isFilmLoaded}>
-            <pre>{JSON.stringify(this.state.film, null, 2)}</pre>
+          <div className="padding-controls flex flex-align-center">
+            <div className="flex-grow">
+              <SiteName />
+            </div>
+            <a href="/" className="button button--small button--primary">
+              Search
+            </a>
+          </div>
+          <LoadingBlock isLoaded={this.state.isFilmLoaded} hideText={true}>
+            {/* Figure out how to defer rendering children until isLoaded=true */}
+            {this.state.film ? (
+              <FilmDetails film={this.state.film} />
+            ) : (
+              <React.Fragment />
+            )}
           </LoadingBlock>
         </Header>
         <main className="content">
-          <LoadingBlock isLoaded={false}>
-            <p>TODO: Films by the same genre</p>
+          <LoadingBlock isLoaded={this.state.isRelatedFilmsLoaded}>
+            <SearchResultsPanel>
+              Films by {this.state.genre} genre
+            </SearchResultsPanel>
+            <FilmsGrid films={this.state.relatedFilms} />
           </LoadingBlock>
         </main>
         <Footer />

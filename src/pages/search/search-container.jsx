@@ -47,7 +47,7 @@ export class SearchContainer extends React.Component {
 
     const limit = searchParams.has('limit')
       ? parseInt(searchParams.get('limit'), 10)
-      : 17
+      : 50
 
     this.queryParams.limit(limit)
 
@@ -99,12 +99,14 @@ export class SearchContainer extends React.Component {
     return (
       <React.Fragment>
         <Header>
-          <SiteName />
-          <SearchForm
-            search={this.state.queryParams.search}
-            searchBy={this.state.queryParams.searchBy}
-            onSearchChange={this.onSearchChange}
-          />
+          <div className="padding-controls">
+            <SiteName />
+            <SearchForm
+              search={this.state.queryParams.search}
+              searchBy={this.state.queryParams.searchBy}
+              onSearchChange={this.onSearchChange}
+            />
+          </div>
         </Header>
         <main className="content">
           <LoadingBlock isLoaded={this.state.isLoaded}>
