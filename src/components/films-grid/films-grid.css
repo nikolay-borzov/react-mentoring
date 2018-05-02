@@ -1,0 +1,9 @@
+@import '../../styles/variables.css';
+
+.film-grid {
+  display: grid;
+  grid-gap: 3.5em;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  justify-content: center;
+  padding: var(--padding-content);
+}

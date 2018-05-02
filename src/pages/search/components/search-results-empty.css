@@ -1,0 +1,7 @@
+@import '../../../styles/variables.css';
+
+.empty-search-message {
+  font-size: 5em;
+  font-weight: 700;
+  color: var(--color-text-alt);
+}

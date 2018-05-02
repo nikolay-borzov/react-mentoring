@@ -1,0 +1,40 @@
+@import '../../../styles/variables.css';
+
+.film-details__image {
+  display: flex;
+  justify-items: center;
+  flex: 1 1 auto;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.film-details__description {
+  flex: 1 1 100%;
+  padding-left: 4em;
+}
+
+.film-details__rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary);
+  font-size: 120%;
+  font-weight: bold;
+  width: 2em;
+  height: 2em;
+  padding: 1em;
+  border-radius: 100%;
+  border: solid 3px var(--color-primary);
+  margin-left: 2em;
+}
+
+@media (max-width: 600px) {
+  .film-details {
+    flex-direction: column;
+  }
+
+  .film-details__description {
+    padding-left: 0;
+  }
+}
+

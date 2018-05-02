@@ -1,6 +1,7 @@
 module.exports = ({ file, options, env }) => {
   const cssnanoOptions = {
-    preset: 'default'
+    preset: 'default',
+    reduceIdents: false // reduceIdents sometimes breaks animations
   }
 
   // TODO: Only minimize for production build `env === production`
@@ -10,7 +11,16 @@ module.exports = ({ file, options, env }) => {
 
   return {
     plugins: {
-      autoprefixer: true,
+      'postcss-import': {},
+      'postcss-cssnext': {
+        features: {
+          customProperties: {
+            preserve: true,
+            // https://github.com/MoOx/postcss-cssnext/issues/186
+            warnings: false
+          }
+        }
+      },
       cssnano: cssnanoOptions
     }
   }

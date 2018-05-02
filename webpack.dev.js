@@ -9,11 +9,16 @@ const fileLoaderFilename = '[name].[ext]'
 
 // Don't use [chunkhash] or [hash] for development
 // https://github.com/webpack/webpack-dev-server/issues/377#issuecomment-241258405
-module.exports = merge(baseConfig, {
+module.exports = merge.smartStrategy({
+  'entry.main': 'replace'
+})(baseConfig, {
   mode: 'development',
 
   entry: {
-    main: [baseConfig.entry.main, 'webpack-hot-middleware/client']
+    main: baseConfig.entry.main.concat([
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?quiet=true'
+    ])
   },
 
   devtool: 'inline-source-map',

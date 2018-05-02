@@ -1,4 +1,7 @@
 const path = require('path')
+const webpack = require('webpack')
+
+require('dotenv').config()
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -43,6 +46,9 @@ module.exports = {
 
   getConfig(env) {
     const plugins = [
+      new webpack.DefinePlugin({
+        API_URL: JSON.stringify(process.env.API_URL)
+      }),
       new CleanWebpackPlugin([distRoot]),
       new HtmlWebpackPlugin({
         template: 'index.html',
@@ -68,7 +74,7 @@ module.exports = {
       })
     ]
 
-    if (process.env.ANALIZE) {
+    if (process.env.ANALYZE) {
       const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
         .BundleAnalyzerPlugin
       plugins.push(new BundleAnalyzerPlugin())
@@ -77,7 +83,7 @@ module.exports = {
     return {
       // Webpack default is './src/index.js '
       entry: {
-        main: './src/index.js'
+        main: ['url-search-params-polyfill', './src/index.js']
       },
 
       plugins,
@@ -122,7 +128,11 @@ module.exports = {
           {
             test: /\.jsx?$/,
             include: srcRoot,
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              // Enable caching results in ./node_modules/.cache/babel-loader/ directory for faster rebuilds.
+              cacheDirectory: true
+            }
           }
         ]
       }

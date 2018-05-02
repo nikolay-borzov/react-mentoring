@@ -1,62 +1,23 @@
 import './style.css'
+import 'react-toastify/dist/ReactToastify.css'
+
+import App from './app'
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
 
-// React.createElement
-function CreateElementEx() {
-  return React.createElement(
-    'div',
-    { className: 'component' },
-    'Hello from ',
-    React.createElement('strong', {}, 'React.createElement')
-  )
+import { apiService } from './services/api-service'
+
+apiService.init()
+
+const renderApp = () => {
+  render(<App />, document.getElementById('root'))
 }
 
-// React.Component
-class ComponentEx extends React.Component {
-  render() {
-    return (
-      <div className="component">
-        Hello from <strong>React.Component</strong>
-      </div>
-    )
-  }
-}
-
-// React.PureComponent
-class PureComponentEx extends React.PureComponent {
-  render() {
-    return (
-      <div className="component">
-        Hello from <strong>React.PureComponent</strong>
-      </div>
-    )
-  }
-}
-
-// functional component
-function FunctionalComponentEx() {
-  return (
-    <div className="component">
-      Hello from <strong>functional component</strong>
-    </div>
-  )
-}
-
-function App() {
-  return (
-    <React.Fragment>
-      <CreateElementEx />
-      <ComponentEx />
-      <PureComponentEx />
-      <FunctionalComponentEx />
-    </React.Fragment>
-  )
-}
-
-ReactDOM.render(<App />, document.getElementById('root'))
+renderApp()
 
 if (module.hot) {
-  module.hot.accept()
+  module.hot.accept('./app', () => {
+    renderApp()
+  })
 }
