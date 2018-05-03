@@ -88,7 +88,13 @@ a[href^='tel:']:before {
   color: var(--color-text-light);
   user-select: none;
 
-  @apply --hover-effect;
+  /* hover effect */
+  transition: background-color var(--transition-duration),
+              box-shadow var(--transition-duration);
+
+  &:hover {
+    box-shadow: 0 0 20px var(--color-primary), 2px 2px 2px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .button--small {

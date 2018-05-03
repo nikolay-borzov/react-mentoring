@@ -5,8 +5,6 @@
   flex-direction: column;
   color: var(--color-default);
   text-decoration: none;
-
-  @apply --hover-effect;
 }
 
 .film-grid-item__info {

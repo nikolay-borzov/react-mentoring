@@ -1,6 +1,7 @@
 module.exports = ({ file, options, env }) => {
   const cssnanoOptions = {
     preset: 'default',
+    autoprefixer: false,
     reduceIdents: false // reduceIdents sometimes breaks animations
   }
 

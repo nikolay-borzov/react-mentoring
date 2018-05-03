@@ -5,11 +5,21 @@
   justify-content: space-between;
   background-color: var(--color-text-light);
 
-  @apply --flex-columns;
+  /* flex-columns */
+  flex-direction: column;
+
+  & > * + * {
+    margin-top: 1rem;
+  }
 }
 
 @media (--viewport-bigger) {
   .search-results-panel {
-    @apply --flex-rows;
+    /* flex-rows (cancels flex-columns ) */
+    flex-direction: row;
+
+    & > * + * {
+      margin-top: 0;
+    }
   }
 }
