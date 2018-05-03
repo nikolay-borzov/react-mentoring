@@ -16,7 +16,7 @@ body {
   margin: 0;
   font-size: 100%;
   line-height: 1.5;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05rem;
   color: var(--color-default);
 }
 
@@ -69,7 +69,7 @@ footer {
 a[href^='tel:']:before {
   display: inline-block;
   content: '\1F57F';
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
   text-decoration: none;
 }
 
@@ -79,7 +79,7 @@ a[href^='tel:']:before {
   padding: var(--padding-button);
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 700;
   transition: background-color var(--transition-duration),
               box-shadow var(--transition-duration);
@@ -93,7 +93,7 @@ a[href^='tel:']:before {
 
 .button--small {
   padding: var(--padding-button-small);
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 .button--primary {
@@ -121,7 +121,7 @@ a.button--primary {
 .text-input {
   width: 100%;
   font-family: 'Regular';
-  font-size: 1.3em;
+  font-size: 1.3rem;
   background-color: var(--color-bc-alt);
   border: none;
   border-bottom: 2px solid var(--color-primary);

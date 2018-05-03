@@ -10,11 +10,11 @@
 }
 
 .film-grid-item__info {
-  margin-top: 0.5em;
+  margin-top: 0.5rem;
 }
 
 .film-grid-item__row {
-  padding: 0.4em 0.5em;
+  padding: 0.4rem 0.5rem;
 }
 
 .film-grid-item__title {
@@ -25,7 +25,7 @@
 
 .film-grid-item__date {
   border: solid 1px var(--color-alt);
-  padding: 0.1em 0.5em;
-  border-radius: 0.2em;
-  margin-left: 1em;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.2rem;
+  margin-left: 1rem;
 }

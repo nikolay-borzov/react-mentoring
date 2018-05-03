@@ -10,8 +10,8 @@
 
 /* https://github.com/tobiasahlin/SpinKit */
 .image-spinner {
-  width: 5em;
-  height: 5em;
+  width: 5rem;
+  height: 5rem;
 
   position: absolute;
   top: 50%;

@@ -22,7 +22,7 @@ export class SearchContainer extends React.Component {
     super(props)
 
     this.queryParams = new QueryParams()
-      .limit(50)
+      .limit(15)
       .search('')
       .searchBy(searchBy.title)
       .sortBy(sortBy.releaseDate)
@@ -47,7 +47,7 @@ export class SearchContainer extends React.Component {
 
     const limit = searchParams.has('limit')
       ? parseInt(searchParams.get('limit'), 10)
-      : 50
+      : 15
 
     this.queryParams.limit(limit)
 

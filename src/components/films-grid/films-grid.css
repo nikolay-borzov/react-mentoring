@@ -2,8 +2,7 @@
 
 .film-grid {
   display: grid;
-  grid-gap: 3.5em;
+  grid-gap: 3.5rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
   justify-content: center;
-  padding: var(--padding-content);
 }

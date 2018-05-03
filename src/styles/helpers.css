@@ -35,6 +35,10 @@
   text-transform: uppercase;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .flex {
   display: flex;
 }
@@ -65,4 +69,34 @@
 
 .padding-controls {
   padding: var(--padding-controls);
+}
+
+@media (--viewport-small) {
+  .padding-content {
+    padding: var(--padding-content-sm);
+  }
+
+  .padding-controls {
+    padding: var(--padding-controls-sm);
+  }
+}
+
+@media (--viewport-medium) {
+  .padding-content {
+    padding: var(--padding-content-md);
+  }
+
+  .padding-controls {
+    padding: var(--padding-controls-md);
+  }
+}
+
+@media (--viewport-large) {
+  .padding-content {
+    padding: var(--padding-content-lg);
+  }
+
+  .padding-controls {
+    padding: var(--padding-controls-lg);
+  }
 }

@@ -10,8 +10,8 @@
 }
 
 .loading-spinner__bounce {
-  width: 0.8em;
-  height: 0.8em;
+  width: 0.8rem;
+  height: 0.8rem;
   background-color: var(--color-default);
 
   border-radius: 100%;

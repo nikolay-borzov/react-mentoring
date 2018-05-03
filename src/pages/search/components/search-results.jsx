@@ -38,15 +38,13 @@ export class SearchResults extends React.Component {
       <React.Fragment>
         <SearchResultsPanel>
           {filmsFound}
-          <div className="flex">
-            <Radio
-              name="sortBy"
-              label="Sort by"
-              value={this.props.sortBy}
-              options={this.sortOptions}
-              onChange={this.props.onSortByChange}
-            />
-          </div>
+          <Radio
+            name="sortBy"
+            label="Sort by"
+            value={this.props.sortBy}
+            options={this.sortOptions}
+            onChange={this.props.onSortByChange}
+          />
         </SearchResultsPanel>
         <FilmsGrid films={this.props.films} />
       </React.Fragment>

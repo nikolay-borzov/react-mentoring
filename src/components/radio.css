@@ -1,5 +1,10 @@
 @import '../styles/variables.css';
 
+.radio-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .radio-input {
   margin-right: var(--margin-input);
 }
@@ -11,13 +16,14 @@
 
 .radio-input__label {
   user-select: none;
+  white-space: nowrap;
 }
 
 .radio-input--style-button .radio-input__label {
   display: flex;
   padding: var(--padding-button-small);
   text-transform: uppercase;
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: 700;
   box-sizing: border-box;
   border: none;
@@ -32,7 +38,7 @@
 }
 
 .radio-input--style-plain .radio-input__label {
-  padding: 0.25em 0.5em;
+  padding: 0.25rem 0.5rem;
 }
 
 .radio-input--style-plain input:checked + .radio-input__label {

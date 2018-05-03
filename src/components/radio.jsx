@@ -70,8 +70,8 @@ export class Radio extends React.PureComponent {
 
   render() {
     return (
-      <React.Fragment>
-        <label className="form-label">{this.props.label}</label>
+      <div className="radio-input-wrapper">
+        <label className="form-label nowrap">{this.props.label}</label>
         {this.props.options.map(option => (
           <div
             key={option.value}
@@ -91,7 +91,7 @@ export class Radio extends React.PureComponent {
             </label>
           </div>
         ))}
-      </React.Fragment>
+      </div>
     )
   }
 }

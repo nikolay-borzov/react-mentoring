@@ -17,7 +17,7 @@ module.exports = ({ file, options, env }) => {
           customProperties: {
             preserve: true,
             // https://github.com/MoOx/postcss-cssnext/issues/186
-            warnings: false
+            warnings: true
           }
         }
       },

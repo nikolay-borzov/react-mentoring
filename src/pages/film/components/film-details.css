@@ -10,7 +10,13 @@
 
 .film-details__description {
   flex: 1 1 100%;
-  padding-left: 4em;
+  padding-left: 2rem;
+}
+
+@media (--viewport-bigger) {
+  .film-details__description {
+    padding-left: 4rem;
+  }
 }
 
 .film-details__rating {
@@ -20,12 +26,12 @@
   color: var(--color-primary);
   font-size: 120%;
   font-weight: bold;
-  width: 2em;
-  height: 2em;
-  padding: 1em;
+  width: 2rem;
+  height: 2rem;
+  padding: 1rem;
   border-radius: 100%;
   border: solid 3px var(--color-primary);
-  margin-left: 2em;
+  margin-left: 2rem;
 }
 
 @media (max-width: 600px) {
