@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchResultsPanel component renders correctly 1`] = `
+<div
+  className="search-results-panel font-bold padding-controls"
+>
+  <p>
+    Some content
+  </p>
+  <p>
+    Another content
+  </p>
+</div>
+`;

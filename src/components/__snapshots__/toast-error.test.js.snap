@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToastError component renders correctly with message 1`] = `
+<div>
+  Error happened
+</div>
+`;
+
+exports[`ToastError component renders correctly with message and error details 1`] = `
+<div>
+  Error happened
+  <br />
+  Error: Some generic error
+</div>
+`;

@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "start": "node server.js",
     "start:prod": "cross-env NODE_ENV=production node server.js",
     "build": "webpack --config webpack.dev.js",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
@@ -49,6 +51,8 @@
     "css-loader": "^0.28.11",
     "cssnano": "^3.10.0",
     "dotenv": "^5.0.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-prettier-standard": "^1.0.1",
@@ -76,6 +80,7 @@
     "postcss-loader": "^2.1.4",
     "prettier": "^1.12.1",
     "react-hot-loader": "^4.1.2",
+    "react-test-renderer": "^16.3.2",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-search-params-polyfill": "^3.0.0",

@@ -11,7 +11,10 @@ FilmsGridItem.propTypes = {
 
 export function FilmsGridItem(props) {
   return (
-    <a href={`?id=${props.film.id}`} className="film-grid-item" tabIndex={0}>
+    <a
+      href={`?id=${props.film.id}`}
+      className="film-grid-item hover-effect"
+      tabIndex={0}>
       <ContentImage src={props.film.poster_path} title={props.film.overview} />
 
       <div className="film-grid-item__info">

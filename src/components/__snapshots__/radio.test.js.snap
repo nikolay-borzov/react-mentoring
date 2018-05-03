@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Radio component renders correctly as controlled component 1`] = `
+<div
+  className="radio-input-wrapper"
+>
+  <label
+    className="form-label nowrap"
+  >
+    Radio label
+  </label>
+  <div
+    className="radio-input radio-input--style-plain"
+  >
+    <input
+      defaultChecked={true}
+      id="radioName_cat"
+      name="radioName"
+      onChange={[Function]}
+      type="radio"
+      value="cat"
+    />
+    <label
+      className="radio-input__label"
+      htmlFor="radioName_cat"
+    >
+      Cat
+    </label>
+  </div>
+  <div
+    className="radio-input radio-input--style-plain"
+  >
+    <input
+      defaultChecked={false}
+      id="radioName_dog"
+      name="radioName"
+      onChange={[Function]}
+      type="radio"
+      value="dog"
+    />
+    <label
+      className="radio-input__label"
+      htmlFor="radioName_dog"
+    >
+      Dog
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Radio component renders correctly as uncontrolled component 1`] = `
+<div
+  className="radio-input-wrapper"
+>
+  <label
+    className="form-label nowrap"
+  >
+    Radio label
+  </label>
+  <div
+    className="radio-input radio-input--style-plain"
+  >
+    <input
+      defaultChecked={true}
+      id="radioName_cat"
+      name="radioName"
+      onChange={[Function]}
+      type="radio"
+      value="cat"
+    />
+    <label
+      className="radio-input__label"
+      htmlFor="radioName_cat"
+    >
+      Cat
+    </label>
+  </div>
+  <div
+    className="radio-input radio-input--style-plain"
+  >
+    <input
+      defaultChecked={false}
+      id="radioName_dog"
+      name="radioName"
+      onChange={[Function]}
+      type="radio"
+      value="dog"
+    />
+    <label
+      className="radio-input__label"
+      htmlFor="radioName_dog"
+    >
+      Dog
+    </label>
+  </div>
+</div>
+`;
