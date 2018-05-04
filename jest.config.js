@@ -7,6 +7,8 @@ module.exports = {
   },
   collectCoverageFrom: ['src/**/*.{js,jsx}'],
   coverageDirectory: 'coverage',
+  coveragePathIgnorePatterns: ['/node_modules/', 'index.js'],
+  coverageReporters: ['lcov', 'text'],
   transformIgnorePatterns: ['node_modules/(?!(lodash-es)/)'],
   setupTestFrameworkScriptFile: '<rootDir>jest/setup.js'
 }

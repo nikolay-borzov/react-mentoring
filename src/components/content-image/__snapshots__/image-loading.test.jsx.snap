@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageLoading component renders correctly 1`] = `
+<div
+  className="image-loading-indicator"
+>
+  <div
+    className="image-spinner"
+  >
+    <div
+      className="image-spinner__bounce1"
+    />
+    <div
+      className="image-spinner__bounce2"
+    />
+  </div>
+</div>
+`;

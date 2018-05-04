@@ -1,19 +1,14 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+
+import { itRendersCorrectly } from '../../jest/test-helpers'
 
 import { SearchResultsPanel } from './search-results-panel'
 
 describe('SearchResultsPanel component', () => {
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <SearchResultsPanel>
-          <p>Some content</p>
-          <p>Another content</p>
-        </SearchResultsPanel>
-      )
-      .toJSON()
-
-    expect(tree).toMatchSnapshot()
-  })
+  itRendersCorrectly(() => (
+    <SearchResultsPanel>
+      <p>Some content</p>
+      <p>Another content</p>
+    </SearchResultsPanel>
+  ))
 })

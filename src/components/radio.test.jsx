@@ -1,6 +1,7 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
+
+import { itRendersCorrectly } from '../../jest/test-helpers'
 
 import { Radio } from './radio'
 
@@ -37,14 +38,12 @@ describe('Radio component', () => {
   })
 
   describe('if controlled', () => {
-    it('renders correctly', () => {
+    itRendersCorrectly(() => {
       props.value = 'cat'
       props.onChange = jest.fn()
       props.style = 'button'
 
-      const tree = renderer.create(<Radio {...props} />).toJSON()
-
-      expect(tree).toMatchSnapshot()
+      return <Radio {...props} />
     })
 
     it(`calls 'onChange' callback`, () => {
@@ -61,13 +60,11 @@ describe('Radio component', () => {
   })
 
   describe('if uncontrolled', () => {
-    it('renders correctly', () => {
+    itRendersCorrectly(() => {
       props.defaultValue = 'cat'
       props.style = 'plain'
 
-      const tree = renderer.create(<Radio {...props} />).toJSON()
-
-      expect(tree).toMatchSnapshot()
+      return <Radio {...props} />
     })
 
     it(`sets 'value' to be equal to 'defaultValue'`, () => {

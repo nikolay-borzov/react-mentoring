@@ -13,7 +13,7 @@ export function FilmDetails(props) {
   return (
     <div className="film-details flex padding-content">
       <div className="film-details__image">
-        <ContentImage src={props.film.poster_path} />
+        <ContentImage src={props.film.poster_path} alt={props.film.title} />
       </div>
 
       <div className="film-details__description">

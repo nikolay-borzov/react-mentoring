@@ -1,6 +1,7 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
+
+import { itRendersCorrectly } from '../../jest/test-helpers'
 
 import { ErrorBoundary } from './error-boundary'
 
@@ -9,29 +10,22 @@ describe('ErrorBoundary component', () => {
   jest.spyOn(window._virtualConsole, 'emit').mockImplementation(() => false)
   jest.spyOn(window.console, 'error').mockImplementation(() => false)
 
-  it('renders children if no errors have happened', () => {
-    const tree = renderer
-      .create(<ErrorBoundary>Content</ErrorBoundary>)
-      .toJSON()
+  itRendersCorrectly(
+    () => <ErrorBoundary>Content</ErrorBoundary>,
+    'renders children if no errors have happened'
+  )
 
-    expect(tree).toMatchSnapshot()
-  })
-
-  it('renders correctly when an error has happened', () => {
+  itRendersCorrectly(() => {
     function ErroneousComponent() {
       throw new Error('Some genic error')
     }
 
-    const tree = renderer
-      .create(
-        <ErrorBoundary>
-          <ErroneousComponent />
-        </ErrorBoundary>
-      )
-      .toJSON()
-
-    expect(tree).toMatchSnapshot()
-  })
+    return (
+      <ErrorBoundary>
+        <ErroneousComponent />
+      </ErrorBoundary>
+    )
+  }, 'renders correctly when an error has happened')
 
   it('should render children when passed in', () => {
     const wrapper = shallow(

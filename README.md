@@ -1,6 +1,6 @@
 # React Study Project
-[![Build Status](https://travis-ci.org/nikolay-borzov/react-mentoring.svg?branch=task_04)](https://travis-ci.org/nikolay-borzov/react-mentoring)
-[![Coverage Status](https://coveralls.io/repos/github/nikolay-borzov/react-mentoring/badge.svg?branch=task_04)](https://coveralls.io/github/nikolay-borzov/react-mentoring?branch=master)
+[![Build Status](https://travis-ci.org/nikolay-borzov/react-mentoring.svg?branch=master)](https://travis-ci.org/nikolay-borzov/react-mentoring)
+[![Coverage Status](https://coveralls.io/repos/github/nikolay-borzov/react-mentoring/badge.svg?branch=master)](https://coveralls.io/github/nikolay-borzov/react-mentoring?branch=master)
 
 # Development
 
@@ -16,7 +16,7 @@ npm build
 
 # Production
 
-To run server (will build beforehead)
+To run server (will build beforehand)
 ```
 npm run start:prod
 ```

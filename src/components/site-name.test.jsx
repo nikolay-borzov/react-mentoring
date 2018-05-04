@@ -1,12 +1,9 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+
+import { itRendersCorrectly } from '../../jest/test-helpers'
 
 import { SiteName } from './site-name'
 
 describe('SiteName component', () => {
-  it('renders correctly', () => {
-    const tree = renderer.create(<SiteName> Site Name </SiteName>).toJSON()
-
-    expect(tree).toMatchSnapshot()
-  })
+  itRendersCorrectly(() => <SiteName> Site Name </SiteName>)
 })

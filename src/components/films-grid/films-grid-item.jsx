@@ -15,7 +15,11 @@ export function FilmsGridItem(props) {
       href={`?id=${props.film.id}`}
       className="film-grid-item hover-effect"
       tabIndex={0}>
-      <ContentImage src={props.film.poster_path} title={props.film.overview} />
+      <ContentImage
+        src={props.film.poster_path}
+        alt={props.film.title}
+        title={props.film.overview}
+      />
 
       <div className="film-grid-item__info">
         <div className="film-grid-item__row film-grid-item__title">

@@ -1,18 +1,13 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+
+import { itRendersCorrectly } from '../../jest/test-helpers'
 
 import { Header } from './header'
 
 describe('Header component', () => {
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <Header>
-          Header content <p>More content</p>
-        </Header>
-      )
-      .toJSON()
-
-    expect(tree).toMatchSnapshot()
-  })
+  itRendersCorrectly(() => (
+    <Header>
+      Header content <p>More content</p>
+    </Header>
+  ))
 })

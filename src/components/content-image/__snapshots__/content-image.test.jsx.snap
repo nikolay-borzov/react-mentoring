@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentImage component renders correctly 1`] = `
+<div
+  className="imageloader imageloader-loading"
+>
+  <div
+    className="image-loading-indicator"
+  >
+    <div
+      className="image-spinner"
+    >
+      <div
+        className="image-spinner__bounce1"
+      />
+      <div
+        className="image-spinner__bounce2"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ContentImage component renders correctly with title specified 1`] = `
+<div
+  className="imageloader imageloader-loading"
+>
+  <div
+    className="image-loading-indicator"
+  >
+    <div
+      className="image-spinner"
+    >
+      <div
+        className="image-spinner__bounce1"
+      />
+      <div
+        className="image-spinner__bounce2"
+      />
+    </div>
+  </div>
+</div>
+`;
