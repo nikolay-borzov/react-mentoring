@@ -1,4 +1,6 @@
 # React Study Project
+[![Build Status](https://travis-ci.org/nikolay-borzov/react-mentoring.svg?branch=task_04)](https://travis-ci.org/nikolay-borzov/react-mentoring)
+[![Coverage Status](https://coveralls.io/repos/github/nikolay-borzov/react-mentoring/badge.svg?branch=task_04)](https://coveralls.io/github/nikolay-borzov/react-mentoring?branch=master)
 
 # Development
 

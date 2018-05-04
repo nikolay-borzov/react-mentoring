@@ -8,5 +8,5 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.{js,jsx}'],
   coverageDirectory: 'coverage',
   transformIgnorePatterns: ['node_modules/(?!(lodash-es)/)'],
-  setupTestFrameworkScriptFile: '<rootDir>src/tests/setup.js'
+  setupTestFrameworkScriptFile: '<rootDir>jest/setup.js'
 }

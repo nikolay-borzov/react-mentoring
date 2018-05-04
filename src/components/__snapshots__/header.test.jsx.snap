@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component renders correctly 1`] = `
+<header
+  className="alt-background"
+>
+  Header content 
+  <p>
+    More content
+  </p>
+</header>
+`;

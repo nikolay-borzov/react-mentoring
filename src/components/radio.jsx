@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import requiredIf from 'react-required-if'
 import { isUndefined } from 'lodash-es'
 
 import './radio.css'
@@ -13,25 +14,18 @@ export class Radio extends React.PureComponent {
   static propTypes = {
     label: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    value: function(props, propName) {
-      if (!isUndefined(props.value)) {
-        if (isUndefined(props.onChange)) {
-          return new Error(`'onChange' must be specified if 'value' is set`)
-        } else if (!isUndefined(props.defaultValue)) {
-          return new Error(
-            `'defaultValue' must not be specified if 'value' is set`
-          )
-        }
-      }
-    },
-    defaultValue: PropTypes.string,
+    value: requiredIf(PropTypes.string, props => !isUndefined(props.onChange)),
+    defaultValue: requiredIf(
+      PropTypes.string,
+      props => isUndefined(props.onChange) && isUndefined(props.value)
+    ),
     options: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired
       })
     ).isRequired,
-    onChange: PropTypes.func,
+    onChange: requiredIf(PropTypes.func, props => !isUndefined(props.value)),
     style: PropTypes.oneOf(['button', 'plain'])
   }
 
@@ -45,8 +39,8 @@ export class Radio extends React.PureComponent {
     this.isControlled =
       !isUndefined(props.value) && !isUndefined(props.onChange)
 
+    // Set 'value' so that selected value is available in form's onSubmit handler
     this.value = this.isControlled ? this.props.value : this.props.defaultValue
-
     this.styleClassName = styleClassMap[props.style]
   }
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Radio component renders correctly as controlled component 1`] = `
+exports[`Radio component if controlled renders correctly 1`] = `
 <div
   className="radio-input-wrapper"
 >
@@ -10,7 +10,7 @@ exports[`Radio component renders correctly as controlled component 1`] = `
     Radio label
   </label>
   <div
-    className="radio-input radio-input--style-plain"
+    className="radio-input radio-input--style-button"
   >
     <input
       defaultChecked={true}
@@ -28,7 +28,7 @@ exports[`Radio component renders correctly as controlled component 1`] = `
     </label>
   </div>
   <div
-    className="radio-input radio-input--style-plain"
+    className="radio-input radio-input--style-button"
   >
     <input
       defaultChecked={false}
@@ -48,7 +48,7 @@ exports[`Radio component renders correctly as controlled component 1`] = `
 </div>
 `;
 
-exports[`Radio component renders correctly as uncontrolled component 1`] = `
+exports[`Radio component if uncontrolled renders correctly 1`] = `
 <div
   className="radio-input-wrapper"
 >

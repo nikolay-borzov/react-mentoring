@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component renders correctly 1`] = `
+<footer
+  className="alt-background padding-controls"
+>
+  <span
+    className="site-name"
+  >
+    Movie Search
+  </span>
+</footer>
+`;

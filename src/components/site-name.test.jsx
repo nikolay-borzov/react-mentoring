@@ -5,7 +5,7 @@ import { SiteName } from './site-name'
 
 describe('SiteName component', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(<SiteName>Site Name</SiteName>).toJSON()
+    const tree = renderer.create(<SiteName> Site Name </SiteName>).toJSON()
 
     expect(tree).toMatchSnapshot()
   })
