@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingBlock component renders correctly 1`] = `
+<div
+  className="centered loading-indicator font-bold"
+>
+  <div>
+    <div
+      className="loading-spinner"
+    >
+      <div
+        className="loading-spinner__bounce loading-spinner__bounce--1"
+      />
+      <div
+        className="loading-spinner__bounce loading-spinner__bounce--2"
+      />
+      <div
+        className="loading-spinner__bounce"
+      />
+    </div>
+    Loading…
+  </div>
+</div>
+`;

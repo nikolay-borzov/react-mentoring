@@ -21,9 +21,11 @@ describe('FilmsGridItem component', () => {
 
   itRendersCorrectly(() => <FilmsGridItem {...props} />)
 
-  itContainsComponent(() => <FilmsGridItem {...props} />, 'ContentImage', 1, {
-    src: props.film.poster_path,
-    alt: props.film.title,
-    title: props.film.overview
+  itContainsComponent(() => <FilmsGridItem {...props} />, 'ContentImage', {
+    expectedProps: {
+      src: props.film.poster_path,
+      alt: props.film.title,
+      title: props.film.overview
+    }
   })
 })

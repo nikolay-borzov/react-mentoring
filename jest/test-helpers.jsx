@@ -21,24 +21,31 @@ export const itRendersCorrectly = (
  * Creates test case to check whether component contains another component
  * @param {Function} getComponent Function returning parent component
  * @param {string} componentDisplayName Child component display name
- * @param {number} [expectedCount=1] Expected number of children components
- * @param {Object} withProps First child component properties map
+ * @param {Object} params Optional params
+ * @param {number} [params.testName=`contains ${componentDisplayName} component`]
+ * @param {number} [params.expectedCount=1] Expected number of children components
+ * @param {Object} params.expectedProps First child component properties map
  */
 export const itContainsComponent = (
   getComponent,
   componentDisplayName,
-  expectedCount = 1,
-  withProps
+  { testName, expectedCount = 1, expectedProps } = {}
 ) => {
-  it(`contains ${componentDisplayName} component`, () => {
+  it(testName || `contains ${componentDisplayName} component`, () => {
     const wrapper = shallow(getComponent())
-
     const children = wrapper.find(componentDisplayName)
 
     expect(children.length).toBe(expectedCount)
-
-    if (withProps) {
-      expect(children.first().props()).toEqual(withProps)
+    if (expectedProps) {
+      expect(children.first().props()).toEqual(expectedProps)
     }
   })
+}
+
+/**
+ * Sets relative URL
+ * @param {string} url
+ */
+export const setUrl = url => {
+  window.history.pushState({}, '', url)
 }

@@ -35,7 +35,7 @@ module.exports = merge(common.getConfig(), {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           // Exclude 'style-loader'
-          use: common.cssRule.use.slice(1)
+          use: common.getCssRule('production').use.slice(1)
         })
       },
       // Tree Shaking

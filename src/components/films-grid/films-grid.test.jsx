@@ -25,7 +25,9 @@ describe('FilmsGrid component', () => {
     return <FilmsGrid {...props} />
   })
 
-  itContainsComponent(() => <FilmsGrid {...props} />, 'FilmsGridItem', 1, {
-    film: film
+  itContainsComponent(() => <FilmsGrid {...props} />, 'FilmsGridItem', {
+    expectedProps: {
+      film: film
+    }
   })
 })

@@ -12,16 +12,31 @@ const assetsRoot = path.join(srcRoot, 'assets')
 const distRoot = path.resolve(__dirname, 'dist')
 
 module.exports = {
-  cssRule: {
-    test: /\.css$/,
-    use: [
-      'style-loader',
-      {
-        loader: 'css-loader',
-        options: { importLoaders: 1, sourceMap: true }
-      },
-      { loader: 'postcss-loader', options: { sourceMap: true } }
-    ]
+  /**
+   * @param {string} mode Webpack mode
+   */
+  getCssRule(mode) {
+    return {
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: { importLoaders: 1, sourceMap: true }
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true,
+            config: {
+              // Pass mode through context
+              // https://github.com/postcss/postcss-loader/issues/353#issuecomment-386756190
+              ctx: { mode }
+            }
+          }
+        }
+      ]
+    }
   },
 
   getImageRule(filename) {
