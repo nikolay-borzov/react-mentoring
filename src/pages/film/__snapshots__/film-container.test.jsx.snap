@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmContainer page component renders correctly 1`] = `
+Array [
+  <header
+    className="alt-background"
+  >
+    <div
+      className="padding-controls flex flex-align-center"
+    >
+      <div
+        className="flex-grow"
+      >
+        <span
+          className="site-name"
+        >
+          Movie Search
+        </span>
+      </div>
+      <a
+        className="button button--small button--primary"
+        href="/"
+      >
+        Search
+      </a>
+    </div>
+    <div
+      className="centered loading-indicator font-bold"
+    >
+      <div>
+        <div
+          className="loading-spinner"
+        >
+          <div
+            className="loading-spinner__bounce loading-spinner__bounce--1"
+          />
+          <div
+            className="loading-spinner__bounce loading-spinner__bounce--2"
+          />
+          <div
+            className="loading-spinner__bounce"
+          />
+        </div>
+      </div>
+    </div>
+  </header>,
+  <main
+    className="content"
+  >
+    <div
+      className="centered loading-indicator font-bold"
+    >
+      <div>
+        <div
+          className="loading-spinner"
+        >
+          <div
+            className="loading-spinner__bounce loading-spinner__bounce--1"
+          />
+          <div
+            className="loading-spinner__bounce loading-spinner__bounce--2"
+          />
+          <div
+            className="loading-spinner__bounce"
+          />
+        </div>
+        Loading…
+      </div>
+    </div>
+  </main>,
+  <footer
+    className="alt-background padding-controls"
+  >
+    <span
+      className="site-name"
+    >
+      Movie Search
+    </span>
+  </footer>,
+]
+`;

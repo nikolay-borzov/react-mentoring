@@ -59,10 +59,6 @@ export class FilmContainer extends React.Component {
         this.loadRelatedFilms(genre)
       })
       .catch(error => {
-        this.setState({
-          error
-        })
-
         toast.error(<ToastError message="Unable to load movie" error={error} />)
       })
       .finally(() => {
@@ -83,10 +79,6 @@ export class FilmContainer extends React.Component {
         })
       })
       .catch(error => {
-        this.setState({
-          error
-        })
-
         toast.error(
           <ToastError message="Unable to load related movies" error={error} />
         )
