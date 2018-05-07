@@ -15,7 +15,7 @@ export function App() {
   return (
     <ErrorBoundary>
       {isFilmPage ? (
-        <FilmContainer filmId={searchParams.get('id')} />
+        <FilmContainer filmId={parseInt(searchParams.get('id'), 10)} />
       ) : (
         <SearchContainer />
       )}

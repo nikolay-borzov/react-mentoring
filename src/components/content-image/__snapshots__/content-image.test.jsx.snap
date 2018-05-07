@@ -5,7 +5,7 @@ exports[`ContentImage component renders correctly 1`] = `
   className="imageloader imageloader-loading"
 >
   <div
-    className="image-loading-indicator"
+    className="image-loading-indicator content-image-placeholder"
   >
     <div
       className="image-spinner"
@@ -26,7 +26,7 @@ exports[`ContentImage component renders correctly with title specified 1`] = `
   className="imageloader imageloader-loading"
 >
   <div
-    className="image-loading-indicator"
+    className="image-loading-indicator content-image-placeholder"
   >
     <div
       className="image-spinner"

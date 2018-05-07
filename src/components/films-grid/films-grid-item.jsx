@@ -24,7 +24,7 @@ export function FilmsGridItem(props) {
       <div className="film-grid-item__info">
         <div className="film-grid-item__row film-grid-item__title">
           <span className="uppercase font-bold">{props.film.title}</span>
-          <span className="film-grid-item__date font-small color-alt">
+          <span className="film-grid-item__date font-size-small color-alt">
             {props.film.release_date.substring(0, 4)}
           </span>
         </div>

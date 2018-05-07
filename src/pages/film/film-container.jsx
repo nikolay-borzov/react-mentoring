@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { toast } from 'react-toastify'
 
-import { filmService } from '../../services/film-service'
+import filmService from '../../services/film-service'
 import { QueryParams } from '../../entities'
 import { sortBy, searchBy, sortOrder } from '../../enums'
 
@@ -13,14 +13,15 @@ import {
   LoadingBlock,
   ToastError,
   FilmsGrid,
-  SearchResultsPanel
+  SearchResultsPanel,
+  ContentMessage
 } from '../../components'
 
 import { FilmDetails } from './components/film-details'
 
 export class FilmContainer extends React.Component {
   static propTypes = {
-    filmId: PropTypes.string.isRequired
+    filmId: PropTypes.number.isRequired
   }
 
   constructor(props) {
@@ -34,20 +35,22 @@ export class FilmContainer extends React.Component {
       .sortOrder(sortOrder.desc)
 
     this.state = {
-      error: null,
       isFilmLoaded: false,
       film: null,
       genre: '',
       relatedFilms: [],
-      isRelatedFilmsLoaded: false
+      isRelatedFilmsLoaded: false,
+      relatedFilmsError: false
     }
   }
 
   componentDidMount() {
-    const queryStringParams = new URLSearchParams(location.search)
+    this.loadFilm(this.props.filmId)
+  }
 
-    filmService
-      .getFilm(queryStringParams.get('id'))
+  loadFilm(id) {
+    return filmService
+      .getFilm(id)
       .then(film => {
         const genre = film.genres[0]
 
@@ -59,7 +62,13 @@ export class FilmContainer extends React.Component {
         this.loadRelatedFilms(genre)
       })
       .catch(error => {
-        toast.error(<ToastError message="Unable to load movie" error={error} />)
+        this.setState({
+          isRelatedFilmsLoaded: true
+        })
+
+        toast.error(
+          <ToastError message="Unable to load the movie" error={error} />
+        )
       })
       .finally(() => {
         this.setState({
@@ -71,7 +80,7 @@ export class FilmContainer extends React.Component {
   loadRelatedFilms(genre) {
     this.queryParams.search(genre)
 
-    filmService
+    return filmService
       .getFilms(this.queryParams)
       .then(result => {
         this.setState({
@@ -79,6 +88,10 @@ export class FilmContainer extends React.Component {
         })
       })
       .catch(error => {
+        this.setState({
+          relatedFilmsError: true
+        })
+
         toast.error(
           <ToastError message="Unable to load related movies" error={error} />
         )
@@ -91,6 +104,24 @@ export class FilmContainer extends React.Component {
   }
 
   render() {
+    let relatedFilms
+
+    if (this.state.relatedFilms.length > 0) {
+      relatedFilms = <FilmsGrid films={this.state.relatedFilms} />
+    } else if (this.state.relatedFilmsError) {
+      relatedFilms = (
+        <ContentMessage className="error-message">
+          Unable to load related movies
+        </ContentMessage>
+      )
+    } else {
+      relatedFilms = (
+        <ContentMessage className="font-size-header font-bold color-alt">
+          No related movies found
+        </ContentMessage>
+      )
+    }
+
     return (
       <React.Fragment>
         <Header>
@@ -103,20 +134,16 @@ export class FilmContainer extends React.Component {
             </a>
           </div>
           <LoadingBlock isLoaded={this.state.isFilmLoaded} hideText={true}>
-            {/* Figure out how to defer rendering children until isLoaded=true */}
-            {this.state.film ? (
-              <FilmDetails film={this.state.film} />
-            ) : (
-              <React.Fragment />
-            )}
+            <FilmDetails film={this.state.film} />
           </LoadingBlock>
         </Header>
+
         <main className="content">
           <LoadingBlock isLoaded={this.state.isRelatedFilmsLoaded}>
             <SearchResultsPanel>
               Films by {this.state.genre} genre
             </SearchResultsPanel>
-            <FilmsGrid films={this.state.relatedFilms} />
+            {relatedFilms}
           </LoadingBlock>
         </main>
         <Footer />

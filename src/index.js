@@ -6,7 +6,7 @@ import App from './app'
 import React from 'react'
 import { render } from 'react-dom'
 
-import { apiService } from './services/api-service'
+import apiService from './services/api-service'
 
 apiService.init()
 

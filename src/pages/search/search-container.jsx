@@ -1,7 +1,7 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 
-import { filmService } from '../../services/film-service'
+import filmService from '../../services/film-service'
 import { QueryParams } from '../../entities'
 import { sortBy, searchBy, sortOrder } from '../../enums'
 
@@ -10,12 +10,12 @@ import {
   Footer,
   SiteName,
   LoadingBlock,
-  ToastError
+  ToastError,
+  ContentMessage
 } from '../../components'
 
 import { SearchForm } from './components/search-form'
 import { SearchResults } from './components/search-results'
-import { SearchResultsEmpty } from './components/search-results-empty'
 
 export class SearchContainer extends React.Component {
   constructor(props) {
@@ -119,7 +119,9 @@ export class SearchContainer extends React.Component {
                 onSortByChange={this.onSortByChange}
               />
             ) : (
-              <SearchResultsEmpty />
+              <ContentMessage className="font-size-header font-bold color-alt">
+                No movies found
+              </ContentMessage>
             )}
           </LoadingBlock>
         </main>

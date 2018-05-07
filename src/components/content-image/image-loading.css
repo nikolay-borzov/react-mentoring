@@ -1,22 +1,10 @@
 @import '../../styles/variables.css';
 
-.image-loading-indicator {
-  position: relative;
-  width: 100%;
-  /* Keep aspect ratio */
-  padding-top: 150%;
-  background-color: rgba(0, 0, 0, 0.1);
-}
 
 /* https://github.com/tobiasahlin/SpinKit */
 .image-spinner {
   width: 5rem;
   height: 5rem;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .image-spinner__bounce1,

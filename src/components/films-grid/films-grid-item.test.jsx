@@ -4,19 +4,13 @@ import {
   itRendersCorrectly,
   itContainsComponent
 } from '../../../jest/test-helpers'
+import { film } from '../../../jest/stubs'
 
 import { FilmsGridItem } from './films-grid-item'
 
 describe('FilmsGridItem component', () => {
   let props = {
-    film: {
-      id: 1,
-      title: 'Film title',
-      poster_path: '//content/posters/1.png',
-      overview: 'Film overview',
-      release_date: '2018-05-04',
-      genres: ['some genre', 'another genre']
-    }
+    film
   }
 
   itRendersCorrectly(() => <FilmsGridItem {...props} />)

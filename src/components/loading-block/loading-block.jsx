@@ -13,12 +13,11 @@ LoadingBlock.defaultProps = {
   hideText: false
 }
 
+// TODO: Investigate why this is called four times (film-container.js) while props.isLoaded is changed only once
 export function LoadingBlock(props) {
-  const content = props.isLoaded ? (
-    props.children
-  ) : (
-    <LoadingIndicator hideText={props.hideText} />
-  )
+  if (props.isLoaded) {
+    return props.children
+  }
 
-  return content
+  return <LoadingIndicator hideText={props.hideText} />
 }

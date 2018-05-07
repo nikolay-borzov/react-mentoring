@@ -2,7 +2,7 @@
 
 exports[`ImageLoading component renders correctly 1`] = `
 <div
-  className="image-loading-indicator"
+  className="image-loading-indicator "
 >
   <div
     className="image-spinner"

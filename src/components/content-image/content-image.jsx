@@ -20,8 +20,10 @@ export function ContentImage(props) {
   return (
     <ImageLoader src={props.src}>
       <img className="content-image" title={props.title} alt={props.alt} />
-      <div>Cannot load image</div>
-      <ImageLoading />
+      <div className="content-image-placeholder color-alt">
+        <span>Image unavailable</span>
+      </div>
+      <ImageLoading className="content-image-placeholder" />
     </ImageLoader>
   )
 }

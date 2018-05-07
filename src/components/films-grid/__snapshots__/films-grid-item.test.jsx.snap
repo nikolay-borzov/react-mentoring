@@ -10,7 +10,7 @@ exports[`FilmsGridItem component renders correctly 1`] = `
     className="imageloader imageloader-loading"
   >
     <div
-      className="image-loading-indicator"
+      className="image-loading-indicator content-image-placeholder"
     >
       <div
         className="image-spinner"
@@ -36,7 +36,7 @@ exports[`FilmsGridItem component renders correctly 1`] = `
         Film title
       </span>
       <span
-        className="film-grid-item__date font-small color-alt"
+        className="film-grid-item__date font-size-small color-alt"
       >
         2018
       </span>
