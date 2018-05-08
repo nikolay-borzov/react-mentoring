@@ -5,7 +5,7 @@ import { Radio, SearchResultsPanel, FilmsGrid } from '../../../components'
 
 import { sortBy } from '../../../enums'
 
-export class SearchResults extends React.Component {
+export class SearchResults extends React.PureComponent {
   static propTypes = {
     foundCount: PropTypes.number.isRequired,
     displayCount: PropTypes.number.isRequired,

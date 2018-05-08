@@ -29,7 +29,6 @@ export class SearchContainer extends React.Component {
       .sortOrder(sortOrder.desc)
 
     this.state = {
-      error: null,
       isLoaded: false,
       films: [],
       foundCount: 0,
@@ -60,7 +59,7 @@ export class SearchContainer extends React.Component {
       queryParams: this.queryParams.getParams()
     })
 
-    filmService
+    return filmService
       .getFilms(this.queryParams)
       .then(result => {
         this.setState({
@@ -69,10 +68,6 @@ export class SearchContainer extends React.Component {
         })
       })
       .catch(error => {
-        this.setState({
-          error
-        })
-
         toast.error(
           <ToastError message="Unable to load movies" error={error} />
         )
@@ -86,13 +81,13 @@ export class SearchContainer extends React.Component {
 
   onSortByChange = sortBy => {
     this.queryParams.sortBy(sortBy)
-    this.loadFilms()
+    return this.loadFilms()
   }
 
   onSearchChange = ({ search, searchBy }) => {
     this.queryParams.search(search)
     this.queryParams.searchBy(searchBy)
-    this.loadFilms()
+    return this.loadFilms()
   }
 
   render() {

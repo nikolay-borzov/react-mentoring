@@ -4,7 +4,13 @@ module.exports = {
     jest: true,
     browser: true
   },
-  globals: { API_URL: true },
+  globals: {
+    API_URL: true,
+    // Enzyme
+    shallow: true,
+    render: true,
+    mount: true
+  },
   plugins: ['react'],
   parser: 'babel-eslint',
   parserOptions: {

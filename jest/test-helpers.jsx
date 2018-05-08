@@ -3,6 +3,7 @@ import { shallow } from 'enzyme'
 
 /**
  * Creates test closure for snapshot testing
+ * @deprecated Use itRendersCorrectlyShallow
  * @param {Function} getComponent Function returning component to test snapshot
  * @param {string} [testName='renders correctly']
  */
@@ -14,6 +15,22 @@ export const itRendersCorrectly = (
     const tree = renderer.create(getComponent()).toJSON()
 
     expect(tree).toMatchSnapshot()
+  })
+}
+
+/**
+ * Creates test closure for snapshot testing (using Enzyme shallow)
+ * @param {Function} getComponent Function returning component to test snapshot
+ * @param {string} [testName='renders correctly']
+ */
+export const itRendersCorrectlyShallow = (
+  getComponent,
+  testName = 'renders correctly'
+) => {
+  it(testName, () => {
+    const wrapper = shallow(getComponent())
+
+    expect(wrapper).toMatchSnapshot()
   })
 }
 

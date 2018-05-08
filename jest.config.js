@@ -6,6 +6,7 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
     '\\.(css)$': '<rootDir>/__mocks__/styleMock.js'
   },
+  snapshotSerializers: ['enzyme-to-json/serializer'],
   collectCoverageFrom: ['src/**/*.{js,jsx}'],
   coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: ['/node_modules/', 'index.js'],

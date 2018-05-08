@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchForm component renders correctly 1`] = `
+<div
+  className="search-form-container"
+>
+  <form
+    name="search-form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-row"
+    >
+      <label
+        className="form-label uppercase"
+      >
+        Find your movie
+      </label>
+    </div>
+    <div
+      className="form-row"
+    >
+      <input
+        className="text-input"
+        defaultValue=""
+        type="text"
+      />
+    </div>
+    <div
+      className="form-row uppercase"
+    >
+      <Radio
+        defaultValue="title"
+        label="Search by"
+        name="searchBy"
+        options={
+          Array [
+            Object {
+              "name": "Title",
+              "value": "title",
+            },
+            Object {
+              "name": "Genre",
+              "value": "genres",
+            },
+          ]
+        }
+        style="button"
+      />
+      <div
+        className="flex-grow align-right"
+      >
+        <input
+          className="button button--primary"
+          type="submit"
+          value="Search"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+`;

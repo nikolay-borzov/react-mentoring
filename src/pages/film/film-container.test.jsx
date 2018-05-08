@@ -11,12 +11,6 @@ import { toast } from 'react-toastify'
 
 jest.mock('../../services/film-service')
 
-jest.mock('react-toastify', () => ({
-  toast: {
-    error: jest.fn()
-  }
-}))
-
 // TODO: Mock ContentImage component https://medium.com/xebia/de-mystifying-jest-snapshot-test-mocks-8e7183d109ea
 
 describe('FilmContainer page component', () => {
