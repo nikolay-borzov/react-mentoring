@@ -28,8 +28,15 @@ npm run build:prod
 
 # Tests
 
+Unit tests
+
 ```
 npm run test
+```
+
+E2E tests
+```
+npm run e2e
 ```
 
 # Configuration

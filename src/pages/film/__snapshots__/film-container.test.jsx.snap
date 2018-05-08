@@ -86,6 +86,7 @@ Array [
   >
     <div
       className="search-results-panel font-bold padding-controls"
+      data-cy="search-results-panel"
     >
       Films by 
       some genre
@@ -93,9 +94,11 @@ Array [
     </div>
     <div
       className="film-grid padding-content"
+      data-cy="film-grid"
     >
       <a
         className="film-grid-item hover-effect"
+        data-cy="film-grid-item"
         href="?id=1"
         tabIndex={0}
       >
@@ -194,6 +197,7 @@ Array [
   >
     <div
       className="search-results-panel font-bold padding-controls"
+      data-cy="search-results-panel"
     >
       Films by 
       some genre
@@ -201,9 +205,11 @@ Array [
     </div>
     <div
       className="film-grid padding-content"
+      data-cy="film-grid"
     >
       <a
         className="film-grid-item hover-effect"
+        data-cy="film-grid-item"
         href="?id=1"
         tabIndex={0}
       >

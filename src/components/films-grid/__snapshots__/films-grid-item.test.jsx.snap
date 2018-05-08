@@ -3,6 +3,7 @@
 exports[`FilmsGridItem component renders correctly 1`] = `
 <a
   className="film-grid-item hover-effect"
+  data-cy="film-grid-item"
   href="?id=1"
   tabIndex={0}
 >

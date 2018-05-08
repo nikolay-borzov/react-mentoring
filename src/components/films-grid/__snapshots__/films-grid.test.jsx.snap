@@ -3,9 +3,11 @@
 exports[`FilmsGrid component renders correctly 1`] = `
 <div
   className="film-grid padding-content"
+  data-cy="film-grid"
 >
   <a
     className="film-grid-item hover-effect"
+    data-cy="film-grid-item"
     href="?id=1"
     tabIndex={0}
   >

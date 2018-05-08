@@ -3,6 +3,7 @@
 exports[`SearchResultsPanel component renders correctly 1`] = `
 <div
   className="search-results-panel font-bold padding-controls"
+  data-cy="search-results-panel"
 >
   <p>
     Some content

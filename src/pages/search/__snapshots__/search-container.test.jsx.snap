@@ -35,6 +35,7 @@ Array [
             <input
               className="text-input"
               defaultValue=""
+              name="search"
               type="text"
             />
           </div>
@@ -105,6 +106,7 @@ Array [
   >
     <div
       className="search-results-panel font-bold padding-controls"
+      data-cy="search-results-panel"
     >
       <div>
         3000
@@ -162,9 +164,11 @@ Array [
     </div>
     <div
       className="film-grid padding-content"
+      data-cy="film-grid"
     >
       <a
         className="film-grid-item hover-effect"
+        data-cy="film-grid-item"
         href="?id=1"
         tabIndex={0}
       >
@@ -259,6 +263,7 @@ Array [
             <input
               className="text-input"
               defaultValue=""
+              name="search"
               type="text"
             />
           </div>

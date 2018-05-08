@@ -23,6 +23,7 @@ exports[`SearchForm component renders correctly 1`] = `
       <input
         className="text-input"
         defaultValue=""
+        name="search"
         type="text"
       />
     </div>

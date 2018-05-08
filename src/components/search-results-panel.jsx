@@ -9,7 +9,9 @@ SearchResultsPanel.propTypes = {
 
 export function SearchResultsPanel(props) {
   return (
-    <div className="search-results-panel font-bold padding-controls">
+    <div
+      className="search-results-panel font-bold padding-controls"
+      data-cy="search-results-panel">
       {props.children}
     </div>
   )
