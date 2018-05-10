@@ -6,7 +6,7 @@ import { ErrorBoundary } from './components/error-boundary'
 import { SearchContainer } from './pages/search/search-container'
 import { FilmContainer } from './pages/film/film-container'
 
-function App() {
+export function App() {
   const searchParams = new URLSearchParams(location.search)
 
   // TODO: Remove after React Router integration
@@ -15,7 +15,7 @@ function App() {
   return (
     <ErrorBoundary>
       {isFilmPage ? (
-        <FilmContainer filmId={searchParams.get('id')} />
+        <FilmContainer filmId={parseInt(searchParams.get('id'), 10)} />
       ) : (
         <SearchContainer />
       )}

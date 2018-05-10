@@ -2,3 +2,25 @@
   max-width: 100%;
   display: block;
 }
+
+.content-image-placeholder {
+  position: relative;
+  max-width: 100%;
+  display: block;
+  width: 100%;
+  /* Keep aspect ratio */
+  padding-top: 150%;
+  background-color: rgba(0, 0, 0, 0.1);
+
+  & > * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.imageloader-failed {
+  /* Take all available width (needed for keeping aspect ratio)*/
+  width: 100%;
+}

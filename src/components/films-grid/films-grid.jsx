@@ -11,7 +11,7 @@ FilmsGrid.propTypes = {
 
 export function FilmsGrid(props) {
   return (
-    <div className="film-grid padding-content">
+    <div className="film-grid padding-content" data-cy="film-grid">
       {props.films.map(film => <FilmsGridItem film={film} key={film.id} />)}
     </div>
   )

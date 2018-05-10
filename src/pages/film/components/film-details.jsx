@@ -6,14 +6,14 @@ import './film-details.css'
 import { ContentImage } from '../../../components'
 
 FilmDetails.propTypes = {
-  film: PropTypes.object.isRequired
+  film: PropTypes.object
 }
 
 export function FilmDetails(props) {
-  return (
-    <div className="film-details flex padding-content">
+  const content = props.film ? (
+    <React.Fragment>
       <div className="film-details__image">
-        <ContentImage src={props.film.poster_path} />
+        <ContentImage src={props.film.poster_path} alt={props.film.title} />
       </div>
 
       <div className="film-details__description">
@@ -24,12 +24,16 @@ export function FilmDetails(props) {
           </span>
         </div>
 
-        <p className="font-big">{props.film.genres.join(', ')}</p>
+        <p className="font-size-big">{props.film.genres.join(', ')}</p>
 
         <p className="font-bold">{props.film.release_date.substring(0, 4)}</p>
 
-        <p className="font-big">{props.film.overview}</p>
+        <p className="font-size-big">{props.film.overview}</p>
       </div>
-    </div>
+    </React.Fragment>
+  ) : (
+    <div className="error-message centered">Unable to load the movie</div>
   )
+
+  return <div className="film-details flex padding-content">{content}</div>
 }

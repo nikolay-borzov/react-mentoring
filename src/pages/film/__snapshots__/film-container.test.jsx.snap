@@ -1,0 +1,270 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmContainer page component it renders correctly when film and relatedFilms are provided 1`] = `
+Array [
+  <header
+    className="alt-background"
+  >
+    <div
+      className="padding-controls flex flex-align-center"
+    >
+      <div
+        className="flex-grow"
+      >
+        <span
+          className="site-name"
+        >
+          Movie Search
+        </span>
+      </div>
+      <a
+        className="button button--small button--primary"
+        href="/"
+      >
+        Search
+      </a>
+    </div>
+    <div
+      className="film-details flex padding-content"
+    >
+      <div
+        className="film-details__image"
+      >
+        <div
+          className="imageloader imageloader-loading"
+        >
+          <div
+            className="image-loading-indicator content-image-placeholder"
+          >
+            <div
+              className="image-spinner"
+            >
+              <div
+                className="image-spinner__bounce1"
+              />
+              <div
+                className="image-spinner__bounce2"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="film-details__description"
+      >
+        <div
+          className="flex flex-align-center"
+        >
+          <h1>
+            Film title
+             
+          </h1>
+          <span
+            className="film-details__rating"
+          />
+        </div>
+        <p
+          className="font-size-big"
+        >
+          some genre, another genre
+        </p>
+        <p
+          className="font-bold"
+        >
+          2018
+        </p>
+        <p
+          className="font-size-big"
+        >
+          Film overview
+        </p>
+      </div>
+    </div>
+  </header>,
+  <main
+    className="content"
+  >
+    <div
+      className="search-results-panel font-bold padding-controls"
+      data-cy="search-results-panel"
+    >
+      Films by 
+      some genre
+       genre
+    </div>
+    <div
+      className="film-grid padding-content"
+      data-cy="film-grid"
+    >
+      <a
+        className="film-grid-item hover-effect"
+        data-cy="film-grid-item"
+        href="?id=1"
+        tabIndex={0}
+      >
+        <div
+          className="imageloader imageloader-loading"
+        >
+          <div
+            className="image-loading-indicator content-image-placeholder"
+          >
+            <div
+              className="image-spinner"
+            >
+              <div
+                className="image-spinner__bounce1"
+              />
+              <div
+                className="image-spinner__bounce2"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="film-grid-item__info"
+        >
+          <div
+            className="film-grid-item__row film-grid-item__title"
+          >
+            <span
+              className="uppercase font-bold"
+            >
+              Film title
+            </span>
+            <span
+              className="film-grid-item__date font-size-small color-alt"
+            >
+              2018
+            </span>
+          </div>
+          <div
+            className="film-grid-item__row color-alt"
+          >
+            some genre, another genre
+          </div>
+        </div>
+      </a>
+    </div>
+  </main>,
+  <footer
+    className="alt-background padding-controls"
+  >
+    <span
+      className="site-name"
+    >
+      Movie Search
+    </span>
+  </footer>,
+]
+`;
+
+exports[`FilmContainer page component it renders correctly when the film is unavailable 1`] = `
+Array [
+  <header
+    className="alt-background"
+  >
+    <div
+      className="padding-controls flex flex-align-center"
+    >
+      <div
+        className="flex-grow"
+      >
+        <span
+          className="site-name"
+        >
+          Movie Search
+        </span>
+      </div>
+      <a
+        className="button button--small button--primary"
+        href="/"
+      >
+        Search
+      </a>
+    </div>
+    <div
+      className="film-details flex padding-content"
+    >
+      <div
+        className="error-message centered"
+      >
+        Unable to load the movie
+      </div>
+    </div>
+  </header>,
+  <main
+    className="content"
+  >
+    <div
+      className="search-results-panel font-bold padding-controls"
+      data-cy="search-results-panel"
+    >
+      Films by 
+      some genre
+       genre
+    </div>
+    <div
+      className="film-grid padding-content"
+      data-cy="film-grid"
+    >
+      <a
+        className="film-grid-item hover-effect"
+        data-cy="film-grid-item"
+        href="?id=1"
+        tabIndex={0}
+      >
+        <div
+          className="imageloader imageloader-loading"
+        >
+          <div
+            className="image-loading-indicator content-image-placeholder"
+          >
+            <div
+              className="image-spinner"
+            >
+              <div
+                className="image-spinner__bounce1"
+              />
+              <div
+                className="image-spinner__bounce2"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="film-grid-item__info"
+        >
+          <div
+            className="film-grid-item__row film-grid-item__title"
+          >
+            <span
+              className="uppercase font-bold"
+            >
+              Film title
+            </span>
+            <span
+              className="film-grid-item__date font-size-small color-alt"
+            >
+              2018
+            </span>
+          </div>
+          <div
+            className="film-grid-item__row color-alt"
+          >
+            some genre, another genre
+          </div>
+        </div>
+      </a>
+    </div>
+  </main>,
+  <footer
+    className="alt-background padding-controls"
+  >
+    <span
+      className="site-name"
+    >
+      Movie Search
+    </span>
+  </footer>,
+]
+`;

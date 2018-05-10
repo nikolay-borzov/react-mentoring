@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const filmService = {
+const filmService = {
   /**
    * @param {QueryParams} queryParams
    */
@@ -13,6 +13,9 @@ export const filmService = {
   },
 
   getFilm(id) {
+    // TODO: Extract data globally
     return axios.get(`/movies/${id}`).then(({ data }) => data)
   }
 }
+
+export default filmService

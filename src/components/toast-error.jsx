@@ -10,8 +10,12 @@ export function ToastError(props) {
   return (
     <div>
       {props.message}
-      <br />
-      {props.error.toString()}
+      {props.error ? (
+        <React.Fragment>
+          <br />
+          {props.error.toString()}
+        </React.Fragment>
+      ) : null}
     </div>
   )
 }

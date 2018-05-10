@@ -1,4 +1,6 @@
 # React Study Project
+[![Build Status](https://travis-ci.org/nikolay-borzov/react-mentoring.svg?branch=master)](https://travis-ci.org/nikolay-borzov/react-mentoring)
+[![Coverage Status](https://coveralls.io/repos/github/nikolay-borzov/react-mentoring/badge.svg?branch=master)](https://coveralls.io/github/nikolay-borzov/react-mentoring?branch=master)
 
 # Development
 
@@ -14,7 +16,7 @@ npm build
 
 # Production
 
-To run server (will build beforehead)
+To run server (will build beforehand)
 ```
 npm run start:prod
 ```
@@ -26,8 +28,15 @@ npm run build:prod
 
 # Tests
 
+Unit tests
+
 ```
 npm run test
+```
+
+E2E tests
+```
+npm run e2e
 ```
 
 # Configuration

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentMessage component renders correctly 1`] = `
+<div
+  className="centered "
+>
+  Some content message
+</div>
+`;
+
+exports[`ContentMessage component renders correctly with custom CSS class set 1`] = `
+<div
+  className="centered some-custom-class"
+>
+  Some content message
+</div>
+`;

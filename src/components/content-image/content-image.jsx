@@ -8,6 +8,7 @@ import { ImageLoading } from './image-loading'
 
 ContentImage.propTypes = {
   src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
   title: PropTypes.string
 }
 
@@ -18,9 +19,11 @@ ContentImage.defaultProps = {
 export function ContentImage(props) {
   return (
     <ImageLoader src={props.src}>
-      <img className="content-image" title={props.title} />
-      <div>Cannot load image</div>
-      <ImageLoading />
+      <img className="content-image" title={props.title} alt={props.alt} />
+      <div className="content-image-placeholder color-alt">
+        <span>Image unavailable</span>
+      </div>
+      <ImageLoading className="content-image-placeholder" />
     </ImageLoader>
   )
 }

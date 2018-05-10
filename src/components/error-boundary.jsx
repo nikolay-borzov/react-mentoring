@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export class ErrorBoundary extends React.Component {
+import './error-boundary.css'
+
+export class ErrorBoundary extends React.PureComponent {
   static propTypes = {
     children: PropTypes.any.isRequired
   }
 
-  constructor(props) {
-    super(props)
-    this.state = { hasError: false }
+  state = {
+    hasError: false
   }
 
   componentDidCatch(error, errorInfo) {
@@ -18,17 +19,17 @@ export class ErrorBoundary extends React.Component {
       errorInfo: errorInfo
     })
 
-    // TODO: Send error details to the server
+    // TIP: Send error details to the server
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="centered alt-background">
+        <div className="error-boundary centered alt-background">
           <div className="padding-content">
             <h1>Something went wrong.</h1>
 
-            <details style={{ whiteSpace: 'pre-wrap' }}>
+            <details>
               <summary>
                 Details<br />
               </summary>
@@ -47,6 +48,7 @@ export class ErrorBoundary extends React.Component {
         </div>
       )
     }
+
     return this.props.children
   }
 }

@@ -34,7 +34,7 @@ module.exports = merge.smartStrategy({
 
   module: {
     rules: [
-      common.cssRule,
+      common.getCssRule('development'),
       // Images
       common.getImageRule(fileLoaderFilename),
       // Fonts

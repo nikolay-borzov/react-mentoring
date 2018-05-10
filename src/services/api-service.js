@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-export const apiService = {
+const apiService = {
   init() {
     axios.defaults.baseURL = API_URL
   }
 }
+
+export default apiService

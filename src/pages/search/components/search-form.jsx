@@ -44,6 +44,7 @@ export class SearchForm extends React.PureComponent {
 
           <div className="form-row">
             <input
+              name="search"
               ref={input => (this.searchInput = input)}
               type="text"
               className="text-input"
