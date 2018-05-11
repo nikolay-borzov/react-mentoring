@@ -1,5 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
+
+import {
+  selectors,
+  setSearch,
+  setSearchBy
+} from '../../../redux/modules/search'
 
 import './search-form.css'
 
@@ -11,7 +19,9 @@ export class SearchForm extends React.PureComponent {
   static propTypes = {
     search: PropTypes.string.isRequired,
     searchBy: PropTypes.string.isRequired,
-    onSearchChange: PropTypes.func.isRequired
+    // onSearchChange: PropTypes.func.isRequired,
+    setSearch: PropTypes.func.isRequired,
+    setSearchBy: PropTypes.func.isRequired
   }
 
   searchByOptions = [
@@ -28,13 +38,20 @@ export class SearchForm extends React.PureComponent {
   onSubmit = event => {
     event.preventDefault()
 
-    this.props.onSearchChange({
+    const { setSearch, setSearchBy } = this.props
+
+    setSearch(this.searchInput.value)
+    setSearchBy(this.searchByInput.value)
+    // fetchFilms()
+    /* this.props.onSearchChange({
       search: this.searchInput.value,
       searchBy: this.searchByInput.value
-    })
+    }) */
   }
 
   render() {
+    const { search, searchBy } = this.props
+
     return (
       <div className="search-form-container">
         <form name="search-form" onSubmit={this.onSubmit}>
@@ -48,7 +65,7 @@ export class SearchForm extends React.PureComponent {
               ref={input => (this.searchInput = input)}
               type="text"
               className="text-input"
-              defaultValue={this.props.search}
+              defaultValue={search}
             />
           </div>
 
@@ -57,7 +74,7 @@ export class SearchForm extends React.PureComponent {
               ref={input => (this.searchByInput = input)}
               name="searchBy"
               label="Search by"
-              defaultValue={this.props.searchBy}
+              defaultValue={searchBy}
               options={this.searchByOptions}
               style="button"
             />
@@ -75,3 +92,13 @@ export class SearchForm extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  search: selectors.search(state),
+  searchBy: selectors.searchBy(state)
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ setSearch, setSearchBy }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

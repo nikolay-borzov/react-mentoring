@@ -16,6 +16,7 @@ configure(app)
   })
   .catch(error => {
     console.log(error)
+    process.exit(1)
   })
 
 function configureForDevelopment(app) {

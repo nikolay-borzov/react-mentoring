@@ -14,10 +14,10 @@ import {
   ContentMessage
 } from '../../components'
 
-import { SearchForm } from './components/search-form'
+import SearchForm from './components/search-form'
 import { SearchResults } from './components/search-results'
 
-export class SearchContainer extends React.Component {
+export class SearchContainer extends React.PureComponent {
   constructor(props) {
     super(props)
 
@@ -91,16 +91,18 @@ export class SearchContainer extends React.Component {
   }
 
   render() {
+    /*
+     search={this.state.queryParams.search}
+              searchBy={this.state.queryParams.searchBy}
+              onSearchChange={this.onSearchChange}
+    */
+
     return (
       <React.Fragment>
         <Header>
           <div className="padding-controls">
             <SiteName />
-            <SearchForm
-              search={this.state.queryParams.search}
-              searchBy={this.state.queryParams.searchBy}
-              onSearchChange={this.onSearchChange}
-            />
+            <SearchForm />
           </div>
         </Header>
         <main className="content">

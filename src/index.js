@@ -1,23 +1,30 @@
 import './style.css'
 import 'react-toastify/dist/ReactToastify.css'
 
-import App from './app'
-
 import React from 'react'
 import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+
+import App from './app'
 
 import apiService from './services/api-service'
+import configureStore from './redux/create'
 
 apiService.init()
 
+const store = configureStore()
+
 const renderApp = () => {
-  render(<App />, document.getElementById('root'))
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  )
 }
 
 renderApp()
 
 if (module.hot) {
-  module.hot.accept('./app', () => {
-    renderApp()
-  })
+  module.hot.accept('./app', renderApp)
 }
