@@ -20,7 +20,7 @@ describe('App component', () => {
       setUrl('/')
       return <App />
     },
-    'SearchContainer',
+    'Connect(SearchContainer)',
     {
       testName: `renders 'SearchContainer' by default`
     }

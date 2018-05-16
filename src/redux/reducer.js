@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import search from './modules/search'
+import films from './modules/films'
 
 const rootReducer = combineReducers({
-  search
+  search,
+  films
 })
 
 export default rootReducer

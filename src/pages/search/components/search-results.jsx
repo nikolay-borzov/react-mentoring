@@ -10,7 +10,7 @@ export class SearchResults extends React.PureComponent {
     foundCount: PropTypes.number.isRequired,
     displayCount: PropTypes.number.isRequired,
     films: PropTypes.arrayOf(PropTypes.object).isRequired,
-    sortBy: PropTypes.oneOf(Object.values(sortBy)),
+    sortBy: PropTypes.oneOf(Object.values(sortBy)).isRequired,
     onSortByChange: PropTypes.func.isRequired
   }
 
@@ -26,11 +26,19 @@ export class SearchResults extends React.PureComponent {
   ]
 
   render() {
+    const {
+      sortBy,
+      films,
+      foundCount,
+      displayCount,
+      onSortByChange
+    } = this.props
+
     const filmsFound = (
       <div>
-        {this.props.foundCount}&nbsp;
-        {this.props.foundCount > 1 ? 'movies' : 'movie'}
-        &nbsp;found ({this.props.displayCount} shown)
+        {foundCount}&nbsp;
+        {foundCount > 1 ? 'movies' : 'movie'}
+        &nbsp;found ({displayCount} shown)
       </div>
     )
 
@@ -41,12 +49,12 @@ export class SearchResults extends React.PureComponent {
           <Radio
             name="sortBy"
             label="Sort by"
-            value={this.props.sortBy}
+            value={sortBy}
             options={this.sortOptions}
-            onChange={this.props.onSortByChange}
+            onChange={onSortByChange}
           />
         </SearchResultsPanel>
-        <FilmsGrid films={this.props.films} />
+        <FilmsGrid films={films} />
       </React.Fragment>
     )
   }

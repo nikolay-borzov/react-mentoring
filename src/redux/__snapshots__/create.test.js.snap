@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`store creates store with initial state 1`] = `
+Object {
+  "films": Object {
+    "error": null,
+    "isFetching": false,
+    "items": Array [],
+    "limit": 0,
+    "total": 0,
+  },
+  "search": Object {
+    "limit": 15,
+    "search": "",
+    "searchBy": "title",
+    "sortBy": "release_date",
+    "sortOrder": "desc",
+  },
+}
+`;

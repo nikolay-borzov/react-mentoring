@@ -1,9 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 
-import filmService from '../../services/film-service'
-import { QueryParams } from '../../entities'
-import { sortBy, searchBy, sortOrder } from '../../enums'
+import {
+  fetchFilms,
+  selectors as filmsSelectors
+} from '../../redux/modules/films'
+import {
+  setParams,
+  selectors as searchSelectors
+} from '../../redux/modules/search'
 
 import {
   Header,
@@ -14,26 +22,33 @@ import {
   ContentMessage
 } from '../../components'
 
-import SearchForm from './components/search-form'
+import { SearchForm } from './components/search-form'
 import { SearchResults } from './components/search-results'
 
+const mapStateToProps = state => ({
+  search: searchSelectors.search(state),
+  searchBy: searchSelectors.searchBy(state),
+  sortBy: searchSelectors.sortBy(state),
+  films: filmsSelectors.films(state),
+  foundCount: filmsSelectors.total(state),
+  displayCount: filmsSelectors.limit(state),
+  isFetching: filmsSelectors.isFetching(state)
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ setSearchParams: setParams, fetchFilms }, dispatch)
+
 export class SearchContainer extends React.PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.queryParams = new QueryParams()
-      .limit(15)
-      .search('')
-      .searchBy(searchBy.title)
-      .sortBy(sortBy.releaseDate)
-      .sortOrder(sortOrder.desc)
-
-    this.state = {
-      isLoaded: false,
-      films: [],
-      foundCount: 0,
-      queryParams: this.queryParams.getParams()
-    }
+  static propTypes = {
+    search: PropTypes.string,
+    searchBy: PropTypes.string,
+    sortBy: PropTypes.string,
+    films: PropTypes.arrayOf(PropTypes.object),
+    foundCount: PropTypes.number.isRequired,
+    displayCount: PropTypes.number.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    setSearchParams: PropTypes.func.isRequired,
+    fetchFilms: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -44,77 +59,62 @@ export class SearchContainer extends React.PureComponent {
       throw new Error('Error Boundary test')
     }
 
-    const limit = searchParams.has('limit')
-      ? parseInt(searchParams.get('limit'), 10)
-      : 15
-
-    this.queryParams.limit(limit)
-
     this.loadFilms()
   }
 
   loadFilms() {
-    this.setState({
-      isLoaded: false,
-      queryParams: this.queryParams.getParams()
+    return this.props.fetchFilms().catch(error => {
+      toast.error(<ToastError message="Unable to load movies" error={error} />)
     })
-
-    return filmService
-      .getFilms(this.queryParams)
-      .then(result => {
-        this.setState({
-          films: result.data,
-          foundCount: result.total
-        })
-      })
-      .catch(error => {
-        toast.error(
-          <ToastError message="Unable to load movies" error={error} />
-        )
-      })
-      .finally(() => {
-        this.setState({
-          isLoaded: true
-        })
-      })
-  }
-
-  onSortByChange = sortBy => {
-    this.queryParams.sortBy(sortBy)
-    return this.loadFilms()
   }
 
   onSearchChange = ({ search, searchBy }) => {
-    this.queryParams.search(search)
-    this.queryParams.searchBy(searchBy)
+    this.props.setSearchParams({ search, searchBy })
+    return this.loadFilms()
+  }
+
+  onSortByChange = sortBy => {
+    this.props.setSearchParams({ sortBy })
     return this.loadFilms()
   }
 
   render() {
-    /*
-     search={this.state.queryParams.search}
-              searchBy={this.state.queryParams.searchBy}
-              onSearchChange={this.onSearchChange}
-    */
+    const {
+      search,
+      searchBy,
+      films,
+      foundCount,
+      displayCount,
+      isFetching,
+      sortBy
+    } = this.props
+
+    const searchFormProps = {
+      search,
+      searchBy,
+      onSearchChange: this.onSearchChange
+    }
+
+    const searchResultsProps = {
+      films,
+      foundCount,
+      displayCount,
+      sortBy,
+      onSortByChange: this.onSortByChange
+    }
 
     return (
       <React.Fragment>
         <Header>
           <div className="padding-controls">
             <SiteName />
-            <SearchForm />
+            <SearchForm {...searchFormProps} />
           </div>
         </Header>
         <main className="content">
-          <LoadingBlock isLoaded={this.state.isLoaded}>
-            {this.state.foundCount > 0 ? (
-              <SearchResults
-                films={this.state.films}
-                foundCount={this.state.foundCount}
-                displayCount={this.state.queryParams.limit}
-                sortBy={this.state.queryParams.sortBy}
-                onSortByChange={this.onSortByChange}
-              />
+          <LoadingBlock isLoaded={!isFetching}>
+            {foundCount > 0 ? (
+              <SearchResults {...searchResultsProps} />
             ) : (
               <ContentMessage className="font-size-header font-bold color-alt">
                 No movies found
@@ -127,3 +127,5 @@ export class SearchContainer extends React.PureComponent {
     )
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer)

@@ -1,13 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
-
-import {
-  selectors,
-  setSearch,
-  setSearchBy
-} from '../../../redux/modules/search'
 
 import './search-form.css'
 
@@ -18,10 +10,8 @@ import { Radio } from '../../../components'
 export class SearchForm extends React.PureComponent {
   static propTypes = {
     search: PropTypes.string.isRequired,
-    searchBy: PropTypes.string.isRequired,
-    // onSearchChange: PropTypes.func.isRequired,
-    setSearch: PropTypes.func.isRequired,
-    setSearchBy: PropTypes.func.isRequired
+    searchBy: PropTypes.oneOf(Object.values(searchBy)).isRequired,
+    onSearchChange: PropTypes.func.isRequired
   }
 
   searchByOptions = [
@@ -38,15 +28,10 @@ export class SearchForm extends React.PureComponent {
   onSubmit = event => {
     event.preventDefault()
 
-    const { setSearch, setSearchBy } = this.props
-
-    setSearch(this.searchInput.value)
-    setSearchBy(this.searchByInput.value)
-    // fetchFilms()
-    /* this.props.onSearchChange({
+    this.props.onSearchChange({
       search: this.searchInput.value,
       searchBy: this.searchByInput.value
-    }) */
+    })
   }
 
   render() {
@@ -92,13 +77,3 @@ export class SearchForm extends React.PureComponent {
     )
   }
 }
-
-const mapStateToProps = state => ({
-  search: selectors.search(state),
-  searchBy: selectors.searchBy(state)
-})
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setSearch, setSearchBy }, dispatch)
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

@@ -1,20 +1,23 @@
 import axios from 'axios'
 
+// TODO: Replace with redux-axios-middleware?
 const filmService = {
   /**
-   * @param {QueryParams} queryParams
+   * @param {Object} params Search params
+   * @param {string} params.search Search term
+   * @param {string} params.searchBy
+   * @param {string} params.sortBy
+   * @param {string} params.sortOrder
+   * @param {string} params.limit
    */
-  getFilms(queryParams) {
-    return axios
-      .get('/movies', {
-        params: queryParams.getParams()
-      })
-      .then(({ data }) => data)
+  getFilms(params) {
+    return axios.get('/movies', {
+      params
+    })
   },
 
   getFilm(id) {
-    // TODO: Extract data globally
-    return axios.get(`/movies/${id}`).then(({ data }) => data)
+    return axios.get(`/movies/${id}`)
   }
 }
 

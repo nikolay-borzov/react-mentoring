@@ -9,6 +9,10 @@ const configureStore = preloadedState => {
 
   const middleware = [thunk]
 
+  if (isDevelopment) {
+    middleware.push(require('redux-logger').default)
+  }
+
   const store = createStore(
     reducer,
     /* preloadedState */

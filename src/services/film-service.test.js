@@ -1,7 +1,5 @@
 import filmService from './film-service'
 
-import { QueryParams } from '../entities/query-params'
-
 import axios from 'axios'
 
 import { film, films } from '../../jest/stubs'
@@ -14,27 +12,40 @@ describe('filmService', () => {
   })
 
   it('requests movies', () => {
-    const queryParams = new QueryParams()
     const requestParams = {
-      params: queryParams.getParams()
+      params: {
+        search: 'Gemini',
+        searchBy: 'title',
+        sortBy: 'release_date',
+        sortOrder: 'desc',
+        limit: 15
+      }
     }
 
-    axios.get.mockReturnValue(Promise.resolve({ data: films }))
+    const resultExpected = {
+      data: films
+    }
 
-    filmService.getFilms(queryParams).then(result => {
+    axios.get.mockReturnValue(Promise.resolve(resultExpected))
+
+    filmService.getFilms(requestParams.params).then(result => {
       expect(axios.get).toHaveBeenCalledWith('/movies', requestParams)
-      expect(result).toBe(films)
+      expect(result).toBe(resultExpected)
     })
   })
 
   it('requests movie by id', () => {
     const id = 1
 
-    axios.get.mockReturnValue(Promise.resolve({ data: film }))
+    const resultExpected = {
+      data: film
+    }
+
+    axios.get.mockReturnValue(Promise.resolve(resultExpected))
 
     filmService.getFilm(id).then(result => {
       expect(axios.get).toHaveBeenCalledWith(`/movies/${id}`)
-      expect(result).toBe(film)
+      expect(result).toBe(resultExpected)
     })
   })
 })

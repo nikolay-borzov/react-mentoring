@@ -1,76 +1,67 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
 import { films } from '../../../jest/stubs'
 
-import filmService from '../../services/film-service'
 import { toast } from 'react-toastify'
 import { SearchContainer } from './search-container'
 
-import { setUrl } from '../../../jest/test-helpers'
+import { setUrl, itRendersCorrectlyShallow } from '../../../jest/test-helpers'
 
 jest.mock('../../services/film-service')
 
 describe('SearchContainer page component', () => {
-  const getFilmsResponse = {
-    data: films,
-    total: 3000
+  const setSearchParamsMock = jest.fn()
+  const fetchFilmsMock = jest.fn()
+
+  const props = {
+    search: '',
+    searchBy: 'title',
+    sortBy: 'release_date',
+    films: films,
+    foundCount: films.length,
+    displayCount: 15,
+    isFetching: false,
+    setSearchParams: setSearchParamsMock,
+    fetchFilms: fetchFilmsMock
   }
 
   const render = () => {
-    const wrapper = shallow(<SearchContainer />)
+    const wrapper = shallow(<SearchContainer {...props} />)
 
     return { wrapper, instance: wrapper.instance() }
   }
 
   beforeEach(() => {
-    filmService.getFilms.mockClear()
+    setSearchParamsMock.mockClear()
+    fetchFilmsMock.mockClear()
     setUrl('/')
+
+    props.films = films
+    props.foundCount = films.length
+
+    fetchFilmsMock.mockReturnValue(Promise.resolve())
   })
 
   describe('it renders correctly', () => {
-    let tree
-
     beforeEach(() => {
-      filmService.getFilms.mockReturnValue(Promise.resolve(getFilmsResponse))
-      tree = renderer.create(<SearchContainer />)
+      fetchFilmsMock.mockReturnValue(Promise.resolve())
     })
 
-    it('when films are provided', () => {
-      tree.root.instance.setState({
-        films,
-        isLoaded: true
-      })
+    itRendersCorrectlyShallow(
+      () => <SearchContainer {...props} />,
+      'when films are provided'
+    )
 
-      expect(tree.toJSON()).toMatchSnapshot()
-    })
+    itRendersCorrectlyShallow(() => {
+      props.films = []
+      props.foundCount = 0
 
-    it('when no films found', () => {
-      tree.root.instance.setState({
-        films: [],
-        isLoaded: true,
-        foundCount: 0
-      })
-
-      expect(tree.toJSON()).toMatchSnapshot()
-    })
+      return <SearchContainer {...props} />
+    }, 'when no films found')
   })
 
-  it('sets initial query params', () => {
-    filmService.getFilms.mockReturnValue(Promise.resolve(getFilmsResponse))
-
-    const { instance } = render()
-
-    expect(instance.queryParams.getParams()).toMatchObject({
-      limit: 15,
-      search: '',
-      searchBy: 'title',
-      sortBy: 'release_date',
-      sortOrder: 'desc'
-    })
-  })
-
+  /* TODO: Implement when router is integrated
   it('takes params from URL', () => {
     setUrl('?limit=25')
 
@@ -80,6 +71,7 @@ describe('SearchContainer page component', () => {
       limit: 25
     })
   })
+  */
 
   it('generates error for Error Boundary test', () => {
     setUrl('?throwError=1')
@@ -88,64 +80,47 @@ describe('SearchContainer page component', () => {
   })
 
   it('loads films', () => {
-    filmService.getFilms.mockReturnValue(Promise.resolve(getFilmsResponse))
+    render()
 
-    const { wrapper, instance } = render()
-
-    expect(filmService.getFilms).toHaveBeenCalledWith(instance.queryParams)
-
-    return instance.loadFilms().then(() => {
-      const state = wrapper.state()
-
-      expect(state.films).toBe(films)
-      expect(state.foundCount).toBe(getFilmsResponse.total)
-      expect(state.isLoaded).toBe(true)
-    })
+    expect(fetchFilmsMock).toHaveBeenCalled()
   })
 
   it('loads films on sort change', () => {
-    filmService.getFilms.mockReturnValue(Promise.resolve(getFilmsResponse))
     const sortBy = 'vote_average'
 
     const { instance } = render()
 
-    filmService.getFilms.mockClear()
+    // Clear initial call
+    fetchFilmsMock.mockClear()
     return instance.onSortByChange(sortBy).then(() => {
-      expect(instance.queryParams.getParams()).toMatchObject({
-        sortBy
-      })
-
-      // Two calls - one initial and one on sort change
-      expect(filmService.getFilms).toHaveBeenCalled()
+      expect(setSearchParamsMock).toHaveBeenCalledWith({ sortBy })
+      expect(fetchFilmsMock).toHaveBeenCalled()
     })
   })
 
   it('loads films on search change', () => {
-    filmService.getFilms.mockReturnValue(Promise.resolve(getFilmsResponse))
     const params = { search: 'Horror', searchBy: 'genre' }
 
     const { instance } = render()
 
-    filmService.getFilms.mockClear()
+    // Clear initial call
+    fetchFilmsMock.mockClear()
     return instance.onSearchChange(params).then(() => {
-      expect(instance.queryParams.getParams()).toMatchObject(params)
-
-      // Two calls - one initial and one on sort change
-      expect(filmService.getFilms).toHaveBeenCalled()
+      expect(setSearchParamsMock).toHaveBeenCalledWith(params)
+      expect(fetchFilmsMock).toHaveBeenCalled()
     })
   })
 
   it('displays error when unable to load the films', async () => {
     const error = new Error('Films load error')
-    filmService.getFilms.mockReturnValue(Promise.reject(error))
+    fetchFilmsMock.mockReturnValue(Promise.reject(error))
 
-    const { wrapper, instance } = render()
+    const { instance } = render()
 
-    expect.assertions(2)
+    expect.assertions(1)
 
     return instance.loadFilms().then(() => {
       expect(toast.error).toHaveBeenCalled()
-      expect(wrapper.state().isLoaded).toBe(true)
     })
   })
 })

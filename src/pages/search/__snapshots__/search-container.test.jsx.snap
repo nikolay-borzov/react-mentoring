@@ -1,351 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchContainer page component it renders correctly when films are provided 1`] = `
-Array [
-  <header
-    className="alt-background"
-  >
+<React.Fragment>
+  <Header>
     <div
       className="padding-controls"
     >
-      <span
-        className="site-name"
-      >
-        Movie Search
-      </span>
-      <div
-        className="search-form-container"
-      >
-        <form
-          name="search-form"
-          onSubmit={[Function]}
-        >
-          <div
-            className="form-row"
-          >
-            <label
-              className="form-label uppercase"
-            >
-              Find your movie
-            </label>
-          </div>
-          <div
-            className="form-row"
-          >
-            <input
-              className="text-input"
-              defaultValue=""
-              name="search"
-              type="text"
-            />
-          </div>
-          <div
-            className="form-row uppercase"
-          >
-            <div
-              className="radio-input-wrapper"
-            >
-              <label
-                className="form-label nowrap"
-              >
-                Search by
-              </label>
-              <div
-                className="radio-input radio-input--style-button"
-              >
-                <input
-                  defaultChecked={true}
-                  id="searchBy_title"
-                  name="searchBy"
-                  onChange={[Function]}
-                  type="radio"
-                  value="title"
-                />
-                <label
-                  className="radio-input__label"
-                  htmlFor="searchBy_title"
-                >
-                  Title
-                </label>
-              </div>
-              <div
-                className="radio-input radio-input--style-button"
-              >
-                <input
-                  defaultChecked={false}
-                  id="searchBy_genres"
-                  name="searchBy"
-                  onChange={[Function]}
-                  type="radio"
-                  value="genres"
-                />
-                <label
-                  className="radio-input__label"
-                  htmlFor="searchBy_genres"
-                >
-                  Genre
-                </label>
-              </div>
-            </div>
-            <div
-              className="flex-grow align-right"
-            >
-              <input
-                className="button button--primary"
-                type="submit"
-                value="Search"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
+      <SiteName />
+      <SearchForm
+        onSearchChange={[Function]}
+        search=""
+        searchBy="title"
+      />
     </div>
-  </header>,
+  </Header>
   <main
     className="content"
   >
-    <div
-      className="search-results-panel font-bold padding-controls"
-      data-cy="search-results-panel"
+    <LoadingBlock
+      hideText={false}
+      isLoaded={true}
     >
-      <div>
-        3000
-         
-        movies
-         found (
-        15
-         shown)
-      </div>
-      <div
-        className="radio-input-wrapper"
-      >
-        <label
-          className="form-label nowrap"
-        >
-          Sort by
-        </label>
-        <div
-          className="radio-input radio-input--style-plain"
-        >
-          <input
-            defaultChecked={true}
-            id="sortBy_release_date"
-            name="sortBy"
-            onChange={[Function]}
-            type="radio"
-            value="release_date"
-          />
-          <label
-            className="radio-input__label"
-            htmlFor="sortBy_release_date"
-          >
-            release date
-          </label>
-        </div>
-        <div
-          className="radio-input radio-input--style-plain"
-        >
-          <input
-            defaultChecked={false}
-            id="sortBy_vote_average"
-            name="sortBy"
-            onChange={[Function]}
-            type="radio"
-            value="vote_average"
-          />
-          <label
-            className="radio-input__label"
-            htmlFor="sortBy_vote_average"
-          >
-            rating
-          </label>
-        </div>
-      </div>
-    </div>
-    <div
-      className="film-grid padding-content"
-      data-cy="film-grid"
-    >
-      <a
-        className="film-grid-item hover-effect"
-        data-cy="film-grid-item"
-        href="?id=1"
-        tabIndex={0}
-      >
-        <div
-          className="imageloader imageloader-loading"
-        >
-          <div
-            className="image-loading-indicator content-image-placeholder"
-          >
-            <div
-              className="image-spinner"
-            >
-              <div
-                className="image-spinner__bounce1"
-              />
-              <div
-                className="image-spinner__bounce2"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          className="film-grid-item__info"
-        >
-          <div
-            className="film-grid-item__row film-grid-item__title"
-          >
-            <span
-              className="uppercase font-bold"
-            >
-              Film title
-            </span>
-            <span
-              className="film-grid-item__date font-size-small color-alt"
-            >
-              2018
-            </span>
-          </div>
-          <div
-            className="film-grid-item__row color-alt"
-          >
-            some genre, another genre
-          </div>
-        </div>
-      </a>
-    </div>
-  </main>,
-  <footer
-    className="alt-background padding-controls"
-  >
-    <span
-      className="site-name"
-    >
-      Movie Search
-    </span>
-  </footer>,
-]
+      <SearchResults
+        displayCount={15}
+        films={
+          Array [
+            Object {
+              "genres": Array [
+                "some genre",
+                "another genre",
+              ],
+              "id": 1,
+              "overview": "Film overview",
+              "poster_path": "http://via.placeholder.com/500x750",
+              "release_date": "2018-05-04",
+              "title": "Film title",
+            },
+          ]
+        }
+        foundCount={1}
+        onSortByChange={[Function]}
+        sortBy="release_date"
+      />
+    </LoadingBlock>
+  </main>
+  <Footer />
+</React.Fragment>
 `;
 
 exports[`SearchContainer page component it renders correctly when no films found 1`] = `
-Array [
-  <header
-    className="alt-background"
-  >
+<React.Fragment>
+  <Header>
     <div
       className="padding-controls"
     >
-      <span
-        className="site-name"
-      >
-        Movie Search
-      </span>
-      <div
-        className="search-form-container"
-      >
-        <form
-          name="search-form"
-          onSubmit={[Function]}
-        >
-          <div
-            className="form-row"
-          >
-            <label
-              className="form-label uppercase"
-            >
-              Find your movie
-            </label>
-          </div>
-          <div
-            className="form-row"
-          >
-            <input
-              className="text-input"
-              defaultValue=""
-              name="search"
-              type="text"
-            />
-          </div>
-          <div
-            className="form-row uppercase"
-          >
-            <div
-              className="radio-input-wrapper"
-            >
-              <label
-                className="form-label nowrap"
-              >
-                Search by
-              </label>
-              <div
-                className="radio-input radio-input--style-button"
-              >
-                <input
-                  defaultChecked={true}
-                  id="searchBy_title"
-                  name="searchBy"
-                  onChange={[Function]}
-                  type="radio"
-                  value="title"
-                />
-                <label
-                  className="radio-input__label"
-                  htmlFor="searchBy_title"
-                >
-                  Title
-                </label>
-              </div>
-              <div
-                className="radio-input radio-input--style-button"
-              >
-                <input
-                  defaultChecked={false}
-                  id="searchBy_genres"
-                  name="searchBy"
-                  onChange={[Function]}
-                  type="radio"
-                  value="genres"
-                />
-                <label
-                  className="radio-input__label"
-                  htmlFor="searchBy_genres"
-                >
-                  Genre
-                </label>
-              </div>
-            </div>
-            <div
-              className="flex-grow align-right"
-            >
-              <input
-                className="button button--primary"
-                type="submit"
-                value="Search"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
+      <SiteName />
+      <SearchForm
+        onSearchChange={[Function]}
+        search=""
+        searchBy="title"
+      />
     </div>
-  </header>,
+  </Header>
   <main
     className="content"
   >
-    <div
-      className="centered font-size-header font-bold color-alt"
+    <LoadingBlock
+      hideText={false}
+      isLoaded={true}
     >
-      No movies found
-    </div>
-  </main>,
-  <footer
-    className="alt-background padding-controls"
-  >
-    <span
-      className="site-name"
-    >
-      Movie Search
-    </span>
-  </footer>,
-]
+      <ContentMessage
+        className="font-size-header font-bold color-alt"
+      >
+        No movies found
+      </ContentMessage>
+    </LoadingBlock>
+  </main>
+  <Footer />
+</React.Fragment>
 `;
