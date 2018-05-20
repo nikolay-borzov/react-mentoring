@@ -6,6 +6,7 @@ module.exports = {
   },
   globals: {
     API_URL: true,
+    IS_DEVELOPMENT: true,
     // Enzyme
     shallow: true,
     render: true,

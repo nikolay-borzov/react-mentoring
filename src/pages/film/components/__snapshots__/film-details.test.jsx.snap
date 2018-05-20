@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmDetails component renders correctly when film is provided 1`] = `
+<div
+  className="film-details flex padding-content"
+>
+  <React.Fragment>
+    <div
+      className="film-details__image"
+    >
+      <ContentImage
+        alt="Film title"
+        src="http://via.placeholder.com/500x750"
+        title=""
+      />
+    </div>
+    <div
+      className="film-details__description"
+    >
+      <div
+        className="flex flex-align-center"
+      >
+        <h1>
+          Film title
+           
+        </h1>
+        <span
+          className="film-details__rating"
+        />
+      </div>
+      <p
+        className="font-size-big"
+      >
+        some genre, another genre
+      </p>
+      <p
+        className="font-bold"
+      >
+        2018
+      </p>
+      <p
+        className="font-size-big"
+      >
+        Film overview
+      </p>
+    </div>
+  </React.Fragment>
+</div>
+`;
+
+exports[`FilmDetails component renders correctly when film isn't provided 1`] = `
+<div
+  className="film-details flex padding-content"
+>
+  <div
+    className="error-message centered"
+  >
+    Unable to load the movie
+  </div>
+</div>
+`;

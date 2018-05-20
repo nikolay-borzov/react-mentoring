@@ -7,9 +7,45 @@ exports[`SearchResults component renders correctly 1`] = `
       3000
        
       movies
-       found (
-      15
-       shown)
+       found
+       
+      (15 shown)
+    </div>
+    <Radio
+      label="Sort by"
+      name="sortBy"
+      onChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "name": "release date",
+            "value": "release_date",
+          },
+          Object {
+            "name": "rating",
+            "value": "vote_average",
+          },
+        ]
+      }
+      style="plain"
+      value="release_date"
+    />
+  </SearchResultsPanel>
+  <FilmsGrid
+    films={Array []}
+  />
+</React.Fragment>
+`;
+
+exports[`SearchResults component renders correctly when found count is bigger than limit value 1`] = `
+<React.Fragment>
+  <SearchResultsPanel>
+    <div>
+      10
+       
+      movies
+       found
+       
     </div>
     <Radio
       label="Sort by"
@@ -44,9 +80,8 @@ exports[`SearchResults component renders correctly when only one movie is found 
       1
        
       movie
-       found (
-      1
-       shown)
+       found
+       
     </div>
     <Radio
       label="Sort by"

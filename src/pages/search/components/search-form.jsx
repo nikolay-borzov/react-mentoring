@@ -10,7 +10,7 @@ import { Radio } from '../../../components'
 export class SearchForm extends React.PureComponent {
   static propTypes = {
     search: PropTypes.string.isRequired,
-    searchBy: PropTypes.string.isRequired,
+    searchBy: PropTypes.oneOf(Object.values(searchBy)).isRequired,
     onSearchChange: PropTypes.func.isRequired
   }
 
@@ -35,6 +35,8 @@ export class SearchForm extends React.PureComponent {
   }
 
   render() {
+    const { search, searchBy } = this.props
+
     return (
       <div className="search-form-container">
         <form name="search-form" onSubmit={this.onSubmit}>
@@ -48,7 +50,7 @@ export class SearchForm extends React.PureComponent {
               ref={input => (this.searchInput = input)}
               type="text"
               className="text-input"
-              defaultValue={this.props.search}
+              defaultValue={search}
             />
           </div>
 
@@ -57,7 +59,7 @@ export class SearchForm extends React.PureComponent {
               ref={input => (this.searchByInput = input)}
               name="searchBy"
               label="Search by"
-              defaultValue={this.props.searchBy}
+              defaultValue={searchBy}
               options={this.searchByOptions}
               style="button"
             />

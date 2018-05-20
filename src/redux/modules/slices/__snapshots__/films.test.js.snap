@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Films state slice reducer returns initial state 1`] = `
+Object {
+  "error": [Error: Generic error],
+  "isFetching": true,
+  "items": Array [
+    Object {
+      "genres": Array [
+        "some genre",
+        "another genre",
+      ],
+      "id": 1,
+      "overview": "Film overview",
+      "poster_path": "http://via.placeholder.com/500x750",
+      "release_date": "2018-05-04",
+      "title": "Film title",
+    },
+  ],
+  "limit": 15,
+  "total": 3000,
+}
+`;
