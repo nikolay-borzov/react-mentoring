@@ -1,10 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 
-import filmService from '../../services/film-service'
-import { QueryParams } from '../../entities'
-import { sortBy, searchBy, sortOrder } from '../../enums'
+import {
+  fetchFilm,
+  setRelatedFilmsSearchParams,
+  fetchRelatedFilms,
+  selectors
+} from '../../redux/modules/view'
 
 import {
   Header,
@@ -19,29 +24,37 @@ import {
 
 import { FilmDetails } from './components/film-details'
 
+const mapStateToProps = state => ({
+  film: selectors.film.film(state),
+  filmIsFetching: selectors.film.isFetching(state),
+  genre: selectors.relatedFilms.searchParams.search(state),
+  relatedFilms: selectors.relatedFilms.films.films(state),
+  relatedFilmsIsFetching: selectors.relatedFilms.films.isFetching(state),
+  relatedFilmsError: selectors.relatedFilms.films.error(state)
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchFilm,
+      setRelatedFilmsSearchParams,
+      fetchRelatedFilms
+    },
+    dispatch
+  )
+
 export class FilmContainer extends React.Component {
   static propTypes = {
-    filmId: PropTypes.number.isRequired
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.queryParams = new QueryParams()
-      .limit(30)
-      .search('')
-      .searchBy(searchBy.genres)
-      .sortBy(sortBy.rating)
-      .sortOrder(sortOrder.desc)
-
-    this.state = {
-      isFilmLoaded: false,
-      film: null,
-      genre: '',
-      relatedFilms: [],
-      isRelatedFilmsLoaded: false,
-      relatedFilmsError: false
-    }
+    filmId: PropTypes.number.isRequired,
+    film: PropTypes.object,
+    filmIsFetching: PropTypes.bool.isRequired,
+    genre: PropTypes.string.isRequired,
+    relatedFilms: PropTypes.arrayOf(PropTypes.object),
+    relatedFilmsIsFetching: PropTypes.bool.isRequired,
+    relatedFilmsError: PropTypes.object,
+    fetchFilm: PropTypes.func.isRequired,
+    setRelatedFilmsSearchParams: PropTypes.func.isRequired,
+    fetchRelatedFilms: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -49,73 +62,59 @@ export class FilmContainer extends React.Component {
   }
 
   loadFilm(id) {
-    return filmService
-      .getFilm(id)
-      .then(film => {
-        const genre = film.genres[0]
-
-        this.setState({
-          film,
-          genre
-        })
-
-        this.loadRelatedFilms(genre)
+    return this.props
+      .fetchFilm(id)
+      .then(() => {
+        const genres = this.props.film.genres
+        this.loadRelatedFilms(genres[0])
       })
       .catch(error => {
-        this.setState({
-          isRelatedFilmsLoaded: true
-        })
-
         toast.error(
           <ToastError message="Unable to load the movie" error={error} />
         )
       })
-      .finally(() => {
-        this.setState({
-          isFilmLoaded: true
-        })
-      })
   }
 
   loadRelatedFilms(genre) {
-    this.queryParams.search(genre)
+    const { setRelatedFilmsSearchParams, fetchRelatedFilms } = this.props
 
-    return filmService
-      .getFilms(this.queryParams)
-      .then(result => {
-        this.setState({
-          relatedFilms: result.data
-        })
-      })
-      .catch(error => {
-        this.setState({
-          relatedFilmsError: true
-        })
+    setRelatedFilmsSearchParams({
+      search: genre
+    })
 
-        toast.error(
-          <ToastError message="Unable to load related movies" error={error} />
-        )
+    return fetchRelatedFilms().catch(error => {
+      this.setState({
+        relatedFilmsError: true
       })
-      .finally(() => {
-        this.setState({
-          isRelatedFilmsLoaded: true
-        })
-      })
+
+      toast.error(
+        <ToastError message="Unable to load related movies" error={error} />
+      )
+    })
   }
 
   render() {
-    let relatedFilms
+    const {
+      film,
+      filmIsFetching,
+      genre,
+      relatedFilms,
+      relatedFilmsIsFetching,
+      relatedFilmsError
+    } = this.props
 
-    if (this.state.relatedFilms.length > 0) {
-      relatedFilms = <FilmsGrid films={this.state.relatedFilms} />
-    } else if (this.state.relatedFilmsError) {
-      relatedFilms = (
+    let relatedFilmsBlock
+
+    if (relatedFilms.length > 0) {
+      relatedFilmsBlock = <FilmsGrid films={relatedFilms} />
+    } else if (relatedFilmsError) {
+      relatedFilmsBlock = (
         <ContentMessage className="error-message">
           Unable to load related movies
         </ContentMessage>
       )
     } else {
-      relatedFilms = (
+      relatedFilmsBlock = (
         <ContentMessage className="font-size-header font-bold color-alt">
           No related movies found
         </ContentMessage>
@@ -133,17 +132,15 @@ export class FilmContainer extends React.Component {
               Search
             </a>
           </div>
-          <LoadingBlock isLoaded={this.state.isFilmLoaded} hideText={true}>
-            <FilmDetails film={this.state.film} />
+          <LoadingBlock isLoaded={!filmIsFetching} hideText={true}>
+            <FilmDetails film={film} />
           </LoadingBlock>
         </Header>
 
         <main className="content">
-          <LoadingBlock isLoaded={this.state.isRelatedFilmsLoaded}>
-            <SearchResultsPanel>
-              Films by {this.state.genre} genre
-            </SearchResultsPanel>
-            {relatedFilms}
+          <LoadingBlock isLoaded={!relatedFilmsIsFetching}>
+            <SearchResultsPanel>Films by {genre} genre</SearchResultsPanel>
+            {relatedFilmsBlock}
           </LoadingBlock>
         </main>
         <Footer />
@@ -151,3 +148,5 @@ export class FilmContainer extends React.Component {
     )
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilmContainer)

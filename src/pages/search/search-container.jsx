@@ -4,14 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 
-import {
-  fetchFilms,
-  selectors as filmsSelectors
-} from '../../redux/modules/films'
-import {
-  setParams,
-  selectors as searchSelectors
-} from '../../redux/modules/search'
+import { setParams, fetchFilms, selectors } from '../../redux/modules/search'
 
 import {
   Header,
@@ -26,13 +19,13 @@ import { SearchForm } from './components/search-form'
 import { SearchResults } from './components/search-results'
 
 const mapStateToProps = state => ({
-  search: searchSelectors.search(state),
-  searchBy: searchSelectors.searchBy(state),
-  sortBy: searchSelectors.sortBy(state),
-  films: filmsSelectors.films(state),
-  foundCount: filmsSelectors.total(state),
-  displayCount: filmsSelectors.limit(state),
-  isFetching: filmsSelectors.isFetching(state)
+  search: selectors.searchParams.search(state),
+  searchBy: selectors.searchParams.searchBy(state),
+  sortBy: selectors.searchParams.sortBy(state),
+  films: selectors.films.films(state),
+  foundCount: selectors.films.total(state),
+  displayCount: selectors.films.limit(state),
+  isFetching: selectors.films.isFetching(state)
 })
 
 const mapDispatchToProps = dispatch =>
@@ -40,9 +33,9 @@ const mapDispatchToProps = dispatch =>
 
 export class SearchContainer extends React.PureComponent {
   static propTypes = {
-    search: PropTypes.string,
-    searchBy: PropTypes.string,
-    sortBy: PropTypes.string,
+    search: PropTypes.string.isRequired,
+    searchBy: PropTypes.string.isRequired,
+    sortBy: PropTypes.string.isRequired,
     films: PropTypes.arrayOf(PropTypes.object),
     foundCount: PropTypes.number.isRequired,
     displayCount: PropTypes.number.isRequired,

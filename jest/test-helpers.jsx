@@ -1,6 +1,9 @@
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+
 /**
  * Creates test closure for snapshot testing
  * @deprecated Use itRendersCorrectlyShallow
@@ -58,6 +61,11 @@ export const itContainsComponent = (
     }
   })
 }
+
+/**
+ * Creates mocked store
+ */
+export const getMockStore = () => configureMockStore([thunk])
 
 /**
  * Sets relative URL

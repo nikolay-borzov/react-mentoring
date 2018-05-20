@@ -31,7 +31,7 @@ describe('App component', () => {
       setUrl('/?id=1')
       return <App />
     },
-    'FilmContainer',
+    'Connect(FilmContainer)',
     {
       testName: `renders 'FilmContainer' if URL contains 'id' parameter`
     }

@@ -1,60 +1,55 @@
-import { createAction, handleAction } from 'redux-actions'
-import { createSelector } from 'reselect'
+import { combineReducers } from 'redux'
 
 import { searchBy, sortBy, sortOrder } from '../../enums'
 
+import createSearchParamsSlice from './slices/search-params'
+import createFilmsSlice from './slices/films'
+
+/* State Shape
+  {
+    searchParams: {},
+    films: {}
+  }
+*/
+
+const sliceId = 'SEARCH'
+
+const searchParamsSlice = createSearchParamsSlice({
+  id: sliceId,
+  rootSelector: state => state.search.searchParams,
+  initialState: {
+    search: '',
+    searchBy: searchBy.title,
+    sortBy: sortBy.releaseDate,
+    sortOrder: sortOrder.desc,
+    limit: 15,
+    filter: []
+  }
+})
+
+const filmsSlice = createFilmsSlice({
+  id: sliceId,
+  rootSelector: state => state.search.films,
+  searchParamsSelector: searchParamsSlice.selectors.params
+})
+
 // Selectors
 
-const rootSelector = state => state.search
-
-const searchSelector = createSelector(rootSelector, search => search.search)
-const searchBySelector = createSelector(rootSelector, search => search.searchBy)
-const sortBySelector = createSelector(rootSelector, search => search.sortBy)
-
 export const selectors = {
-  params: rootSelector,
-  search: searchSelector,
-  searchBy: searchBySelector,
-  sortBy: sortBySelector
-}
-
-// Action Types
-
-export const actionTypes = {
-  SET_PARAMS: 'FILM_SEARCH/SEARCH/SET_PARAMS'
+  searchParams: searchParamsSlice.selectors,
+  films: filmsSlice.selectors
 }
 
 // Action Creators
 
-const allowedParams = ['search', 'searchBy', 'sortBy']
-
-export const setParams = createAction(actionTypes.SET_PARAMS, payload =>
-  allowedParams.reduce((result, param) => {
-    if (payload.hasOwnProperty(param)) {
-      result[param] = payload[param]
-    }
-
-    return result
-  }, {})
-)
+export const setParams = searchParamsSlice.actionCreators.setParams
+export const fetchFilms = filmsSlice.actionCreators.fetchFilms
 
 // Reducer
 
-const initialState = {
-  search: '',
-  searchBy: searchBy.title,
-  sortBy: sortBy.releaseDate,
-  sortOrder: sortOrder.desc,
-  limit: 15
-}
+const rootReducer = combineReducers({
+  searchParams: searchParamsSlice.reducer,
+  films: filmsSlice.reducer
+})
 
-const reducer = handleAction(
-  setParams,
-  (state, { payload: params }) => ({
-    ...state,
-    ...params
-  }),
-  initialState
-)
-
-export default reducer
+export default rootReducer

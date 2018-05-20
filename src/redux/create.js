@@ -5,11 +5,10 @@ import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProductio
 import reducer from './reducer'
 
 const configureStore = preloadedState => {
-  const isDevelopment = process.env.NODE_ENV !== 'production'
-
   const middleware = [thunk]
 
-  if (isDevelopment) {
+  /* istanbul ignore next */
+  if (IS_DEVELOPMENT) {
     middleware.push(require('redux-logger').default)
   }
 
@@ -19,7 +18,8 @@ const configureStore = preloadedState => {
     composeWithDevTools(applyMiddleware(...middleware))
   )
 
-  if (isDevelopment && module.hot) {
+  /* istanbul ignore next */
+  if (IS_DEVELOPMENT && module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('./reducer', () => {
       store.replaceReducer(reducer)

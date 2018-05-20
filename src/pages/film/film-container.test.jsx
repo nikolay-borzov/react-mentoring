@@ -1,133 +1,135 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
+import { toast } from 'react-toastify'
 
 import { film, films } from '../../../jest/stubs'
+import { itRendersCorrectlyShallow } from '../../../jest/test-helpers'
 
-import { FilmContainer } from './film-container'
-
-import filmService from '../../services/film-service'
-import { toast } from 'react-toastify'
+import FilmContainerConnected, { FilmContainer } from './film-container'
+import configureStore from '../../redux/create'
 
 jest.mock('../../services/film-service')
 
-// TODO: Mock ContentImage component https://medium.com/xebia/de-mystifying-jest-snapshot-test-mocks-8e7183d109ea
-
 describe('FilmContainer page component', () => {
-  const getFilmsResponse = {
-    data: films
-  }
+  const fetchFilmMock = jest.fn()
+  const setRelatedFilmsSearchParamsMock = jest.fn()
+  const fetchRelatedFilmsMock = jest.fn()
 
   let props = {
-    filmId: film.id
+    filmId: film.id,
+    film,
+    filmIsFetching: false,
+    genre: 'Horror',
+    relatedFilms: films,
+    relatedFilmsIsFetching: false,
+    relatedFilmsError: null,
+    fetchFilm: fetchFilmMock,
+    setRelatedFilmsSearchParams: setRelatedFilmsSearchParamsMock,
+    fetchRelatedFilms: fetchRelatedFilmsMock
   }
 
   const render = () => {
     const wrapper = shallow(<FilmContainer {...props} />)
 
-    return { wrapper, instance: wrapper.instance() }
+    return { instance: wrapper.instance() }
   }
 
   beforeEach(() => {
-    filmService.getFilm.mockClear()
-    filmService.getFilms.mockClear()
+    fetchFilmMock.mockClear()
+    setRelatedFilmsSearchParamsMock.mockClear()
+    fetchRelatedFilmsMock.mockClear()
+
+    props.film = film
+    props.relatedFilms = films
+    props.relatedFilmsError = null
+
+    fetchFilmMock.mockReturnValue(Promise.resolve())
+    fetchRelatedFilmsMock.mockReturnValue(Promise.resolve())
   })
 
-  describe('it renders correctly', () => {
-    let tree
+  describe('renders correctly', () => {
+    itRendersCorrectlyShallow(() => {
+      const store = configureStore()
+      return <FilmContainerConnected filmId={film.id} store={store} />
+    }, 'when connected to the store')
 
-    beforeEach(() => {
-      filmService.getFilm.mockReturnValue(Promise.resolve(film))
-      filmService.getFilms.mockReturnValue(Promise.resolve(getFilmsResponse))
-      tree = renderer.create(<FilmContainer {...props} />)
-    })
+    itRendersCorrectlyShallow(
+      () => <FilmContainer {...props} />,
+      'when film and relatedFilms are provided'
+    )
 
-    it('when film and relatedFilms are provided', () => {
-      // TODO: Perhaps there is a better way to get data rendered
-      // https://github.com/facebook/jest/issues/2157
-      // Set data directly to avoid waiting for promise resolving
-      tree.root.instance.setState({
-        film,
-        isFilmLoaded: true,
-        relatedFilms: films,
-        isRelatedFilmsLoaded: true
-      })
+    itRendersCorrectlyShallow(() => {
+      props.film = null
+      return <FilmContainer {...props} />
+    }, 'when the film is unavailable')
 
-      // TODO: Mock ContentImage
-      expect(tree.toJSON()).toMatchSnapshot()
-    })
+    itRendersCorrectlyShallow(() => {
+      props.relatedFilms = []
+      return <FilmContainer {...props} />
+    }, 'when no related films found')
 
-    it('when the film is unavailable', () => {
-      tree.root.instance.setState({
-        film: null,
-        isFilmLoaded: true,
-        relatedFilms: films,
-        isRelatedFilmsLoaded: true
-      })
-
-      expect(tree.toJSON()).toMatchSnapshot()
-    })
+    itRendersCorrectlyShallow(() => {
+      props.relatedFilms = []
+      props.relatedFilmsError = new Error('Load error')
+      return <FilmContainer {...props} />
+    }, 'when no related films failed to load')
   })
 
   it('loads a film by id and related films by genre', () => {
-    filmService.getFilm.mockReturnValue(Promise.resolve(film))
+    const { instance } = render()
 
-    const { wrapper, instance } = render()
+    expect(fetchFilmMock).toHaveBeenCalledWith(film.id)
 
-    expect(filmService.getFilm).toHaveBeenCalled()
+    fetchRelatedFilmsMock.mockClear()
+    setRelatedFilmsSearchParamsMock.mockClear()
+
+    expect.assertions(3)
 
     return instance.loadFilm(film.id).then(() => {
-      const state = wrapper.state()
-
-      expect(state.film).toBe(film)
-      expect(state.genre).toBe(film.genres[0])
-      expect(state.isFilmLoaded).toBe(true)
-
-      expect(filmService.getFilms).toHaveBeenCalled()
+      expect(setRelatedFilmsSearchParamsMock).toHaveBeenCalledWith({
+        search: film.genres[0]
+      })
+      expect(fetchRelatedFilmsMock).toHaveBeenCalled()
     })
   })
 
-  it('displays error when unable to load the film', async () => {
+  it('displays an error when unable to load the film', async () => {
     const error = new Error('Film load error')
-    filmService.getFilm.mockReturnValue(Promise.reject(error))
+    fetchFilmMock.mockReturnValue(Promise.reject(error))
 
-    const { wrapper, instance } = render()
+    const { instance } = render()
 
-    expect.assertions(2)
+    expect.assertions(1)
 
     return instance.loadFilm(film.id).then(() => {
       expect(toast.error).toHaveBeenCalled()
-      expect(wrapper.state().isFilmLoaded).toBe(true)
     })
   })
 
   it('loads related films by genre', () => {
-    filmService.getFilm.mockReturnValue(Promise.resolve(film))
-    filmService.getFilms.mockReturnValue(Promise.resolve(getFilmsResponse))
+    fetchFilmMock.mockReturnValue(Promise.resolve())
+    fetchRelatedFilmsMock.mockReturnValue(Promise.resolve())
 
-    const { wrapper, instance } = render()
+    const { instance } = render()
 
+    expect.assertions(1)
+    // Clear initial call
+    fetchRelatedFilmsMock.mockClear()
     return instance.loadRelatedFilms(film.genres[0]).then(() => {
-      const state = wrapper.state()
-
-      expect(filmService.getFilms).toHaveBeenCalledWith(instance.queryParams)
-
-      expect(state.relatedFilms).toBe(films)
-      expect(state.isRelatedFilmsLoaded).toBe(true)
+      expect(fetchRelatedFilmsMock).toHaveBeenCalled()
     })
   })
 
   it('displays error when unable to load related films', async () => {
     const error = new Error('Films load error')
-    filmService.getFilms.mockReturnValue(Promise.reject(error))
+    fetchRelatedFilmsMock.mockReturnValue(Promise.reject(error))
 
-    const { wrapper, instance } = render()
+    const { instance } = render()
 
-    expect.assertions(2)
+    expect.assertions(1)
 
     return instance.loadRelatedFilms(film.genres[0]).then(() => {
       expect(toast.error).toHaveBeenCalled()
-      expect(wrapper.state().isRelatedFilmsLoaded).toBe(true)
     })
   })
 })

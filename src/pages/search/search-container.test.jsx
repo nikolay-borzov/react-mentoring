@@ -1,10 +1,11 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import { toast } from 'react-toastify'
+
+import SearchContainerConnected, { SearchContainer } from './search-container'
+import configureStore from '../../redux/create'
 
 import { films } from '../../../jest/stubs'
-
-import { toast } from 'react-toastify'
-import { SearchContainer } from './search-container'
 
 import { setUrl, itRendersCorrectlyShallow } from '../../../jest/test-helpers'
 
@@ -44,9 +45,10 @@ describe('SearchContainer page component', () => {
   })
 
   describe('it renders correctly', () => {
-    beforeEach(() => {
-      fetchFilmsMock.mockReturnValue(Promise.resolve())
-    })
+    itRendersCorrectlyShallow(() => {
+      const store = configureStore()
+      return <SearchContainerConnected store={store} />
+    }, 'when connected to the store')
 
     itRendersCorrectlyShallow(
       () => <SearchContainer {...props} />,
@@ -60,18 +62,6 @@ describe('SearchContainer page component', () => {
       return <SearchContainer {...props} />
     }, 'when no films found')
   })
-
-  /* TODO: Implement when router is integrated
-  it('takes params from URL', () => {
-    setUrl('?limit=25')
-
-    const { instance } = render()
-
-    expect(instance.queryParams.getParams()).toMatchObject({
-      limit: 25
-    })
-  })
-  */
 
   it('generates error for Error Boundary test', () => {
     setUrl('?throwError=1')
@@ -111,7 +101,7 @@ describe('SearchContainer page component', () => {
     })
   })
 
-  it('displays error when unable to load the films', async () => {
+  it('displays an error when unable to load the films', async () => {
     const error = new Error('Films load error')
     fetchFilmsMock.mockReturnValue(Promise.reject(error))
 

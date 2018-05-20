@@ -4,7 +4,7 @@ import { ToastContainer, Slide, toast } from 'react-toastify'
 
 import { ErrorBoundary } from './components/error-boundary'
 import SearchContainer from './pages/search/search-container'
-import { FilmContainer } from './pages/film/film-container'
+import FilmContainer from './pages/film/film-container'
 
 export function App() {
   const searchParams = new URLSearchParams(location.search)

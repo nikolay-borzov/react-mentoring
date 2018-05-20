@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import search from './modules/search'
-import films from './modules/films'
+import view from './modules/view'
 
 const rootReducer = combineReducers({
   search,
-  films
+  view
 })
 
 export default rootReducer
