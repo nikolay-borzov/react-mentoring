@@ -62,7 +62,8 @@ module.exports = {
   getConfig(env) {
     const plugins = [
       new webpack.DefinePlugin({
-        API_URL: JSON.stringify(process.env.API_URL)
+        API_URL: JSON.stringify(process.env.API_URL),
+        IS_DEVELOPMENT: process.env.NODE_ENV !== 'production'
       }),
       new CleanWebpackPlugin([distRoot]),
       new HtmlWebpackPlugin({

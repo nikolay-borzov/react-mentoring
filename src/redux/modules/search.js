@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import { searchBy, sortBy, sortOrder } from '../../enums'
 
@@ -47,8 +49,16 @@ export const fetchFilms = filmsSlice.actionCreators.fetchFilms
 
 // Reducer
 
+const searchParamsPersistConfig = {
+  key: 'search.searchParams',
+  storage
+}
+
 const rootReducer = combineReducers({
-  searchParams: searchParamsSlice.reducer,
+  searchParams: persistReducer(
+    searchParamsPersistConfig,
+    searchParamsSlice.reducer
+  ),
   films: filmsSlice.reducer
 })
 

@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './app'
 
@@ -12,12 +13,15 @@ import configureStore from './redux/create'
 
 apiService.init()
 
-const store = configureStore()
+const { store, persistor } = configureStore()
 
 const renderApp = () => {
+  // TODO: Add loading indicator
   render(
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>,
     document.getElementById('root')
   )
@@ -25,6 +29,7 @@ const renderApp = () => {
 
 renderApp()
 
+/* istanbul ignore next */
 if (module.hot) {
   module.hot.accept('./app', renderApp)
 }

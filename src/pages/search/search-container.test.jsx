@@ -46,7 +46,7 @@ describe('SearchContainer page component', () => {
 
   describe('it renders correctly', () => {
     itRendersCorrectlyShallow(() => {
-      const store = configureStore()
+      const { store } = configureStore()
       return <SearchContainerConnected store={store} />
     }, 'when connected to the store')
 

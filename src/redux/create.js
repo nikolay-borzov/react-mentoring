@@ -1,10 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import { persistStore } from 'redux-persist'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 
 import reducer from './reducer'
 
-const configureStore = preloadedState => {
+const configureStore = () => {
   const middleware = [thunk]
 
   /* istanbul ignore next */
@@ -26,7 +27,9 @@ const configureStore = preloadedState => {
     })
   }
 
-  return store
+  const persistor = persistStore(store)
+
+  return { store, persistor }
 }
 
 export default configureStore

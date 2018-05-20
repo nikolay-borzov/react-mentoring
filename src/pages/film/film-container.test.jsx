@@ -49,7 +49,7 @@ describe('FilmContainer page component', () => {
 
   describe('renders correctly', () => {
     itRendersCorrectlyShallow(() => {
-      const store = configureStore()
+      const { store } = configureStore()
       return <FilmContainerConnected filmId={film.id} store={store} />
     }, 'when connected to the store')
 
