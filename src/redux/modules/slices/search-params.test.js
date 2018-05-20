@@ -39,7 +39,7 @@ describe('SearchParams state slice', () => {
     })
 
     it(`returns search params`, () => {
-      expect(selectors.params(state)).toBe(state.searchParams)
+      expect(selectors.params(state)).toEqual(state.searchParams)
     })
   })
 
