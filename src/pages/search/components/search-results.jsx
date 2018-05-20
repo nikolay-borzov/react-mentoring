@@ -38,7 +38,8 @@ export class SearchResults extends React.PureComponent {
       <div>
         {foundCount}&nbsp;
         {foundCount > 1 ? 'movies' : 'movie'}
-        &nbsp;found ({displayCount} shown)
+        &nbsp;found{' '}
+        {foundCount > displayCount ? `(${displayCount} shown)` : null}
       </div>
     )
 

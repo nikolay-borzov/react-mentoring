@@ -30,4 +30,13 @@ describe('SearchResults component', () => {
 
     expect(wrapper).toMatchSnapshot()
   })
+
+  it('renders correctly when found count is bigger than limit value', () => {
+    props.foundCount = 10
+    props.displayCount = 11
+
+    const wrapper = shallow(<SearchResults {...props} />)
+
+    expect(wrapper).toMatchSnapshot()
+  })
 })

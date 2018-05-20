@@ -19,6 +19,7 @@ const configureStore = () => {
     composeWithDevTools(applyMiddleware(...middleware))
   )
 
+  // TODO: https://github.com/rt2zz/redux-persist/blob/master/docs/hot-module-replacement.md
   /* istanbul ignore next */
   if (IS_DEVELOPMENT && module.hot) {
     // Enable Webpack hot module replacement for reducers
