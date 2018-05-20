@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { itRendersCorrectly } from '../../../jest/test-helpers'
+import { itRendersCorrectlyShallow } from '../../../jest/test-helpers'
 
 import { LoadingBlock } from './loading-block'
 
@@ -10,7 +10,9 @@ describe('LoadingBlock component', () => {
     isLoaded: false
   }
 
-  itRendersCorrectly(() => <LoadingBlock {...props}>Content</LoadingBlock>)
+  itRendersCorrectlyShallow(() => (
+    <LoadingBlock {...props}>Content</LoadingBlock>
+  ))
 
   it(`contains 'props.children' if 'isLoaded=true'`, () => {
     props.isLoaded = true

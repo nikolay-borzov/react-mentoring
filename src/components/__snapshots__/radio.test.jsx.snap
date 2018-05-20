@@ -11,6 +11,7 @@ exports[`Radio component if controlled renders correctly 1`] = `
   </label>
   <div
     className="radio-input radio-input--style-button"
+    key="cat"
   >
     <input
       defaultChecked={true}
@@ -29,6 +30,7 @@ exports[`Radio component if controlled renders correctly 1`] = `
   </div>
   <div
     className="radio-input radio-input--style-button"
+    key="dog"
   >
     <input
       defaultChecked={false}
@@ -59,6 +61,7 @@ exports[`Radio component if uncontrolled renders correctly 1`] = `
   </label>
   <div
     className="radio-input radio-input--style-plain"
+    key="cat"
   >
     <input
       defaultChecked={true}
@@ -77,6 +80,7 @@ exports[`Radio component if uncontrolled renders correctly 1`] = `
   </div>
   <div
     className="radio-input radio-input--style-plain"
+    key="dog"
   >
     <input
       defaultChecked={false}

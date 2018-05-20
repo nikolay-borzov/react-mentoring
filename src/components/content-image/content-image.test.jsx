@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {
-  itRendersCorrectly,
+  itRendersCorrectlyShallow,
   itContainsComponent
 } from '../../../jest/test-helpers'
 
@@ -18,9 +18,9 @@ describe('ContentImage component', () => {
     }
   })
 
-  itRendersCorrectly(() => <ContentImage {...props} />)
+  itRendersCorrectlyShallow(() => <ContentImage {...props} />)
 
-  itRendersCorrectly(() => {
+  itRendersCorrectlyShallow(() => {
     props.title = 'Image title'
     return <ContentImage {...props} />
   }, 'renders correctly with title specified')

@@ -18,7 +18,9 @@ exports[`LoadingIndicator component renders correctly 1`] = `
         className="loading-spinner__bounce"
       />
     </div>
-    Loading…
+    <React.Fragment>
+      Loading…
+    </React.Fragment>
   </div>
 </div>
 `;

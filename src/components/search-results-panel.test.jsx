@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { itRendersCorrectly } from '../../jest/test-helpers'
+import { itRendersCorrectlyShallow } from '../../jest/test-helpers'
 
 import { SearchResultsPanel } from './search-results-panel'
 
 describe('SearchResultsPanel component', () => {
-  itRendersCorrectly(() => (
+  itRendersCorrectlyShallow(() => (
     <SearchResultsPanel>
       <p>Some content</p>
       <p>Another content</p>

@@ -1,14 +1,14 @@
 import React from 'react'
 
 import {
-  itRendersCorrectly,
+  itRendersCorrectlyShallow,
   itContainsComponent
 } from '../../jest/test-helpers'
 
 import { Footer } from './footer'
 
 describe('Footer component', () => {
-  itRendersCorrectly(() => <Footer />)
+  itRendersCorrectlyShallow(() => <Footer />)
 
   itContainsComponent(() => <Footer />, 'SiteName')
 })

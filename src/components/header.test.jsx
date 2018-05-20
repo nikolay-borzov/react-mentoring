@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { itRendersCorrectly } from '../../jest/test-helpers'
+import { itRendersCorrectlyShallow } from '../../jest/test-helpers'
 
 import { Header } from './header'
 
 describe('Header component', () => {
-  itRendersCorrectly(() => (
+  itRendersCorrectlyShallow(() => (
     <Header>
       Header content <p>More content</p>
     </Header>

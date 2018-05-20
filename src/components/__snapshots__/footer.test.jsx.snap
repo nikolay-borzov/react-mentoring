@@ -4,10 +4,6 @@ exports[`Footer component renders correctly 1`] = `
 <footer
   className="alt-background padding-controls"
 >
-  <span
-    className="site-name"
-  >
-    Movie Search
-  </span>
+  <SiteName />
 </footer>
 `;

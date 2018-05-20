@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {
-  itRendersCorrectly,
+  itRendersCorrectlyShallow,
   itContainsComponent
 } from '../../../jest/test-helpers'
 import { film } from '../../../jest/stubs'
@@ -13,7 +13,7 @@ describe('FilmsGridItem component', () => {
     film
   }
 
-  itRendersCorrectly(() => <FilmsGridItem {...props} />)
+  itRendersCorrectlyShallow(() => <FilmsGridItem {...props} />)
 
   itContainsComponent(() => <FilmsGridItem {...props} />, 'ContentImage', {
     expectedProps: {
