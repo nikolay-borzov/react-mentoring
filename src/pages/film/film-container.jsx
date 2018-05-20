@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 
 import {
@@ -33,15 +32,11 @@ const mapStateToProps = state => ({
   relatedFilmsError: selectors.relatedFilms.films.error(state)
 })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchFilm,
-      setRelatedFilmsSearchParams,
-      fetchRelatedFilms
-    },
-    dispatch
-  )
+const mapDispatchToProps = {
+  fetchFilm,
+  setRelatedFilmsSearchParams,
+  fetchRelatedFilms
+}
 
 export class FilmContainer extends React.Component {
   static propTypes = {

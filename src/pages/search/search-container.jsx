@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { toast } from 'react-toastify'
 
 import { setParams, fetchFilms, selectors } from '../../redux/modules/search'
@@ -28,8 +27,7 @@ const mapStateToProps = state => ({
   isFetching: selectors.films.isFetching(state)
 })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setSearchParams: setParams, fetchFilms }, dispatch)
+const mapDispatchToProps = { setSearchParams: setParams, fetchFilms }
 
 export class SearchContainer extends React.PureComponent {
   static propTypes = {
