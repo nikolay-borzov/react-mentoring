@@ -1,15 +1,15 @@
 import React from 'react'
 
-import { itRendersCorrectly } from '../../jest/test-helpers'
+import { itRendersCorrectlyShallow } from '../../jest/test-helpers'
 
 import { ContentMessage } from './content-message'
 
 describe('ContentMessage component', () => {
-  itRendersCorrectly(() => (
+  itRendersCorrectlyShallow(() => (
     <ContentMessage>Some content message</ContentMessage>
   ))
 
-  itRendersCorrectly(
+  itRendersCorrectlyShallow(
     () => (
       <ContentMessage className="some-custom-class">
         Some content message

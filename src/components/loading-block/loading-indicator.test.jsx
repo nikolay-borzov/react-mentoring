@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { itRendersCorrectly } from '../../../jest/test-helpers'
+import { itRendersCorrectlyShallow } from '../../../jest/test-helpers'
 
 import { LoadingIndicator } from './loading-indicator'
 
 describe('LoadingIndicator component', () => {
-  itRendersCorrectly(() => <LoadingIndicator hideText={false} />)
+  itRendersCorrectlyShallow(() => <LoadingIndicator hideText={false} />)
 
-  itRendersCorrectly(
+  itRendersCorrectlyShallow(
     () => <LoadingIndicator hideText={true} />,
     `renders correctly without 'loading' text`
   )

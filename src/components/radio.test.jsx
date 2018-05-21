@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { itRendersCorrectly } from '../../jest/test-helpers'
+import { itRendersCorrectlyShallow } from '../../jest/test-helpers'
 
 import { Radio } from './radio'
 
@@ -38,7 +38,7 @@ describe('Radio component', () => {
   })
 
   describe('if controlled', () => {
-    itRendersCorrectly(() => {
+    itRendersCorrectlyShallow(() => {
       props.value = 'cat'
       props.onChange = jest.fn()
       props.style = 'button'
@@ -60,7 +60,7 @@ describe('Radio component', () => {
   })
 
   describe('if uncontrolled', () => {
-    itRendersCorrectly(() => {
+    itRendersCorrectlyShallow(() => {
       props.defaultValue = 'cat'
       props.style = 'plain'
 
