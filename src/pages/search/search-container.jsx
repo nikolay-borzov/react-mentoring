@@ -44,8 +44,6 @@ export class SearchContainer extends React.PureComponent {
     fetchFilms: PropTypes.func.isRequired
   }
 
-  show = false
-
   componentDidMount() {
     const searchParams = new URLSearchParams(location.search)
 
@@ -61,10 +59,29 @@ export class SearchContainer extends React.PureComponent {
     this.loadFilms()
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const search = this.props.match.params.search
-    // Load films if search query has changed
-    if (prevProps.match.params.search !== search) {
+  componentDidUpdate(prevProps) {
+    const {
+      sortBy: prevSortBy,
+      searchBy: prevSearchBy,
+      match: {
+        params: { search: prevSearch }
+      }
+    } = prevProps
+
+    const {
+      sortBy,
+      searchBy,
+      match: {
+        params: { search }
+      }
+    } = this.props
+
+    // Load films if any of search parameter has changed
+    if (
+      search !== prevSearch ||
+      sortBy !== prevSortBy ||
+      searchBy !== prevSearchBy
+    ) {
       this.loadFilms()
     }
   }
@@ -82,7 +99,6 @@ export class SearchContainer extends React.PureComponent {
 
   onSortByChange = sortBy => {
     this.props.setSearchParams({ sortBy })
-    return this.loadFilms()
   }
 
   render() {

@@ -114,6 +114,16 @@ describe('FilmContainer page component', () => {
     expect(fetchFilmMock).toHaveBeenCalled()
   })
 
+  it(`doesn't load a film if id hasn't changed`, () => {
+    const { wrapper, instance } = render()
+    fetchFilmMock.mockClear()
+
+    wrapper.setProps({ genre: 'Drama' })
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmMock).not.toHaveBeenCalled()
+  })
+
   it('displays an error when unable to load the film', async () => {
     const error = new Error('Film load error')
     fetchFilmMock.mockReturnValue(Promise.reject(error))

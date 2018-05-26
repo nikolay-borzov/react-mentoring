@@ -104,20 +104,16 @@ describe('SearchContainer page component', () => {
     })
   })
 
-  it('loads films on sort change', () => {
+  it(`updates 'sortBy' on sort change`, () => {
     const sortBy = 'vote_average'
 
     const { instance } = render()
+    instance.onSortByChange(sortBy)
 
-    // Clear initial call
-    fetchFilmsMock.mockClear()
-    return instance.onSortByChange(sortBy).then(() => {
-      expect(setSearchParamsMock).toHaveBeenCalledWith({ sortBy })
-      expect(fetchFilmsMock).toHaveBeenCalled()
-    })
+    expect(setSearchParamsMock).toHaveBeenCalledWith({ sortBy })
   })
 
-  it('updates url on search change', () => {
+  it(`updates 'search', 'searchBy' and URL on search change`, () => {
     const params = { search: 'Horror', searchBy: 'genre' }
 
     const { instance } = render()
@@ -127,7 +123,7 @@ describe('SearchContainer page component', () => {
     expect(historyMock.push).toHaveBeenCalledWith('/search/Horror')
   })
 
-  it('loads films on query change', () => {
+  it(`loads films on 'search' change`, () => {
     const { wrapper, instance } = render()
     // Clear initial call
     fetchFilmsMock.mockClear()
@@ -137,6 +133,36 @@ describe('SearchContainer page component', () => {
     instance.componentDidUpdate(props)
 
     expect(fetchFilmsMock).toHaveBeenCalled()
+  })
+
+  it(`loads films on 'searchBy' change`, () => {
+    const { wrapper, instance } = render()
+    fetchFilmsMock.mockClear()
+
+    wrapper.setProps({ searchBy: 'genres' })
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmsMock).toHaveBeenCalled()
+  })
+
+  it(`loads films on 'sortBy' change`, () => {
+    const { wrapper, instance } = render()
+    fetchFilmsMock.mockClear()
+
+    wrapper.setProps({ sortBy: 'vote_average' })
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmsMock).toHaveBeenCalled()
+  })
+
+  it(`doesn't load films if none of search params has changed`, () => {
+    const { wrapper, instance } = render()
+    fetchFilmsMock.mockClear()
+
+    wrapper.setProps({ foundCount: 2 })
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmsMock).not.toHaveBeenCalled()
   })
 
   it('displays an error when unable to load the films', async () => {
