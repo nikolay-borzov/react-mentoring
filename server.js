@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 
@@ -28,14 +29,22 @@ function configureForDevelopment(app) {
     const config = require('./webpack.dev.js')
 
     const compiler = webpack(config)
+    const devMiddleware = webpackDevMiddleware(compiler, {
+      publicPath: config.output.publicPath,
+      historyApiFallback: true
+    })
 
-    app.use(
-      webpackDevMiddleware(compiler, {
-        publicPath: config.output.publicPath
-      })
-    )
+    app.use(devMiddleware)
 
     app.use(webpackHotMiddleware(compiler))
+    // Always return index.html
+    app.get('*', (req, res) =>
+      res.end(
+        devMiddleware.fileSystem.readFileSync(
+          path.join(config.output.path, 'index.html')
+        )
+      )
+    )
 
     resolve({
       callback: () => {
@@ -50,8 +59,6 @@ function configureForDevelopment(app) {
 
 function configureForProduction(app) {
   return new Promise((resolve, reject) => {
-    const path = require('path')
-
     const config = require('./webpack.prod.js')
 
     const dist = config.output.path

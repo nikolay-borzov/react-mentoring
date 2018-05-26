@@ -55,9 +55,17 @@
   flex-grow: 1;
 }
 
+.flex-column {
+  flex-direction: column
+}
+
 .align-right {
   display: flex;
   justify-content: flex-end;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .centered {

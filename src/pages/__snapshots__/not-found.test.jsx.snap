@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound page component renders correctly 1`] = `
+<React.Fragment>
+  <Header>
+    <div
+      className="padding-controls"
+    >
+      <SiteName />
+    </div>
+  </Header>
+  <main
+    className="content"
+  >
+    <ContentMessage
+      className="font-size-header font-bold color-alt flex-column text-center"
+    >
+      <p>
+        404
+        <br />
+        Page not found
+      </p>
+      <Link
+        className="button button--primary"
+        replace={false}
+        to="/"
+      >
+        Go home
+      </Link>
+    </ContentMessage>
+  </main>
+  <Footer />
+</React.Fragment>
+`;

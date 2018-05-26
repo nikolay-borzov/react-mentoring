@@ -1,7 +1,10 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import { itContainsComponent, setUrl } from '../jest/test-helpers'
+import {
+  itContainsComponent,
+  itRendersCorrectlyShallow
+} from '../jest/test-helpers'
 
 import { App } from './app'
 import { ErrorBoundary } from './components'
@@ -13,27 +16,7 @@ describe('App component', () => {
     expect(wrapper.type()).toBe(ErrorBoundary)
   })
 
+  itRendersCorrectlyShallow(() => <App />)
+
   itContainsComponent(() => <App />, 'ToastContainer')
-
-  itContainsComponent(
-    () => {
-      setUrl('/')
-      return <App />
-    },
-    'Connect(SearchContainer)',
-    {
-      testName: `renders 'SearchContainer' by default`
-    }
-  )
-
-  itContainsComponent(
-    () => {
-      setUrl('/?id=1')
-      return <App />
-    },
-    'Connect(FilmContainer)',
-    {
-      testName: `renders 'FilmContainer' if URL contains 'id' parameter`
-    }
-  )
 })

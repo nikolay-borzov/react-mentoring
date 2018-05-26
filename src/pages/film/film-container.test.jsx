@@ -16,7 +16,11 @@ describe('FilmContainer page component', () => {
   const fetchRelatedFilmsMock = jest.fn()
 
   let props = {
-    filmId: film.id,
+    match: {
+      params: {
+        id: film.id
+      }
+    },
     film,
     filmIsFetching: false,
     genre: 'Horror',
@@ -31,7 +35,7 @@ describe('FilmContainer page component', () => {
   const render = () => {
     const wrapper = shallow(<FilmContainer {...props} />)
 
-    return { instance: wrapper.instance() }
+    return { instance: wrapper.instance(), wrapper }
   }
 
   beforeEach(() => {
@@ -50,7 +54,7 @@ describe('FilmContainer page component', () => {
   describe('renders correctly', () => {
     itRendersCorrectlyShallow(() => {
       const { store } = configureStore()
-      return <FilmContainerConnected filmId={film.id} store={store} />
+      return <FilmContainerConnected store={store} />
     }, 'when connected to the store')
 
     itRendersCorrectlyShallow(
@@ -64,6 +68,11 @@ describe('FilmContainer page component', () => {
     }, 'when the film is unavailable')
 
     itRendersCorrectlyShallow(() => {
+      props.film = {}
+      return <FilmContainer {...props} />
+    }, 'when the film is not found')
+
+    itRendersCorrectlyShallow(() => {
       props.relatedFilms = []
       return <FilmContainer {...props} />
     }, 'when no related films found')
@@ -72,7 +81,7 @@ describe('FilmContainer page component', () => {
       props.relatedFilms = []
       props.relatedFilmsError = new Error('Load error')
       return <FilmContainer {...props} />
-    }, 'when no related films failed to load')
+    }, 'when related films had failed to load')
   })
 
   it('loads a film by id and related films by genre', () => {
@@ -91,6 +100,18 @@ describe('FilmContainer page component', () => {
       })
       expect(fetchRelatedFilmsMock).toHaveBeenCalled()
     })
+  })
+
+  it('loads a film if id has changed', () => {
+    const { wrapper, instance } = render()
+    // Clear initial call
+    fetchFilmMock.mockClear()
+
+    wrapper.setProps({ match: { params: { id: film.id + 1 } } })
+    // https://github.com/airbnb/enzyme/issues/34
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmMock).toHaveBeenCalled()
   })
 
   it('displays an error when unable to load the film', async () => {
