@@ -14,9 +14,13 @@ jest.mock('../../services/film-service')
 describe('SearchContainer page component', () => {
   const setSearchParamsMock = jest.fn()
   const fetchFilmsMock = jest.fn()
+  const historyMock = {
+    push: jest.fn()
+  }
 
   const props = {
-    search: '',
+    match: null,
+    history: historyMock,
     searchBy: 'title',
     sortBy: 'release_date',
     films: films,
@@ -38,6 +42,11 @@ describe('SearchContainer page component', () => {
     fetchFilmsMock.mockClear()
     setUrl('/')
 
+    props.match = {
+      params: {
+        search: ''
+      }
+    }
     props.films = films
     props.foundCount = films.length
 
@@ -75,30 +84,85 @@ describe('SearchContainer page component', () => {
     expect(fetchFilmsMock).toHaveBeenCalled()
   })
 
-  it('loads films on sort change', () => {
-    const sortBy = 'vote_average'
+  it(`saves 'search' from route to store`, () => {
+    props.match.params.search = 'Comedy'
 
-    const { instance } = render()
+    render()
 
-    // Clear initial call
-    fetchFilmsMock.mockClear()
-    return instance.onSortByChange(sortBy).then(() => {
-      expect(setSearchParamsMock).toHaveBeenCalledWith({ sortBy })
-      expect(fetchFilmsMock).toHaveBeenCalled()
+    expect(setSearchParamsMock).toHaveBeenCalledWith({
+      search: props.match.params.search
     })
   })
 
-  it('loads films on search change', () => {
+  it(`'search' is empty by default`, () => {
+    props.match.params.search = undefined
+
+    render()
+
+    expect(setSearchParamsMock).toHaveBeenCalledWith({
+      search: ''
+    })
+  })
+
+  it(`updates 'sortBy' on sort change`, () => {
+    const sortBy = 'vote_average'
+
+    const { instance } = render()
+    instance.onSortByChange(sortBy)
+
+    expect(setSearchParamsMock).toHaveBeenCalledWith({ sortBy })
+  })
+
+  it(`updates 'search', 'searchBy' and URL on search change`, () => {
     const params = { search: 'Horror', searchBy: 'genre' }
 
     const { instance } = render()
+    instance.onSearchChange(params)
 
+    expect(setSearchParamsMock).toHaveBeenCalledWith(params)
+    expect(historyMock.push).toHaveBeenCalledWith('/search/Horror')
+  })
+
+  it(`loads films on 'search' change`, () => {
+    const { wrapper, instance } = render()
     // Clear initial call
     fetchFilmsMock.mockClear()
-    return instance.onSearchChange(params).then(() => {
-      expect(setSearchParamsMock).toHaveBeenCalledWith(params)
-      expect(fetchFilmsMock).toHaveBeenCalled()
-    })
+
+    wrapper.setProps({ match: { params: { search: 'Thriller' } } })
+    // https://github.com/airbnb/enzyme/issues/34
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmsMock).toHaveBeenCalled()
+  })
+
+  it(`loads films on 'searchBy' change`, () => {
+    const { wrapper, instance } = render()
+    fetchFilmsMock.mockClear()
+
+    wrapper.setProps({ searchBy: 'genres' })
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmsMock).toHaveBeenCalled()
+  })
+
+  it(`loads films on 'sortBy' change`, () => {
+    const { wrapper, instance } = render()
+    fetchFilmsMock.mockClear()
+
+    wrapper.setProps({ sortBy: 'vote_average' })
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmsMock).toHaveBeenCalled()
+  })
+
+  it(`doesn't load films if none of search params has changed`, () => {
+    const { wrapper, instance } = render()
+    fetchFilmsMock.mockClear()
+
+    wrapper.setProps({ foundCount: 2 })
+    instance.componentDidUpdate(props)
+
+    expect(fetchFilmsMock).not.toHaveBeenCalled()
   })
 
   it('displays an error when unable to load the films', async () => {

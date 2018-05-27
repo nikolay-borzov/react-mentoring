@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilmsGridItem component renders correctly 1`] = `
-<a
+<Link
   className="film-grid-item hover-effect"
   data-cy="film-grid-item"
-  href="?id=1"
+  replace={false}
   tabIndex={0}
+  to="/film/1"
 >
   <ContentImage
     alt="Film title"
@@ -35,5 +36,5 @@ exports[`FilmsGridItem component renders correctly 1`] = `
       some genre, another genre
     </div>
   </div>
-</a>
+</Link>
 `;

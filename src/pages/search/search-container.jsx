@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify'
 
 import { setParams, fetchFilms, selectors } from '../../redux/modules/search'
@@ -31,7 +32,8 @@ const mapDispatchToProps = { setSearchParams: setParams, fetchFilms }
 
 export class SearchContainer extends React.PureComponent {
   static propTypes = {
-    search: PropTypes.string.isRequired,
+    match: PropTypes.object,
+    history: PropTypes.object,
     searchBy: PropTypes.string.isRequired,
     sortBy: PropTypes.string.isRequired,
     films: PropTypes.arrayOf(PropTypes.object),
@@ -50,7 +52,38 @@ export class SearchContainer extends React.PureComponent {
       throw new Error('Error Boundary test')
     }
 
+    const { search = '' } = this.props.match.params
+    // Always take last query value from the route
+    this.props.setSearchParams({ search })
+
     this.loadFilms()
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      sortBy: prevSortBy,
+      searchBy: prevSearchBy,
+      match: {
+        params: { search: prevSearch }
+      }
+    } = prevProps
+
+    const {
+      sortBy,
+      searchBy,
+      match: {
+        params: { search }
+      }
+    } = this.props
+
+    // Load films if any of search parameter has changed
+    if (
+      search !== prevSearch ||
+      sortBy !== prevSortBy ||
+      searchBy !== prevSearchBy
+    ) {
+      this.loadFilms()
+    }
   }
 
   loadFilms() {
@@ -61,17 +94,15 @@ export class SearchContainer extends React.PureComponent {
 
   onSearchChange = ({ search, searchBy }) => {
     this.props.setSearchParams({ search, searchBy })
-    return this.loadFilms()
+    this.props.history.push(`/search/${search}`)
   }
 
   onSortByChange = sortBy => {
     this.props.setSearchParams({ sortBy })
-    return this.loadFilms()
   }
 
   render() {
     const {
-      search,
       searchBy,
       films,
       foundCount,
@@ -79,6 +110,8 @@ export class SearchContainer extends React.PureComponent {
       isFetching,
       sortBy
     } = this.props
+
+    const { search = '' } = this.props.match.params
 
     const searchFormProps = {
       search,
@@ -96,6 +129,12 @@ export class SearchContainer extends React.PureComponent {
 
     return (
       <React.Fragment>
+        <Helmet>
+          <title>
+            {search ? `"${search}" search results :: ` : ''}
+            Movie Search
+          </title>
+        </Helmet>
         <Header>
           <div className="padding-controls">
             <SiteName />

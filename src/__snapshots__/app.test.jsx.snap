@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component renders correctly 1`] = `
+<ErrorBoundary>
+  <Switch>
+    <Route
+      component={[Function]}
+      path="/search/:search?"
+    />
+    <Route
+      component={[Function]}
+      path="/film/:id"
+    />
+    <Redirect
+      exact={true}
+      from="/"
+      push={false}
+      to="/search"
+    />
+    <Route
+      component={[Function]}
+    />
+  </Switch>
+  <ToastContainer
+    autoClose={false}
+    bodyClassName={null}
+    className={null}
+    closeButton={
+      <CloseButton
+        ariaLabel="close"
+      />
+    }
+    closeOnClick={true}
+    draggable={true}
+    draggablePercent={80}
+    hideProgressBar={false}
+    newestOnTop={false}
+    pauseOnHover={true}
+    pauseOnVisibilityChange={true}
+    position="bottom-center"
+    progressClassName={null}
+    rtl={false}
+    style={null}
+    toastClassName={null}
+    transition={[Function]}
+  />
+</ErrorBoundary>
+`;

@@ -45,6 +45,14 @@ exports[`SearchContainer page component it renders correctly when connected to t
 
 exports[`SearchContainer page component it renders correctly when films are provided 1`] = `
 <React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Movie Search
+    </title>
+  </HelmetWrapper>
   <Header>
     <div
       className="padding-controls"
@@ -93,6 +101,14 @@ exports[`SearchContainer page component it renders correctly when films are prov
 
 exports[`SearchContainer page component it renders correctly when no films found 1`] = `
 <React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Movie Search
+    </title>
+  </HelmetWrapper>
   <Header>
     <div
       className="padding-controls"

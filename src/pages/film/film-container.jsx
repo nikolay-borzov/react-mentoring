@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify'
 
 import {
@@ -21,6 +23,8 @@ import {
   ContentMessage
 } from '../../components'
 
+import NotFound from '../not-found'
+
 import { FilmDetails } from './components/film-details'
 
 const mapStateToProps = state => ({
@@ -40,7 +44,7 @@ const mapDispatchToProps = {
 
 export class FilmContainer extends React.Component {
   static propTypes = {
-    filmId: PropTypes.number.isRequired,
+    match: PropTypes.object,
     film: PropTypes.object,
     filmIsFetching: PropTypes.bool.isRequired,
     genre: PropTypes.string.isRequired,
@@ -53,15 +57,26 @@ export class FilmContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.loadFilm(this.props.filmId)
+    this.loadFilm(this.props.match.params.id)
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const filmId = this.props.match.params.id
+    // Load film if film id has changed
+    if (prevProps.match.params.id !== filmId) {
+      this.loadFilm(filmId)
+    }
   }
 
   loadFilm(id) {
     return this.props
       .fetchFilm(id)
       .then(() => {
-        const genres = this.props.film.genres
-        this.loadRelatedFilms(genres[0])
+        const film = this.props.film
+        if (film.id) {
+          const genres = this.props.film.genres
+          this.loadRelatedFilms(genres[0])
+        }
       })
       .catch(error => {
         toast.error(
@@ -98,7 +113,11 @@ export class FilmContainer extends React.Component {
       relatedFilmsError
     } = this.props
 
-    let relatedFilmsBlock
+    if (film && !film.id) {
+      return <NotFound />
+    }
+
+    let relatedFilmsBlock = null
 
     if (relatedFilms.length > 0) {
       relatedFilmsBlock = <FilmsGrid films={relatedFilms} />
@@ -108,7 +127,7 @@ export class FilmContainer extends React.Component {
           Unable to load related movies
         </ContentMessage>
       )
-    } else {
+    } else if (film) {
       relatedFilmsBlock = (
         <ContentMessage className="font-size-header font-bold color-alt">
           No related movies found
@@ -118,14 +137,19 @@ export class FilmContainer extends React.Component {
 
     return (
       <React.Fragment>
+        {film ? (
+          <Helmet>
+            <title>{film.title} :: Movie Search</title>
+          </Helmet>
+        ) : null}
         <Header>
           <div className="padding-controls flex flex-align-center">
             <div className="flex-grow">
               <SiteName />
             </div>
-            <a href="/" className="button button--small button--primary">
+            <Link to="/search" className="button button--small button--primary">
               Search
-            </a>
+            </Link>
           </div>
           <LoadingBlock isLoaded={!filmIsFetching} hideText={true}>
             <FilmDetails film={film} />

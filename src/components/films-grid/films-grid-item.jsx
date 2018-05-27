@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import './films-grid-item.css'
 
@@ -11,8 +12,8 @@ FilmsGridItem.propTypes = {
 
 export function FilmsGridItem(props) {
   return (
-    <a
-      href={`?id=${props.film.id}`}
+    <Link
+      to={`/film/${props.film.id}`}
       className="film-grid-item hover-effect"
       tabIndex={0}
       data-cy="film-grid-item">
@@ -34,6 +35,6 @@ export function FilmsGridItem(props) {
           {props.film.genres.join(', ')}
         </div>
       </div>
-    </a>
+    </Link>
   )
 }

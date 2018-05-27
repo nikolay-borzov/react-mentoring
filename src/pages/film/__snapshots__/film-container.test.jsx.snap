@@ -5,7 +5,6 @@ exports[`FilmContainer page component renders correctly when connected to the st
   fetchFilm={[Function]}
   fetchRelatedFilms={[Function]}
   film={null}
-  filmId={1}
   filmIsFetching={false}
   genre=""
   relatedFilms={Array []}
@@ -46,6 +45,15 @@ exports[`FilmContainer page component renders correctly when connected to the st
 
 exports[`FilmContainer page component renders correctly when film and relatedFilms are provided 1`] = `
 <React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Film title
+       :: Movie Search
+    </title>
+  </HelmetWrapper>
   <Header>
     <div
       className="padding-controls flex flex-align-center"
@@ -55,12 +63,13 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
       >
         <SiteName />
       </div>
-      <a
+      <Link
         className="button button--small button--primary"
-        href="/"
+        replace={false}
+        to="/search"
       >
         Search
-      </a>
+      </Link>
     </div>
     <LoadingBlock
       hideText={true}
@@ -118,70 +127,17 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
 </React.Fragment>
 `;
 
-exports[`FilmContainer page component renders correctly when no related films failed to load 1`] = `
-<React.Fragment>
-  <Header>
-    <div
-      className="padding-controls flex flex-align-center"
-    >
-      <div
-        className="flex-grow"
-      >
-        <SiteName />
-      </div>
-      <a
-        className="button button--small button--primary"
-        href="/"
-      >
-        Search
-      </a>
-    </div>
-    <LoadingBlock
-      hideText={true}
-      isLoaded={true}
-    >
-      <FilmDetails
-        film={
-          Object {
-            "genres": Array [
-              "some genre",
-              "another genre",
-            ],
-            "id": 1,
-            "overview": "Film overview",
-            "poster_path": "http://via.placeholder.com/500x750",
-            "release_date": "2018-05-04",
-            "title": "Film title",
-          }
-        }
-      />
-    </LoadingBlock>
-  </Header>
-  <main
-    className="content"
-  >
-    <LoadingBlock
-      hideText={false}
-      isLoaded={true}
-    >
-      <SearchResultsPanel>
-        Films by 
-        Horror
-         genre
-      </SearchResultsPanel>
-      <ContentMessage
-        className="error-message"
-      >
-        Unable to load related movies
-      </ContentMessage>
-    </LoadingBlock>
-  </main>
-  <Footer />
-</React.Fragment>
-`;
-
 exports[`FilmContainer page component renders correctly when no related films found 1`] = `
 <React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Film title
+       :: Movie Search
+    </title>
+  </HelmetWrapper>
   <Header>
     <div
       className="padding-controls flex flex-align-center"
@@ -191,12 +147,13 @@ exports[`FilmContainer page component renders correctly when no related films fo
       >
         <SiteName />
       </div>
-      <a
+      <Link
         className="button button--small button--primary"
-        href="/"
+        replace={false}
+        to="/search"
       >
         Search
-      </a>
+      </Link>
     </div>
     <LoadingBlock
       hideText={true}
@@ -242,6 +199,80 @@ exports[`FilmContainer page component renders correctly when no related films fo
 </React.Fragment>
 `;
 
+exports[`FilmContainer page component renders correctly when related films had failed to load 1`] = `
+<React.Fragment>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Film title
+       :: Movie Search
+    </title>
+  </HelmetWrapper>
+  <Header>
+    <div
+      className="padding-controls flex flex-align-center"
+    >
+      <div
+        className="flex-grow"
+      >
+        <SiteName />
+      </div>
+      <Link
+        className="button button--small button--primary"
+        replace={false}
+        to="/search"
+      >
+        Search
+      </Link>
+    </div>
+    <LoadingBlock
+      hideText={true}
+      isLoaded={true}
+    >
+      <FilmDetails
+        film={
+          Object {
+            "genres": Array [
+              "some genre",
+              "another genre",
+            ],
+            "id": 1,
+            "overview": "Film overview",
+            "poster_path": "http://via.placeholder.com/500x750",
+            "release_date": "2018-05-04",
+            "title": "Film title",
+          }
+        }
+      />
+    </LoadingBlock>
+  </Header>
+  <main
+    className="content"
+  >
+    <LoadingBlock
+      hideText={false}
+      isLoaded={true}
+    >
+      <SearchResultsPanel>
+        Films by 
+        Horror
+         genre
+      </SearchResultsPanel>
+      <ContentMessage
+        className="error-message"
+      >
+        Unable to load related movies
+      </ContentMessage>
+    </LoadingBlock>
+  </main>
+  <Footer />
+</React.Fragment>
+`;
+
+exports[`FilmContainer page component renders correctly when the film is not found 1`] = `<NotFound />`;
+
 exports[`FilmContainer page component renders correctly when the film is unavailable 1`] = `
 <React.Fragment>
   <Header>
@@ -253,12 +284,13 @@ exports[`FilmContainer page component renders correctly when the film is unavail
       >
         <SiteName />
       </div>
-      <a
+      <Link
         className="button button--small button--primary"
-        href="/"
+        replace={false}
+        to="/search"
       >
         Search
-      </a>
+      </Link>
     </div>
     <LoadingBlock
       hideText={true}
