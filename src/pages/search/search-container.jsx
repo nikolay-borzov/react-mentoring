@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
   searchBy: selectors.searchParams.searchBy(state),
   sortBy: selectors.searchParams.sortBy(state),
   films: selectors.films.films(state),
+  filmsError: selectors.films.error(state),
   foundCount: selectors.films.total(state),
   displayCount: selectors.films.limit(state),
   isFetching: selectors.films.isFetching(state)
@@ -37,11 +38,27 @@ export class SearchContainer extends React.PureComponent {
     searchBy: PropTypes.string.isRequired,
     sortBy: PropTypes.string.isRequired,
     films: PropTypes.arrayOf(PropTypes.object),
+    filmsError: PropTypes.object,
     foundCount: PropTypes.number.isRequired,
     displayCount: PropTypes.number.isRequired,
     isFetching: PropTypes.bool.isRequired,
     setSearchParams: PropTypes.func.isRequired,
     fetchFilms: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+
+    if (IS_SERVER) {
+      this.initialLoad(props)
+    }
+  }
+
+  initialLoad(props) {
+    const { search = '' } = props.match.params
+    // Always take last query value from the route
+    this.props.setSearchParams({ search })
+    this.loadFilms()
   }
 
   componentDidMount() {
@@ -52,11 +69,10 @@ export class SearchContainer extends React.PureComponent {
       throw new Error('Error Boundary test')
     }
 
-    const { search = '' } = this.props.match.params
-    // Always take last query value from the route
-    this.props.setSearchParams({ search })
-
-    this.loadFilms()
+    // Check if films already loaded (on server side)
+    if (this.props.foundCount === 0) {
+      this.initialLoad(this.props)
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -73,10 +89,11 @@ export class SearchContainer extends React.PureComponent {
       searchBy,
       match: {
         params: { search }
-      }
+      },
+      filmsError
     } = this.props
 
-    // Load films if any of search parameter has changed
+    // Load films if any of search parameters has changed
     if (
       search !== prevSearch ||
       sortBy !== prevSortBy ||
@@ -84,12 +101,16 @@ export class SearchContainer extends React.PureComponent {
     ) {
       this.loadFilms()
     }
+
+    if (filmsError) {
+      toast.error(
+        <ToastError message="Unable to load movies" error={filmsError} />
+      )
+    }
   }
 
   loadFilms() {
-    return this.props.fetchFilms().catch(error => {
-      toast.error(<ToastError message="Unable to load movies" error={error} />)
-    })
+    this.props.fetchFilms()
   }
 
   onSearchChange = ({ search, searchBy }) => {
@@ -131,7 +152,7 @@ export class SearchContainer extends React.PureComponent {
       <React.Fragment>
         <Helmet>
           <title>
-            {search ? `"${search}" search results :: ` : ''}
+            {search ? `"${search}" search results 🎥 ` : ''}
             Movie Search
           </title>
         </Helmet>
@@ -158,4 +179,7 @@ export class SearchContainer extends React.PureComponent {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchContainer)

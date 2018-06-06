@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions'
 import { createSelector } from 'reselect'
+import { all, call, put, select, takeLatest } from 'redux-saga/effects'
 
 import filmService from '../../../services/film-service'
 
@@ -47,6 +48,7 @@ export default function createFilmsSlice({
   // Action Types
 
   const actionTypes = {
+    FETCH_FILMS: `${id}/FETCH_FILMS`,
     FETCH_FILMS_REQUEST: `${id}/FETCH_FILMS_REQUEST`,
     FETCH_FILMS_SUCCESS: `${id}/FETCH_FILMS_SUCCESS`,
     FETCH_FILMS_FAIL: `${id}/FETCH_FILMS_FAIL`
@@ -54,23 +56,32 @@ export default function createFilmsSlice({
 
   // Action Creators
 
+  const fetchFilms = createAction(actionTypes.FETCH_FILMS)
   const fetchFilmsRequest = createAction(actionTypes.FETCH_FILMS_REQUEST)
   const fetchFilmsSuccess = createAction(actionTypes.FETCH_FILMS_SUCCESS)
   const fetchFilmsFail = createAction(actionTypes.FETCH_FILMS_FAIL)
 
-  const fetchFilms = () => (dispatch, getState) => {
-    dispatch(fetchFilmsRequest())
+  // Sagas
 
-    const searchParams = searchParamsSelector(getState())
+  function* fetchFilmsAsync() {
+    try {
+      yield put(fetchFilmsRequest())
 
-    return filmService.getFilms(searchParams).then(
-      result => dispatch(fetchFilmsSuccess(result)),
-      error => {
-        dispatch(fetchFilmsFail(error))
-        // Re-throw error  so it can be handled inside component
-        throw error
+      const searchParams = yield select(searchParamsSelector)
+      const result = yield call(filmService.getFilms, searchParams)
+
+      yield put(fetchFilmsSuccess(result))
+    } catch (error) {
+      if (IS_DEVELOPMENT || IS_SERVER) {
+        console.log('fetch films failed', error)
       }
-    )
+
+      yield put(fetchFilmsFail(error))
+    }
+  }
+
+  function* watchFetchFilms() {
+    yield takeLatest(actionTypes.FETCH_FILMS, fetchFilmsAsync)
   }
 
   // Reducer
@@ -111,6 +122,9 @@ export default function createFilmsSlice({
     actionCreators: {
       fetchFilms
     },
-    reducer
+    reducer,
+    sagas: function*() {
+      yield all([watchFetchFilms()])
+    }
   }
 }

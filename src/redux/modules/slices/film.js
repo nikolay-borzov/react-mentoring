@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { createAction, handleActions } from 'redux-actions'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 
 import filmService from '../../../services/film-service'
 
@@ -38,6 +39,7 @@ export default function createFilmSlice({
   // Action Types
 
   const actionTypes = {
+    FETCH_FILM: `${id}/FETCH_FILM`,
     FETCH_FILM_REQUEST: `${id}/FETCH_FILM_REQUEST`,
     FETCH_FILM_SUCCESS: `${id}/FETCH_FILM_SUCCESS`,
     FETCH_FILM_FAIL: `${id}/FETCH_FILM_FAIL`
@@ -45,21 +47,32 @@ export default function createFilmSlice({
 
   // Action Creators
 
+  const fetchFilm = createAction(actionTypes.FETCH_FILM)
   const fetchFilmRequest = createAction(actionTypes.FETCH_FILM_REQUEST)
   const fetchFilmSuccess = createAction(actionTypes.FETCH_FILM_SUCCESS)
   const fetchFilmFail = createAction(actionTypes.FETCH_FILM_FAIL)
 
-  const fetchFilm = id => (dispatch, getState) => {
-    dispatch(fetchFilmRequest())
+  // Sagas
 
-    return filmService.getFilm(id).then(
-      result => dispatch(fetchFilmSuccess(result)),
-      error => {
-        dispatch(fetchFilmFail(error))
-        // Re-throw error  so it can be handled within component
-        throw error
+  function* fetchFilmAsync({ payload: id }) {
+    try {
+      yield put(fetchFilmRequest())
+
+      const result = yield call(filmService.getFilm, id)
+
+      yield put(fetchFilmSuccess(result))
+    } catch (error) {
+      if (IS_DEVELOPMENT || IS_SERVER) {
+        console.log('fetch film failed', error)
       }
-    )
+
+      yield put(fetchFilmFail(error))
+    }
+  }
+
+  function* watchFetchFilm() {
+    // TODO: Use FETCH_FILM_REQUEST instead?
+    yield takeLatest(actionTypes.FETCH_FILM, fetchFilmAsync)
   }
 
   // Reducer
@@ -93,6 +106,9 @@ export default function createFilmSlice({
     actionCreators: {
       fetchFilm
     },
-    reducer
+    reducer,
+    sagas: function*() {
+      yield all([watchFetchFilm()])
+    }
   }
 }
