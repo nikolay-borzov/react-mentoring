@@ -1,5 +1,3 @@
-import 'babel-polyfill'
-
 import './style.css'
 import 'react-toastify/dist/ReactToastify.css'
 

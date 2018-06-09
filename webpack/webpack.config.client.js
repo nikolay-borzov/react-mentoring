@@ -11,7 +11,11 @@ const baseConfig = common.getConfig()
 
 const isDevelopment = common.isDevelopment
 
-const entry = ['url-search-params-polyfill', './src/client.jsx']
+const entry = [
+  'babel-polyfill',
+  'url-search-params-polyfill',
+  './src/client.jsx'
+]
 
 const fileLoaderFilename = isDevelopment
   ? '[name].[ext]'
