@@ -21,7 +21,9 @@ const configureStore = preloadedState => {
   )
 
   sagaMiddleware.run(rootSaga)
+  /* istanbul ignore next */
   store.runSaga = () => sagaMiddleware.run(rootSaga)
+  /* istanbul ignore next */
   store.close = () => store.dispatch(END)
 
   // TODO: https://github.com/rt2zz/redux-persist/blob/master/docs/hot-module-replacement.md

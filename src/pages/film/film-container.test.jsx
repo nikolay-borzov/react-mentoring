@@ -12,8 +12,7 @@ jest.mock('../../services/film-service')
 
 describe('FilmContainer page component', () => {
   const fetchFilmMock = jest.fn()
-  const setRelatedFilmsSearchParamsMock = jest.fn()
-  const fetchRelatedFilmsMock = jest.fn()
+  const reFetchFilmsMock = jest.fn()
 
   let props = {
     match: {
@@ -21,15 +20,15 @@ describe('FilmContainer page component', () => {
         id: film.id
       }
     },
-    film,
+    film: null,
     filmIsFetching: false,
+    filmError: null,
     genre: 'Horror',
     relatedFilms: films,
     relatedFilmsIsFetching: false,
     relatedFilmsError: null,
     fetchFilm: fetchFilmMock,
-    setRelatedFilmsSearchParams: setRelatedFilmsSearchParamsMock,
-    fetchRelatedFilms: fetchRelatedFilmsMock
+    reFetchFilms: reFetchFilmsMock
   }
 
   const render = () => {
@@ -40,15 +39,16 @@ describe('FilmContainer page component', () => {
 
   beforeEach(() => {
     fetchFilmMock.mockClear()
-    setRelatedFilmsSearchParamsMock.mockClear()
-    fetchRelatedFilmsMock.mockClear()
+    reFetchFilmsMock.mockClear()
 
     props.film = film
+    props.filmError = null
     props.relatedFilms = films
-    props.relatedFilmsError = null
+    props.relatedFilmsError = null 
+  })
 
-    fetchFilmMock.mockReturnValue(Promise.resolve())
-    fetchRelatedFilmsMock.mockReturnValue(Promise.resolve())
+  afterEach(() => {
+    global.IS_SERVER = false
   })
 
   describe('renders correctly', () => {
@@ -84,22 +84,28 @@ describe('FilmContainer page component', () => {
     }, 'when related films had failed to load')
   })
 
-  it('loads a film by id and related films by genre', () => {
-    const { instance } = render()
+  it('loads film on sever side', () => {
+    global.IS_SERVER = true
+
+    render()
 
     expect(fetchFilmMock).toHaveBeenCalledWith(film.id)
+  })
 
-    fetchRelatedFilmsMock.mockClear()
-    setRelatedFilmsSearchParamsMock.mockClear()
+  it('re-fetches films if film already loaded', () => {
+    props.film = film
 
-    expect.assertions(3)
+    render()
 
-    return instance.loadFilm(film.id).then(() => {
-      expect(setRelatedFilmsSearchParamsMock).toHaveBeenCalledWith({
-        search: film.genres[0]
-      })
-      expect(fetchRelatedFilmsMock).toHaveBeenCalled()
-    })
+    expect(reFetchFilmsMock).toHaveBeenCalled()
+  })
+
+  it(`loads film on client side if it isn't loaded yet`, () => {
+    props.film = null
+
+    render()
+
+    expect(fetchFilmMock).toHaveBeenCalledWith(film.id)
   })
 
   it('loads a film if id has changed', () => {
@@ -124,43 +130,25 @@ describe('FilmContainer page component', () => {
     expect(fetchFilmMock).not.toHaveBeenCalled()
   })
 
-  it('displays an error when unable to load the film', async () => {
+  it('displays an error when unable to load the film', () => {
     const error = new Error('Film load error')
-    fetchFilmMock.mockReturnValue(Promise.reject(error))
 
-    const { instance } = render()
+    const { wrapper, instance } = render()
 
-    expect.assertions(1)
+    wrapper.setProps({ filmError: error })
+    instance.componentDidUpdate(props)
 
-    return instance.loadFilm(film.id).then(() => {
-      expect(toast.error).toHaveBeenCalled()
-    })
+    expect(toast.error).toHaveBeenCalled()
   })
 
-  it('loads related films by genre', () => {
-    fetchFilmMock.mockReturnValue(Promise.resolve())
-    fetchRelatedFilmsMock.mockReturnValue(Promise.resolve())
-
-    const { instance } = render()
-
-    expect.assertions(1)
-    // Clear initial call
-    fetchRelatedFilmsMock.mockClear()
-    return instance.loadRelatedFilms(film.genres[0]).then(() => {
-      expect(fetchRelatedFilmsMock).toHaveBeenCalled()
-    })
-  })
-
-  it('displays error when unable to load related films', async () => {
+  it('displays error when unable to load related films', () => {
     const error = new Error('Films load error')
-    fetchRelatedFilmsMock.mockReturnValue(Promise.reject(error))
 
-    const { instance } = render()
+    const { wrapper, instance } = render()
 
-    expect.assertions(1)
+    wrapper.setProps({ relatedFilmsError: error })
+    instance.componentDidUpdate(props)
 
-    return instance.loadRelatedFilms(film.genres[0]).then(() => {
-      expect(toast.error).toHaveBeenCalled()
-    })
+    expect(toast.error).toHaveBeenCalled()
   })
 })

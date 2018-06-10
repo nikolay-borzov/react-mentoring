@@ -62,6 +62,7 @@ export default function createFilmSlice({
 
       yield put(fetchFilmSuccess(result))
     } catch (error) {
+      /* istanbul ignore next */
       if (IS_DEVELOPMENT || IS_SERVER) {
         console.log('fetch film failed', error)
       }
@@ -71,7 +72,6 @@ export default function createFilmSlice({
   }
 
   function* watchFetchFilm() {
-    // TODO: Use FETCH_FILM_REQUEST instead?
     yield takeLatest(actionTypes.FETCH_FILM, fetchFilmAsync)
   }
 
@@ -104,10 +104,17 @@ export default function createFilmSlice({
     selectors,
     actionTypes,
     actionCreators: {
-      fetchFilm
+      fetchFilm,
+      fetchFilmRequest,
+      fetchFilmSuccess,
+      fetchFilmFail
     },
     reducer,
-    sagas: function*() {
+    sagas: {
+      fetchFilmAsync,
+      watchFetchFilm
+    },
+    getSagas: function*() {
       yield all([watchFetchFilm()])
     }
   }

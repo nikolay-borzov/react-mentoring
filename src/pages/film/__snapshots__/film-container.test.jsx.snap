@@ -3,19 +3,21 @@
 exports[`FilmContainer page component renders correctly when connected to the store 1`] = `
 <FilmContainer
   fetchFilm={[Function]}
-  fetchRelatedFilms={[Function]}
   film={null}
+  filmError={null}
   filmIsFetching={false}
   genre=""
+  reFetchFilms={[Function]}
   relatedFilms={Array []}
   relatedFilmsError={null}
   relatedFilmsIsFetching={false}
-  setRelatedFilmsSearchParams={[Function]}
   store={
     Object {
+      "close": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "replaceReducer": [Function],
+      "runSaga": [Function],
       "subscribe": [Function],
       Symbol(observable): [Function],
     }
@@ -31,9 +33,11 @@ exports[`FilmContainer page component renders correctly when connected to the st
       "onStateChange": [Function],
       "parentSub": undefined,
       "store": Object {
+        "close": [Function],
         "dispatch": [Function],
         "getState": [Function],
         "replaceReducer": [Function],
+        "runSaga": [Function],
         "subscribe": [Function],
         Symbol(observable): [Function],
       },
@@ -51,7 +55,7 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
   >
     <title>
       Film title
-       :: Movie Search
+       🎥 Movie Search
     </title>
   </HelmetWrapper>
   <Header>
@@ -135,7 +139,7 @@ exports[`FilmContainer page component renders correctly when no related films fo
   >
     <title>
       Film title
-       :: Movie Search
+       🎥 Movie Search
     </title>
   </HelmetWrapper>
   <Header>
@@ -207,7 +211,7 @@ exports[`FilmContainer page component renders correctly when related films had f
   >
     <title>
       Film title
-       :: Movie Search
+       🎥 Movie Search
     </title>
   </HelmetWrapper>
   <Header>

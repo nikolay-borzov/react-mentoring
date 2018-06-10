@@ -11,10 +11,6 @@ Object {
       "total": 0,
     },
     "searchParams": Object {
-      "_persist": Object {
-        "rehydrated": false,
-        "version": -1,
-      },
       "filter": Array [],
       "limit": 15,
       "search": "",

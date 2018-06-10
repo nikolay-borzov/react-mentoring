@@ -51,7 +51,7 @@ export const fetchFilms = filmsSlice.actionCreators.fetchFilms
 // Sagas
 
 export function* searchSagas() {
-  yield all([filmsSlice.sagas()])
+  yield all([filmsSlice.getSagas()])
 }
 
 // Reducer

@@ -72,6 +72,7 @@ export default function createFilmsSlice({
 
       yield put(fetchFilmsSuccess(result))
     } catch (error) {
+      /* istanbul ignore next */
       if (IS_DEVELOPMENT || IS_SERVER) {
         console.log('fetch films failed', error)
       }
@@ -81,6 +82,7 @@ export default function createFilmsSlice({
   }
 
   function* watchFetchFilms() {
+    // For some reason We cannot use the same action for watcher and for reducer
     yield takeLatest(actionTypes.FETCH_FILMS, fetchFilmsAsync)
   }
 
@@ -120,10 +122,17 @@ export default function createFilmsSlice({
     selectors,
     actionTypes,
     actionCreators: {
-      fetchFilms
+      fetchFilms,
+      fetchFilmsRequest,
+      fetchFilmsSuccess,
+      fetchFilmsFail
     },
     reducer,
-    sagas: function*() {
+    sagas: {
+      fetchFilmsAsync,
+      watchFetchFilms
+    },
+    getSagas: function*() {
       yield all([watchFetchFilms()])
     }
   }

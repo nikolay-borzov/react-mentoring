@@ -5,6 +5,7 @@ exports[`SearchContainer page component it renders correctly when connected to t
   displayCount={0}
   fetchFilms={[Function]}
   films={Array []}
+  filmsError={null}
   foundCount={0}
   isFetching={false}
   search=""
@@ -13,9 +14,11 @@ exports[`SearchContainer page component it renders correctly when connected to t
   sortBy="release_date"
   store={
     Object {
+      "close": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "replaceReducer": [Function],
+      "runSaga": [Function],
       "subscribe": [Function],
       Symbol(observable): [Function],
     }
@@ -31,9 +34,11 @@ exports[`SearchContainer page component it renders correctly when connected to t
       "onStateChange": [Function],
       "parentSub": undefined,
       "store": Object {
+        "close": [Function],
         "dispatch": [Function],
         "getState": [Function],
         "replaceReducer": [Function],
+        "runSaga": [Function],
         "subscribe": [Function],
         Symbol(observable): [Function],
       },

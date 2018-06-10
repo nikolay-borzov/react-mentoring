@@ -1,8 +1,7 @@
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
-
+import { runSaga as runSagaOriginal } from 'redux-saga'
 import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
 
 /**
  * Creates test closure for snapshot testing
@@ -65,7 +64,7 @@ export const itContainsComponent = (
 /**
  * Creates mocked store
  */
-export const getMockStore = () => configureMockStore([thunk])
+export const getMockStore = () => configureMockStore([])
 
 /**
  * Sets relative URL
@@ -73,4 +72,21 @@ export const getMockStore = () => configureMockStore([thunk])
  */
 export const setUrl = url => {
   window.history.pushState({}, '', url)
+}
+
+/**
+ * Runs saga and collects dispatched actions
+ */
+export const runSaga = (saga, state = {}, arg1 = undefined) => {
+  const dispatched = []
+  return runSagaOriginal(
+    {
+      dispatch: action => dispatched.push(action),
+      getState: () => state
+    },
+    saga,
+    arg1
+  ).done.then(() => {
+    return dispatched
+  })
 }
