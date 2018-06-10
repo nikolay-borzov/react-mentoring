@@ -6,10 +6,16 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { ToastContainer, Slide, toast } from 'react-toastify'
 
+import { GetLoadable } from './components/helpers'
+
 import { ErrorBoundary } from './components/error-boundary'
-import SearchContainer from './pages/search/search-container'
-import FilmContainer from './pages/film/film-container'
-import NotFound from './pages/not-found'
+
+// Loadable components
+const SearchContainer = GetLoadable(() =>
+  import('./pages/search/search-container')
+)
+const FilmContainer = GetLoadable(() => import('./pages/film/film-container'))
+const NotFound = GetLoadable(() => import('./pages/not-found'))
 
 App.propTypes = {
   Router: PropTypes.func.isRequired,

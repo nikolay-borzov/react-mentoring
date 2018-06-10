@@ -1,10 +1,10 @@
-import 'babel-polyfill'
-
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import serialize from 'serialize-javascript'
+import Loadable from 'react-loadable'
+import { getBundles } from 'react-loadable/webpack'
 
 import App from './app'
 import configureStore from './redux/create'
@@ -31,7 +31,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
   })
 } */
 
-function renderHTML(html, helmet, preloadedState) {
+function renderHTML(html, helmet, bundles, preloadedState) {
   const safePreloadedState = serialize(preloadedState)
   // TODO: Add hash to resource URIs
   // TODO: Add favicon
@@ -56,6 +56,9 @@ function renderHTML(html, helmet, preloadedState) {
             window.PRELOADED_STATE = ${safePreloadedState}
           </script>
           <script type="text/javascript" src="/runtime.js"></script>
+          ${bundles
+            .map(bundle => `<script src="/${bundle.file}"></script>`)
+            .join('\n')}
           <script type="text/javascript" src="/vendors.js"></script>
           <script type="text/javascript" src="/client.js"></script>
         </body>
@@ -65,7 +68,7 @@ function renderHTML(html, helmet, preloadedState) {
 
 apiService.init()
 
-export default function serverRenderer() {
+export default function serverRenderer(stats) {
   return (req, res) => {
     const { store } = configureStore()
     // This context object contains the results of the render
@@ -81,7 +84,14 @@ export default function serverRenderer() {
     )
 
     store.runSaga().done.then(() => {
-      const htmlString = renderToString(root)
+      // Dynamic module that were rendered
+      let modules = []
+
+      const htmlString = renderToString(
+        <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+          {root}
+        </Loadable.Capture>
+      )
       const helmet = Helmet.renderStatic()
 
       // context.url will contain the URL to redirect to if a <Redirect> was used
@@ -93,15 +103,18 @@ export default function serverRenderer() {
         return
       }
 
+      let bundles = getBundles(stats, modules)
+
       const preloadedState = store.getState()
       // TODO: redux-persist doesn't work on server side
       // enableClientStoreRehydrate(preloadedState)
 
-      res.send(renderHTML(htmlString, helmet, preloadedState))
+      res.send(renderHTML(htmlString, helmet, bundles, preloadedState))
     })
 
     // Do first render, starts initial actions.
     renderToString(root)
+
     // When the first render is finished, send the END action to redux-saga.
     store.close()
   }

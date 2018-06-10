@@ -8,13 +8,9 @@ module.exports = merge(common.getConfig(), {
   name: 'server',
   target: 'node',
 
-  entry: './src/server-renderer.js',
+  entry: ['babel-polyfill', './src/server-renderer.js'],
 
-  externals: [
-    nodeExternals({
-      whitelist: [/^lodash/]
-    })
-  ],
+  externals: [nodeExternals()],
 
   plugins: [
     new webpack.DefinePlugin({

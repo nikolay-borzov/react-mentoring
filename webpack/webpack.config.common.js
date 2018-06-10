@@ -1,5 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
+const Loadable = require('react-loadable/webpack')
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 require('dotenv').config()
 
@@ -26,31 +28,28 @@ module.exports = {
       }),
       isDevelopment
         ? new webpack.NamedModulesPlugin()
-        : new webpack.HashedModuleIdsPlugin()
-
-      /* 
-        new HtmlWebpackPlugin({
-          template: 'index.html',
-          inject: true
-        }),
-        new FaviconsWebpackPlugin({
-          logo: path.join(assetsRoot, 'favicon.png'),
-          emitStats: false,
-          background: '#4F5D73',
-          title: 'Film Search',
-          icons: {
-            android: false,
-            appleIcon: false,
-            appleStartup: false,
-            coast: false,
-            favicons: true,
-            firefox: true,
-            opengraph: false,
-            twitter: false,
-            yandex: false,
-            windows: true
-          }
-        }) */
+        : new webpack.HashedModuleIdsPlugin(),
+      new Loadable.ReactLoadablePlugin({
+        filename: path.join(distRoot, 'react-loadable.json')
+      })
+      /* new FaviconsWebpackPlugin({
+        logo: path.join(assetsRoot, 'favicon.png'),
+        emitStats: false,
+        background: '#4F5D73',
+        title: 'Film Search',
+        icons: {
+          android: false,
+          appleIcon: false,
+          appleStartup: false,
+          coast: false,
+          favicons: true,
+          firefox: true,
+          opengraph: false,
+          twitter: false,
+          yandex: false,
+          windows: true
+        }
+      }) */
     ]
 
     if (process.env.ANALYZE) {

@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React from 'react'
 import { hydrate } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
+import Loadable from 'react-loadable'
 
 import App from './app'
 
@@ -21,7 +22,7 @@ const renderApp = () => {
   )
 }
 
-renderApp()
+Loadable.preloadReady().then(renderApp)
 
 /* istanbul ignore next */
 if (module.hot) {

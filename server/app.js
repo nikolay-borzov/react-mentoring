@@ -23,10 +23,11 @@ if (isDevelopment) {
   )
   app.use(webpackHotServerMiddleware(compiler))
 } else {
+  const stats = require('../dist/react-loadable.json')
   const serverRenderer = require('../dist/server-renderer').default
 
   app.use(express.static('dist'))
-  app.use(serverRenderer())
+  app.use(serverRenderer(stats))
 }
 
 module.exports = app
