@@ -34,8 +34,8 @@ export function App({ Router, location, context, store }) {
   // TODO: Find a way to render PersistGate on server side
   // <PersistGate loading={null} persistor={persistor}>
   return (
-    <Provider store={store}>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <Provider store={store}>
         <Router location={location} context={context}>
           <React.Fragment>
             <Switch>
@@ -51,8 +51,8 @@ export function App({ Router, location, context, store }) {
             />
           </React.Fragment>
         </Router>
-      </ErrorBoundary>
-    </Provider>
+      </Provider>
+    </ErrorBoundary>
   )
 }
 

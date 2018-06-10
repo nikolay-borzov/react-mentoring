@@ -64,8 +64,10 @@ export class FilmContainer extends React.Component {
   }
 
   componentDidMount() {
+    const film = this.props.film
+    const filmId = parseInt(this.props.match.params.id, 10)
     // If films was loaded on server - load related films
-    if (this.props.film) {
+    if (film && film.id === filmId) {
       this.props.reFetchFilms()
     } else {
       this.initialLoad(this.props)

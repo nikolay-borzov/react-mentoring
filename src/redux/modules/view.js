@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { createAction } from 'redux-actions'
 import { createSelector } from 'reselect'
-import { all, call, put, takeLatest, select } from 'redux-saga/effects'
+import { all, put, takeLatest, select } from 'redux-saga/effects'
 
 import { searchBy, sortBy, sortOrder } from '../../enums'
 
@@ -102,23 +102,22 @@ export function* fetchRelatedFilmsAsync({ payload: film } = {}) {
 }
 
 export function* watchFilmLoad() {
-  yield call(
-    takeLatest,
+  yield takeLatest(
     filmSlice.actionTypes.FETCH_FILM_SUCCESS,
     fetchRelatedFilmsAsync
   )
 }
 
 export function* watchReFetchFilms() {
-  yield call(takeLatest, actionTypes.RE_FETCH_FILMS, fetchRelatedFilmsAsync)
+  yield takeLatest(actionTypes.RE_FETCH_FILMS, fetchRelatedFilmsAsync)
 }
 
 export function* viewSagas() {
   yield all([
-    filmSlice.getSagas(),
-    filmsSlice.getSagas(),
     watchFilmLoad(),
-    watchReFetchFilms()
+    watchReFetchFilms(),
+    filmSlice.getSagas(),
+    filmsSlice.getSagas()
   ])
 }
 

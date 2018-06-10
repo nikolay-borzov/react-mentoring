@@ -5,23 +5,20 @@
   "private": true,
   "scripts": {
     "start": "node ./server",
+    "start:prod": "npm run build && npm run prod",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack",
     "prod": "cross-env NODE_ENV=production node ./server",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "e2e": "run-p start:prod cypress:open",
     "cypress:open": "cypress open",
-    "_start": "node server.js",
-    "_start:prod": "cross-env NODE_ENV=production node server.js",
-    "_build": "webpack --config webpack.dev.js",
-    "_build:prod": "webpack --config webpack.prod.js",
     "build:analyze": "cross-env ANALYZE=true npm run build",
     "build:prod:analyze": "cross-env ANALYZE=true npm run build:prod"
   },
   "husky": {
     "hooks": {
-      "_pre-commit": "lint-staged && npm test",
-      "_pre-push": "npm test"
+      "pre-commit": "lint-staged && npm test",
+      "pre-push": "npm test"
     }
   },
   "lint-staged": {

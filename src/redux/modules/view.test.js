@@ -1,4 +1,4 @@
-import { call, takeLatest } from 'redux-saga/effects'
+import { takeLatest } from 'redux-saga/effects'
 
 import {
   fetchRelatedFilmsAsync,
@@ -15,8 +15,8 @@ import { runSaga } from '../../../jest/test-helpers'
 describe('view redux module', () => {
   it('fetches related films on FETCH_FILM_SUCCESS', () => {
     const iterator = watchFilmLoad()
-    const expectedYield = call(
-      takeLatest,
+
+    const expectedYield = takeLatest(
       actionTypes.FETCH_FILM_SUCCESS,
       fetchRelatedFilmsAsync
     )
@@ -28,8 +28,7 @@ describe('view redux module', () => {
 
   it('fetches related films on RE_FETCH_FILMS', () => {
     const iterator = watchReFetchFilms()
-    const expectedYield = call(
-      takeLatest,
+    const expectedYield = takeLatest(
       actionTypes.RE_FETCH_FILMS,
       fetchRelatedFilmsAsync
     )
