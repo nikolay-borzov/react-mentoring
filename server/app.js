@@ -15,7 +15,8 @@ if (isDevelopment) {
 
   app.use(
     webpackDevMiddleware(compiler, {
-      historyApiFallback: true
+      historyApiFallback: false,
+      serverSideRender: true
     })
   )
   app.use(
@@ -27,7 +28,7 @@ if (isDevelopment) {
   const serverRenderer = require('../dist/server-renderer').default
 
   app.use(express.static('dist'))
-  app.use(serverRenderer(stats))
+  app.use(serverRenderer({ stats }))
 }
 
 module.exports = app

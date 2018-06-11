@@ -9,7 +9,7 @@ cache:
     - "node_modules"
 
 script:
-  - npm run build
+  - npm run build:prod
 
 jobs:
   include:

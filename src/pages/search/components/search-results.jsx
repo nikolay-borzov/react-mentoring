@@ -1,9 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Radio, SearchResultsPanel, FilmsGrid } from '../../../components'
+import { GetLoadable } from '../../../components/helpers'
+
+import { Radio, SearchResultsPanel } from '../../../components'
 
 import { sortBy } from '../../../enums'
+
+/* istanbul ignore next */
+const FilmsGrid = GetLoadable(() =>
+  import('../../../components/films-grid/films-grid')
+)
 
 export class SearchResults extends React.PureComponent {
   static propTypes = {
@@ -60,3 +67,5 @@ export class SearchResults extends React.PureComponent {
     )
   }
 }
+
+export default SearchResults

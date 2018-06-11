@@ -15,6 +15,9 @@ module.exports = merge(common.getConfig(), {
   plugins: [
     new webpack.DefinePlugin({
       IS_SERVER: true
+    }),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
     })
   ],
 

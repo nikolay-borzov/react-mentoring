@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "start": "node ./server",
-    "start:prod": "npm run build && npm run prod",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack",
-    "prod": "cross-env NODE_ENV=production node ./server",
+    "build": "webpack --config ./webpack",
+    "start:prod": "npm run build:prod && npm run server:prod",
+    "build:prod": "cross-env NODE_ENV=production npm run build",
+    "server:prod": "cross-env NODE_ENV=production npm run start",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "e2e": "run-p start:prod cypress:open",

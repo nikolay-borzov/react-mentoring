@@ -43,7 +43,6 @@ function renderHTML(html, helmet, bundles, preloadedState) {
           <meta http-equiv="x-ua-compatible" content="ie=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
           ${helmet.title.toString()}
-          ${helmet.meta.toString()}
           ${
             isDevelopment
               ? ''
@@ -55,12 +54,12 @@ function renderHTML(html, helmet, bundles, preloadedState) {
           <script>
             window.PRELOADED_STATE = ${safePreloadedState}
           </script>
-          <script type="text/javascript" src="/runtime.js"></script>
+          <script src="/runtime.js"></script>
           ${bundles
             .map(bundle => `<script src="/${bundle.file}"></script>`)
             .join('\n')}
-          <script type="text/javascript" src="/vendors.js"></script>
-          <script type="text/javascript" src="/client.js"></script>
+          <script src="/vendors.js"></script>
+          <script src="/client.js"></script>
         </body>
       </html>
   `
@@ -68,7 +67,7 @@ function renderHTML(html, helmet, bundles, preloadedState) {
 
 apiService.init()
 
-export default function serverRenderer(stats) {
+export default function serverRenderer({ stats }) {
   return (req, res) => {
     const { store } = configureStore()
     // This context object contains the results of the render
@@ -84,7 +83,7 @@ export default function serverRenderer(stats) {
     )
 
     store.runSaga().done.then(() => {
-      // Dynamic module that were rendered
+      // Dynamic modules that were rendered
       let modules = []
 
       const htmlString = renderToString(

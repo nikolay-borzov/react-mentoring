@@ -11,10 +11,13 @@ import { GetLoadable } from './components/helpers'
 import { ErrorBoundary } from './components/error-boundary'
 
 // Loadable components
+/* istanbul ignore next */
 const SearchContainer = GetLoadable(() =>
   import('./pages/search/search-container')
 )
+/* istanbul ignore next */
 const FilmContainer = GetLoadable(() => import('./pages/film/film-container'))
+/* istanbul ignore next */
 const NotFound = GetLoadable(() => import('./pages/not-found'))
 
 App.propTypes = {
@@ -40,8 +43,8 @@ export function App({ Router, location, context, store }) {
   // TODO: Find a way to render PersistGate on server side
   // <PersistGate loading={null} persistor={persistor}>
   return (
-    <ErrorBoundary>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ErrorBoundary>
         <Router location={location} context={context}>
           <React.Fragment>
             <Switch>
@@ -57,8 +60,8 @@ export function App({ Router, location, context, store }) {
             />
           </React.Fragment>
         </Router>
-      </Provider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </Provider>
   )
 }
 

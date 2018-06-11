@@ -6,17 +6,24 @@ import { toast } from 'react-toastify'
 
 import { setParams, fetchFilms, selectors } from '../../redux/modules/search'
 
+import { GetLoadable } from '../../components/helpers'
+
 import {
   Header,
   Footer,
   SiteName,
   LoadingBlock,
-  ToastError,
-  ContentMessage
+  ToastError
 } from '../../components'
 
 import { SearchForm } from './components/search-form'
-import { SearchResults } from './components/search-results'
+
+/* istanbul ignore next */
+const ContentMessage = GetLoadable(() =>
+  import('../../components/content-message')
+)
+/* istanbul ignore next */
+const SearchResults = GetLoadable(() => import('./components/search-results'))
 
 const mapStateToProps = state => ({
   search: selectors.searchParams.search(state),

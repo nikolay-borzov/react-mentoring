@@ -7,20 +7,29 @@ import { toast } from 'react-toastify'
 
 import { fetchFilm, reFetchFilms, selectors } from '../../redux/modules/view'
 
+import { GetLoadable } from '../../components/helpers'
+
 import {
   Header,
   Footer,
   SiteName,
   LoadingBlock,
   ToastError,
-  FilmsGrid,
-  SearchResultsPanel,
-  ContentMessage
+  SearchResultsPanel
 } from '../../components'
 
-import NotFound from '../not-found'
-
 import { FilmDetails } from './components/film-details'
+
+/* istanbul ignore next */
+const FilmsGrid = GetLoadable(() =>
+  import('../../components/films-grid/films-grid')
+)
+/* istanbul ignore next */
+const ContentMessage = GetLoadable(() =>
+  import('../../components/content-message')
+)
+/* istanbul ignore next */
+const NotFound = GetLoadable(() => import('../not-found'))
 
 const mapStateToProps = state => ({
   film: selectors.film.film(state),

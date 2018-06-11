@@ -77,7 +77,7 @@ exports[`SearchContainer page component it renders correctly when films are prov
       hideText={false}
       isLoaded={true}
     >
-      <SearchResults
+      <LoadableComponent
         displayCount={15}
         films={
           Array [
@@ -133,11 +133,11 @@ exports[`SearchContainer page component it renders correctly when no films found
       hideText={false}
       isLoaded={true}
     >
-      <ContentMessage
+      <LoadableComponent
         className="font-size-header font-bold color-alt"
       >
         No movies found
-      </ContentMessage>
+      </LoadableComponent>
     </LoadingBlock>
   </main>
   <Footer />

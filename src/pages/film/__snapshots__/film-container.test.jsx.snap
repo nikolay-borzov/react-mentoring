@@ -108,7 +108,7 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
         Horror
          genre
       </SearchResultsPanel>
-      <FilmsGrid
+      <LoadableComponent
         films={
           Array [
             Object {
@@ -192,11 +192,11 @@ exports[`FilmContainer page component renders correctly when no related films fo
         Horror
          genre
       </SearchResultsPanel>
-      <ContentMessage
+      <LoadableComponent
         className="font-size-header font-bold color-alt"
       >
         No related movies found
-      </ContentMessage>
+      </LoadableComponent>
     </LoadingBlock>
   </main>
   <Footer />
@@ -264,18 +264,18 @@ exports[`FilmContainer page component renders correctly when related films had f
         Horror
          genre
       </SearchResultsPanel>
-      <ContentMessage
+      <LoadableComponent
         className="error-message"
       >
         Unable to load related movies
-      </ContentMessage>
+      </LoadableComponent>
     </LoadingBlock>
   </main>
   <Footer />
 </React.Fragment>
 `;
 
-exports[`FilmContainer page component renders correctly when the film is not found 1`] = `<NotFound />`;
+exports[`FilmContainer page component renders correctly when the film is not found 1`] = `<LoadableComponent />`;
 
 exports[`FilmContainer page component renders correctly when the film is unavailable 1`] = `
 <React.Fragment>
@@ -317,7 +317,7 @@ exports[`FilmContainer page component renders correctly when the film is unavail
         Horror
          genre
       </SearchResultsPanel>
-      <FilmsGrid
+      <LoadableComponent
         films={
           Array [
             Object {
