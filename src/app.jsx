@@ -1,7 +1,6 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
 import { Provider } from 'react-redux'
-// import { PersistGate } from 'redux-persist/integration/react'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { ToastContainer, Slide, toast } from 'react-toastify'
@@ -30,7 +29,6 @@ App.propTypes = {
     dispatch: PropTypes.func.isRequired,
     getState: PropTypes.func.isRequired
   }).isRequired
-  // persistor: PropTypes.object
 }
 
 App.defaultProps = {
@@ -40,8 +38,6 @@ App.defaultProps = {
 }
 
 export function App({ Router, location, context, store }) {
-  // TODO: Find a way to render PersistGate on server side
-  // <PersistGate loading={null} persistor={persistor}>
   return (
     <Provider store={store}>
       <ErrorBoundary>

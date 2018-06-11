@@ -12,25 +12,6 @@ import apiService from './services/api-service'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-// const REHYDRATE_KEY = '_persist'
-/**
- * https://github.com/rt2zz/redux-persist/issues/457
- * @param {Object} state
- */
-/* function enableClientStoreRehydrate(state) {
-  if (!state) {
-    return
-  }
-
-  Object.keys(state).forEach(key => {
-    if (key === REHYDRATE_KEY) {
-      delete state[key]
-    } else if (typeof state[key] === 'object' && !key.startsWith('_')) {
-      enableClientStoreRehydrate(state[key])
-    }
-  })
-} */
-
 function renderHTML(html, helmet, bundles, preloadedState) {
   const safePreloadedState = serialize(preloadedState)
   // TODO: Add hash to resource URIs
@@ -105,8 +86,6 @@ export default function serverRenderer({ stats }) {
       let bundles = getBundles(stats, modules)
 
       const preloadedState = store.getState()
-      // TODO: redux-persist doesn't work on server side
-      // enableClientStoreRehydrate(preloadedState)
 
       res.send(renderHTML(htmlString, helmet, bundles, preloadedState))
     })

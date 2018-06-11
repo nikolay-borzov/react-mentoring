@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware, { END } from 'redux-saga'
-// import { persistStore } from 'redux-persist'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 
 import reducer, { rootSaga } from './reducer'
@@ -26,7 +25,6 @@ const configureStore = preloadedState => {
   /* istanbul ignore next */
   store.close = () => store.dispatch(END)
 
-  // TODO: https://github.com/rt2zz/redux-persist/blob/master/docs/hot-module-replacement.md
   /* istanbul ignore next */
   if (IS_DEVELOPMENT && module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -34,9 +32,6 @@ const configureStore = preloadedState => {
       store.replaceReducer(reducer)
     })
   }
-
-  // TODO: Disable redux-persist because of problems during SSR
-  // const persistor = persistStore(store)
 
   return { store }
 }
