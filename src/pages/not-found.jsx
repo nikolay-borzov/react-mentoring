@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Header, Footer, SiteName, ContentMessage } from '../components'
 
-export default function NotFound() {
+export function NotFound() {
   return (
     <React.Fragment>
       <Header>
@@ -26,3 +26,5 @@ export default function NotFound() {
     </React.Fragment>
   )
 }
+
+export default NotFound

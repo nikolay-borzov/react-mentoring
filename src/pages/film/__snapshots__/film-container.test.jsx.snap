@@ -3,19 +3,21 @@
 exports[`FilmContainer page component renders correctly when connected to the store 1`] = `
 <FilmContainer
   fetchFilm={[Function]}
-  fetchRelatedFilms={[Function]}
   film={null}
+  filmError={null}
   filmIsFetching={false}
   genre=""
+  reFetchFilms={[Function]}
   relatedFilms={Array []}
   relatedFilmsError={null}
   relatedFilmsIsFetching={false}
-  setRelatedFilmsSearchParams={[Function]}
   store={
     Object {
+      "close": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "replaceReducer": [Function],
+      "runSaga": [Function],
       "subscribe": [Function],
       Symbol(observable): [Function],
     }
@@ -31,9 +33,11 @@ exports[`FilmContainer page component renders correctly when connected to the st
       "onStateChange": [Function],
       "parentSub": undefined,
       "store": Object {
+        "close": [Function],
         "dispatch": [Function],
         "getState": [Function],
         "replaceReducer": [Function],
+        "runSaga": [Function],
         "subscribe": [Function],
         Symbol(observable): [Function],
       },
@@ -51,7 +55,7 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
   >
     <title>
       Film title
-       :: Movie Search
+       🎥 Movie Search
     </title>
   </HelmetWrapper>
   <Header>
@@ -104,7 +108,7 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
         Horror
          genre
       </SearchResultsPanel>
-      <FilmsGrid
+      <LoadableComponent
         films={
           Array [
             Object {
@@ -135,7 +139,7 @@ exports[`FilmContainer page component renders correctly when no related films fo
   >
     <title>
       Film title
-       :: Movie Search
+       🎥 Movie Search
     </title>
   </HelmetWrapper>
   <Header>
@@ -188,11 +192,11 @@ exports[`FilmContainer page component renders correctly when no related films fo
         Horror
          genre
       </SearchResultsPanel>
-      <ContentMessage
+      <LoadableComponent
         className="font-size-header font-bold color-alt"
       >
         No related movies found
-      </ContentMessage>
+      </LoadableComponent>
     </LoadingBlock>
   </main>
   <Footer />
@@ -207,7 +211,7 @@ exports[`FilmContainer page component renders correctly when related films had f
   >
     <title>
       Film title
-       :: Movie Search
+       🎥 Movie Search
     </title>
   </HelmetWrapper>
   <Header>
@@ -260,18 +264,18 @@ exports[`FilmContainer page component renders correctly when related films had f
         Horror
          genre
       </SearchResultsPanel>
-      <ContentMessage
+      <LoadableComponent
         className="error-message"
       >
         Unable to load related movies
-      </ContentMessage>
+      </LoadableComponent>
     </LoadingBlock>
   </main>
   <Footer />
 </React.Fragment>
 `;
 
-exports[`FilmContainer page component renders correctly when the film is not found 1`] = `<NotFound />`;
+exports[`FilmContainer page component renders correctly when the film is not found 1`] = `<LoadableComponent />`;
 
 exports[`FilmContainer page component renders correctly when the film is unavailable 1`] = `
 <React.Fragment>
@@ -313,7 +317,7 @@ exports[`FilmContainer page component renders correctly when the film is unavail
         Horror
          genre
       </SearchResultsPanel>
-      <FilmsGrid
+      <LoadableComponent
         films={
           Array [
             Object {

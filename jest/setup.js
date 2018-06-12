@@ -13,3 +13,4 @@ global.shallow = shallow
 global.render = render
 global.mount = mount
 global.IS_DEVELOPMENT = false
+global.IS_SERVER = false

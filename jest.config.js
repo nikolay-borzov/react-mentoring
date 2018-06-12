@@ -9,7 +9,12 @@ module.exports = {
   snapshotSerializers: ['enzyme-to-json/serializer'],
   collectCoverageFrom: ['src/**/*.{js,jsx}'],
   coverageDirectory: 'coverage',
-  coveragePathIgnorePatterns: ['/node_modules/', 'index.js'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    'index.js',
+    'client.jsx',
+    'server-renderer.js'
+  ],
   coverageReporters: ['lcov', 'text'],
   transformIgnorePatterns: ['node_modules/(?!(lodash-es)/)'],
   setupTestFrameworkScriptFile: '<rootDir>jest/setup.js'

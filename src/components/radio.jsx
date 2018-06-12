@@ -1,13 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import requiredIf from 'react-required-if'
-import { isUndefined } from 'lodash-es'
 
 import './radio.css'
 
 const styleClassMap = {
   button: 'radio-input--style-button',
   plain: 'radio-input--style-plain'
+}
+
+function isUndefined(value) {
+  return typeof value === 'undefined'
 }
 
 export class Radio extends React.PureComponent {

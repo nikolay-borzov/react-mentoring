@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
-import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { all } from 'redux-saga/effects'
 
 import { searchBy, sortBy, sortOrder } from '../../enums'
 
@@ -47,18 +46,16 @@ export const selectors = {
 export const setParams = searchParamsSlice.actionCreators.setParams
 export const fetchFilms = filmsSlice.actionCreators.fetchFilms
 
-// Reducer
+// Sagas
 
-const searchParamsPersistConfig = {
-  key: 'search.searchParams',
-  storage
+export function* searchSagas() {
+  yield all([filmsSlice.getSagas()])
 }
 
+// Reducer
+
 const rootReducer = combineReducers({
-  searchParams: persistReducer(
-    searchParamsPersistConfig,
-    searchParamsSlice.reducer
-  ),
+  searchParams: searchParamsSlice.reducer,
   films: filmsSlice.reducer
 })
 

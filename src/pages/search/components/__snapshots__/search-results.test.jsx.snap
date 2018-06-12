@@ -31,7 +31,7 @@ exports[`SearchResults component renders correctly 1`] = `
       value="release_date"
     />
   </SearchResultsPanel>
-  <FilmsGrid
+  <LoadableComponent
     films={Array []}
   />
 </React.Fragment>
@@ -67,7 +67,7 @@ exports[`SearchResults component renders correctly when found count is bigger th
       value="release_date"
     />
   </SearchResultsPanel>
-  <FilmsGrid
+  <LoadableComponent
     films={Array []}
   />
 </React.Fragment>
@@ -103,7 +103,7 @@ exports[`SearchResults component renders correctly when only one movie is found 
       value="release_date"
     />
   </SearchResultsPanel>
-  <FilmsGrid
+  <LoadableComponent
     films={Array []}
   />
 </React.Fragment>

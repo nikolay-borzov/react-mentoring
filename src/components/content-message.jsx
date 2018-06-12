@@ -13,3 +13,5 @@ ContentMessage.defaultProps = {
 export function ContentMessage(props) {
   return <div className={`centered ${props.className}`}>{props.children}</div>
 }
+
+export default ContentMessage

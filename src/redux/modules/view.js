@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux'
+import { createAction } from 'redux-actions'
 import { createSelector } from 'reselect'
+import { all, put, takeLatest, select } from 'redux-saga/effects'
 
 import { searchBy, sortBy, sortOrder } from '../../enums'
 
@@ -63,12 +65,61 @@ export const selectors = {
   }
 }
 
+// Action Types
+
+export const actionTypes = {
+  RE_FETCH_FILMS: `${sliceId}/RE_FETCH_FILMS`,
+  ...filmSlice.actionTypes
+}
+
 // Action Creators
 
 export const fetchFilm = filmSlice.actionCreators.fetchFilm
-export const setRelatedFilmsSearchParams =
-  searchParamsSlice.actionCreators.setParams
-export const fetchRelatedFilms = filmsSlice.actionCreators.fetchFilms
+export const reFetchFilms = createAction(actionTypes.RE_FETCH_FILMS)
+
+// for tests
+export const setParams = searchParamsSlice.actionCreators.setParams
+export const fetchFilms = filmsSlice.actionCreators.fetchFilms
+// Sagas
+
+/**
+ * Updates related films search params and fetches films
+ */
+export function* fetchRelatedFilmsAsync({ payload: film } = {}) {
+  if (!film) {
+    film = yield select(filmSlice.selectors.film)
+  }
+
+  if (film.id) {
+    yield put(
+      searchParamsSlice.actionCreators.setParams({
+        search: film.genres[0]
+      })
+    )
+
+    yield put(filmsSlice.actionCreators.fetchFilms())
+  }
+}
+
+export function* watchFilmLoad() {
+  yield takeLatest(
+    filmSlice.actionTypes.FETCH_FILM_SUCCESS,
+    fetchRelatedFilmsAsync
+  )
+}
+
+export function* watchReFetchFilms() {
+  yield takeLatest(actionTypes.RE_FETCH_FILMS, fetchRelatedFilmsAsync)
+}
+
+export function* viewSagas() {
+  yield all([
+    watchFilmLoad(),
+    watchReFetchFilms(),
+    filmSlice.getSagas(),
+    filmsSlice.getSagas()
+  ])
+}
 
 // Reducer
 

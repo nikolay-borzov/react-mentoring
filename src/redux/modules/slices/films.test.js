@@ -1,13 +1,11 @@
 import { films } from '../../../../jest/stubs'
-import { getMockStore } from '../../../../jest/test-helpers'
+import { runSaga } from '../../../../jest/test-helpers'
 
 import createSlice from './films'
 
 import filmService from '../../../services/film-service'
 
 jest.mock('../../../services/film-service')
-
-const mockStore = getMockStore()
 
 const initialState = {
   films: {
@@ -60,65 +58,48 @@ describe('Films state slice', () => {
     })
   })
 
-  describe('async actions', () => {
-    const actionTypes = slice.actionTypes
-    const fetchFilms = slice.actionCreators.fetchFilms
-
+  describe('sagas', () => {
     afterEach(() => {
       filmService.getFilms.mockClear()
     })
 
-    it(`dispatches 'FETCH_FILMS_SUCCESS' when films are fetched`, () => {
+    it(`fetches films`, () => {
       const response = {
         data: [{ id: 1 }, { id: 2 }],
         total: 3000,
         limit: 15
       }
+
+      const state = {
+        films: {},
+        searchParams: initialState.searchParams
+      }
+
       filmService.getFilms.mockReturnValue(Promise.resolve(response))
 
-      const expectedActions = [
-        {
-          type: actionTypes.FETCH_FILMS_REQUEST
-        },
-        {
-          type: actionTypes.FETCH_FILMS_SUCCESS,
-          payload: {
-            data: response.data,
-            total: response.total,
-            limit: response.limit
-          }
-        }
-      ]
-
-      const store = mockStore({ films: {} })
-
-      return store
-        .dispatch(fetchFilms())
-        .then(() => expect(store.getActions()).toEqual(expectedActions))
+      expect.assertions(2)
+      runSaga(slice.sagas.fetchFilmsAsync, state).then(dispatched => {
+        expect(dispatched).toEqual([
+          slice.actionCreators.fetchFilmsRequest(),
+          slice.actionCreators.fetchFilmsSuccess(response)
+        ])
+        expect(filmService.getFilms).toHaveBeenCalledWith(
+          initialState.searchParams
+        )
+      })
     })
 
-    it(`dispatches 'FETCH_FILMS_FAIL' on films fetch failure`, () => {
+    it(`handles films fetching failure`, () => {
       const expectedError = new Error('Fetch films failure')
       filmService.getFilms.mockReturnValue(Promise.reject(expectedError))
 
-      const expectedActions = [
-        {
-          type: actionTypes.FETCH_FILMS_REQUEST
-        },
-        {
-          type: actionTypes.FETCH_FILMS_FAIL,
-          payload: expectedError,
-          error: true
-        }
-      ]
-
-      const store = mockStore({ films: {} })
-
       expect.assertions(1)
-
-      return store
-        .dispatch(fetchFilms())
-        .catch(() => expect(store.getActions()).toEqual(expectedActions))
+      runSaga(slice.sagas.fetchFilmsAsync).then(dispatched => {
+        expect(dispatched).toEqual([
+          slice.actionCreators.fetchFilmsRequest(),
+          slice.actionCreators.fetchFilmsFail(expectedError)
+        ])
+      })
     })
   })
 

@@ -16,3 +16,5 @@ export function FilmsGrid(props) {
     </div>
   )
 }
+
+export default FilmsGrid

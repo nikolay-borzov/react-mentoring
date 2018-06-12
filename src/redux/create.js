@@ -1,25 +1,30 @@
 import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import { persistStore } from 'redux-persist'
+import createSagaMiddleware, { END } from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 
-import reducer from './reducer'
+import reducer, { rootSaga } from './reducer'
 
-const configureStore = () => {
-  const middleware = [thunk]
+const configureStore = preloadedState => {
+  const sagaMiddleware = createSagaMiddleware()
+  const middleware = [sagaMiddleware]
 
   /* istanbul ignore next */
-  if (IS_DEVELOPMENT) {
+  if (IS_DEVELOPMENT && !IS_SERVER) {
     middleware.push(require('redux-logger').default)
   }
 
   const store = createStore(
     reducer,
-    /* preloadedState */
+    preloadedState,
     composeWithDevTools(applyMiddleware(...middleware))
   )
 
-  // TODO: https://github.com/rt2zz/redux-persist/blob/master/docs/hot-module-replacement.md
+  sagaMiddleware.run(rootSaga)
+  /* istanbul ignore next */
+  store.runSaga = () => sagaMiddleware.run(rootSaga)
+  /* istanbul ignore next */
+  store.close = () => store.dispatch(END)
+
   /* istanbul ignore next */
   if (IS_DEVELOPMENT && module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -28,9 +33,7 @@ const configureStore = () => {
     })
   }
 
-  const persistor = persistStore(store)
-
-  return { store, persistor }
+  return { store }
 }
 
 export default configureStore

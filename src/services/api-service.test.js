@@ -14,6 +14,10 @@ jest.mock('axios', () => ({
 }))
 
 describe('apiService', () => {
+  beforeEach(() => {
+    axios.initialized = false
+  })
+
   it('sets default for axios', () => {
     global.API_URL = 'http://api.some.com'
     apiService.init()
@@ -38,5 +42,10 @@ describe('apiService', () => {
 
     expect(interceptors[0](resultWithData)).toBe(resultWithData.data)
     expect(interceptors[0](resultWithoutData)).toBe(resultWithoutData)
+
+    // it doesn't add interceptor on second call
+    apiService.init()
+
+    expect(interceptors).toHaveLength(1)
   })
 })

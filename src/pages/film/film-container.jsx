@@ -5,12 +5,9 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify'
 
-import {
-  fetchFilm,
-  setRelatedFilmsSearchParams,
-  fetchRelatedFilms,
-  selectors
-} from '../../redux/modules/view'
+import { fetchFilm, reFetchFilms, selectors } from '../../redux/modules/view'
+
+import { GetLoadable } from '../../components/helpers'
 
 import {
   Header,
@@ -18,18 +15,26 @@ import {
   SiteName,
   LoadingBlock,
   ToastError,
-  FilmsGrid,
-  SearchResultsPanel,
-  ContentMessage
+  SearchResultsPanel
 } from '../../components'
 
-import NotFound from '../not-found'
-
 import { FilmDetails } from './components/film-details'
+
+/* istanbul ignore next */
+const FilmsGrid = GetLoadable(() =>
+  import('../../components/films-grid/films-grid')
+)
+/* istanbul ignore next */
+const ContentMessage = GetLoadable(() =>
+  import('../../components/content-message')
+)
+/* istanbul ignore next */
+const NotFound = GetLoadable(() => import('../not-found'))
 
 const mapStateToProps = state => ({
   film: selectors.film.film(state),
   filmIsFetching: selectors.film.isFetching(state),
+  filmError: selectors.film.error(state),
   genre: selectors.relatedFilms.searchParams.search(state),
   relatedFilms: selectors.relatedFilms.films.films(state),
   relatedFilmsIsFetching: selectors.relatedFilms.films.isFetching(state),
@@ -38,8 +43,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchFilm,
-  setRelatedFilmsSearchParams,
-  fetchRelatedFilms
+  reFetchFilms
 }
 
 export class FilmContainer extends React.Component {
@@ -47,60 +51,62 @@ export class FilmContainer extends React.Component {
     match: PropTypes.object,
     film: PropTypes.object,
     filmIsFetching: PropTypes.bool.isRequired,
+    filmError: PropTypes.object,
     genre: PropTypes.string.isRequired,
     relatedFilms: PropTypes.arrayOf(PropTypes.object),
     relatedFilmsIsFetching: PropTypes.bool.isRequired,
     relatedFilmsError: PropTypes.object,
     fetchFilm: PropTypes.func.isRequired,
-    setRelatedFilmsSearchParams: PropTypes.func.isRequired,
-    fetchRelatedFilms: PropTypes.func.isRequired
+    reFetchFilms: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+
+    if (IS_SERVER) {
+      this.initialLoad(props)
+    }
+  }
+
+  initialLoad(props) {
+    this.loadFilm(props.match.params.id)
   }
 
   componentDidMount() {
-    this.loadFilm(this.props.match.params.id)
+    const film = this.props.film
+    const filmId = parseInt(this.props.match.params.id, 10)
+    // If films was loaded on server - load related films
+    if (film && film.id === filmId) {
+      this.props.reFetchFilms()
+    } else {
+      this.initialLoad(this.props)
+    }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState) {
     const filmId = this.props.match.params.id
+    const { filmError, relatedFilmsError } = this.props
     // Load film if film id has changed
     if (prevProps.match.params.id !== filmId) {
       this.loadFilm(filmId)
     }
+
+    if (filmError) {
+      toast.error(
+        <ToastError message="Unable to load the movie" error={filmError} />
+      )
+    } else if (relatedFilmsError) {
+      toast.error(
+        <ToastError
+          message="Unable to load related movies"
+          error={relatedFilmsError}
+        />
+      )
+    }
   }
 
   loadFilm(id) {
-    return this.props
-      .fetchFilm(id)
-      .then(() => {
-        const film = this.props.film
-        if (film.id) {
-          const genres = this.props.film.genres
-          this.loadRelatedFilms(genres[0])
-        }
-      })
-      .catch(error => {
-        toast.error(
-          <ToastError message="Unable to load the movie" error={error} />
-        )
-      })
-  }
-
-  loadRelatedFilms(genre) {
-    const { setRelatedFilmsSearchParams, fetchRelatedFilms } = this.props
-
-    setRelatedFilmsSearchParams({
-      search: genre
-    })
-
-    return fetchRelatedFilms().catch(error => {
-      this.setState({
-        relatedFilmsError: true
-      })
-
-      toast.error(
-        <ToastError message="Unable to load related movies" error={error} />
-      )
-    })
+    this.props.fetchFilm(id)
   }
 
   render() {
@@ -139,7 +145,7 @@ export class FilmContainer extends React.Component {
       <React.Fragment>
         {film ? (
           <Helmet>
-            <title>{film.title} :: Movie Search</title>
+            <title>{film.title} 🎥 Movie Search</title>
           </Helmet>
         ) : null}
         <Header>
@@ -168,4 +174,7 @@ export class FilmContainer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilmContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilmContainer)

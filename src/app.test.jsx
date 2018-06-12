@@ -1,5 +1,4 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 
 import {
   itContainsComponent,
@@ -7,16 +6,22 @@ import {
 } from '../jest/test-helpers'
 
 import { App } from './app'
-import { ErrorBoundary } from './components'
 
 describe('App component', () => {
-  it(`wrapped in 'ErrorBoundary' component`, () => {
-    const wrapper = shallow(<App />)
+  const props = {
+    Router: jest.fn(),
+    location: '',
+    context: {
+      url: ''
+    },
+    store: {
+      subscribe: jest.fn(),
+      dispatch: jest.fn(),
+      getState: jest.fn()
+    }
+  }
 
-    expect(wrapper.type()).toBe(ErrorBoundary)
-  })
+  itRendersCorrectlyShallow(() => <App {...props} />)
 
-  itRendersCorrectlyShallow(() => <App />)
-
-  itContainsComponent(() => <App />, 'ToastContainer')
+  itContainsComponent(() => <App {...props} />, 'ToastContainer')
 })

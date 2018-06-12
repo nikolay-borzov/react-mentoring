@@ -24,6 +24,7 @@ describe('SearchContainer page component', () => {
     searchBy: 'title',
     sortBy: 'release_date',
     films: films,
+    filmsError: null,
     foundCount: films.length,
     displayCount: 15,
     isFetching: false,
@@ -53,6 +54,10 @@ describe('SearchContainer page component', () => {
     fetchFilmsMock.mockReturnValue(Promise.resolve())
   })
 
+  afterEach(() => {
+    global.IS_SERVER = false
+  })
+
   describe('it renders correctly', () => {
     itRendersCorrectlyShallow(() => {
       const { store } = configureStore()
@@ -78,13 +83,16 @@ describe('SearchContainer page component', () => {
     expect(() => render()).toThrowError('Error Boundary test')
   })
 
-  it('loads films', () => {
+  it('loads films on server side', () => {
+    global.IS_SERVER = true
+
     render()
 
     expect(fetchFilmsMock).toHaveBeenCalled()
   })
 
-  it(`saves 'search' from route to store`, () => {
+  it(`loads films on client side if they haven't been loaded`, () => {
+    props.foundCount = 0
     props.match.params.search = 'Comedy'
 
     render()
@@ -92,9 +100,21 @@ describe('SearchContainer page component', () => {
     expect(setSearchParamsMock).toHaveBeenCalledWith({
       search: props.match.params.search
     })
+    expect(fetchFilmsMock).toHaveBeenCalled()
   })
 
+  /*   it(`saves 'search' from route to store`, () => {
+    props.match.params.search = 'Comedy'
+
+    render()
+
+    expect(setSearchParamsMock).toHaveBeenCalledWith({
+      search: props.match.params.search
+    })
+  }) */
+
   it(`'search' is empty by default`, () => {
+    props.foundCount = 0
     props.match.params.search = undefined
 
     render()
@@ -167,14 +187,12 @@ describe('SearchContainer page component', () => {
 
   it('displays an error when unable to load the films', async () => {
     const error = new Error('Films load error')
-    fetchFilmsMock.mockReturnValue(Promise.reject(error))
 
-    const { instance } = render()
+    const { wrapper, instance } = render()
 
-    expect.assertions(1)
+    wrapper.setProps({ filmsError: error })
+    instance.componentDidUpdate(props)
 
-    return instance.loadFilms().then(() => {
-      expect(toast.error).toHaveBeenCalled()
-    })
+    expect(toast.error).toHaveBeenCalled()
   })
 })
