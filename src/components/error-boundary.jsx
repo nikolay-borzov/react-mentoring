@@ -1,13 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
+
+import * as React from 'react'
 
 import './error-boundary.css'
 
-export class ErrorBoundary extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.any.isRequired
-  }
+type ErrorBoundaryProps = {
+  children: any
+}
 
+type ErrorBoundaryState = {
+  hasError: boolean
+}
+
+export class ErrorBoundary extends React.PureComponent<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   state = {
     hasError: false
   }
@@ -23,7 +31,9 @@ export class ErrorBoundary extends React.PureComponent {
   }
 
   render() {
-    if (this.state.hasError) {
+    const { hasError, error, errorInfo } = this.state
+
+    if (hasError) {
       return (
         <div className="error-boundary centered alt-background">
           <div className="padding-content">
@@ -33,9 +43,9 @@ export class ErrorBoundary extends React.PureComponent {
               <summary>
                 Details<br />
               </summary>
-              {this.state.error && this.state.error.toString()}
+              {error && error.toString()}
               <br />
-              {this.state.errorInfo.componentStack}
+              {errorInfo.componentStack}
             </details>
 
             <p itemProp="telephone">

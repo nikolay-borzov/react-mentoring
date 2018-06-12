@@ -1,34 +1,54 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import './film-details.css'
 
 import { ContentImage } from '../../../components'
 
-FilmDetails.propTypes = {
-  film: PropTypes.object
+type Film = {
+  id: string,
+  poster_path: string,
+  title: string,
+  vote_average: number,
+  genres: string[],
+  release_date: string,
+  overview: string
 }
 
-export function FilmDetails(props) {
-  const content = props.film ? (
+type FilmDetailsProps = {
+  film: Film
+}
+
+export function FilmDetails(props: FilmDetailsProps) {
+  const film: Film = props.film || {}
+
+  const {
+    poster_path: posterPath,
+    title,
+    vote_average: voteAverage,
+    genres,
+    release_date: releaseDate,
+    overview
+  } = film
+
+  const content = film.id ? (
     <React.Fragment>
       <div className="film-details__image">
-        <ContentImage src={props.film.poster_path} alt={props.film.title} />
+        <ContentImage src={posterPath} alt={title} />
       </div>
 
       <div className="film-details__description">
         <div className="flex flex-align-center">
-          <h1>{props.film.title} </h1>
-          <span className="film-details__rating">
-            {props.film.vote_average}
-          </span>
+          <h1>{title}</h1>
+          <span className="film-details__rating">{voteAverage}</span>
         </div>
 
-        <p className="font-size-big">{props.film.genres.join(', ')}</p>
+        <p className="font-size-big">{genres.join(', ')}</p>
 
-        <p className="font-bold">{props.film.release_date.substring(0, 4)}</p>
+        <p className="font-bold">{releaseDate.substring(0, 4)}</p>
 
-        <p className="font-size-big">{props.film.overview}</p>
+        <p className="font-size-big">{overview}</p>
       </div>
     </React.Fragment>
   ) : (

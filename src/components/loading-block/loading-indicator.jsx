@@ -1,13 +1,14 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import './loading-indicator.css'
 
-LoadingIndicator.propTypes = {
-  hideText: PropTypes.bool.isRequired
+type LoadingIndicatorProps = {
+  hideText: boolean
 }
 
-export function LoadingIndicator(props) {
+export function LoadingIndicator(props: LoadingIndicatorProps) {
   return (
     <div className="centered loading-indicator font-bold">
       <div>

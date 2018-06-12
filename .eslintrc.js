@@ -13,12 +13,16 @@ module.exports = {
     render: true,
     mount: true
   },
-  plugins: ['react'],
+  plugins: ['react', 'flowtype'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       jsx: true
     }
   },
-  extends: ['prettier-standard', 'plugin:react/recommended']
+  extends: [
+    'prettier-standard',
+    'plugin:react/recommended',
+    'plugin:flowtype/recommended'
+  ]
 }

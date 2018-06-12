@@ -1,6 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
-import requiredIf from 'react-required-if'
 
 import './radio.css'
 
@@ -9,56 +9,62 @@ const styleClassMap = {
   plain: 'radio-input--style-plain'
 }
 
-function isUndefined(value) {
-  return typeof value === 'undefined'
-}
+type RadioOption = {|
+  name: string,
+  value: string
+|}
 
-export class Radio extends React.PureComponent {
-  static propTypes = {
-    label: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    value: requiredIf(PropTypes.string, props => !isUndefined(props.onChange)),
-    defaultValue: requiredIf(
-      PropTypes.string,
-      props => isUndefined(props.onChange) && isUndefined(props.value)
-    ),
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired
-      })
-    ).isRequired,
-    onChange: requiredIf(PropTypes.func, props => !isUndefined(props.value)),
-    style: PropTypes.oneOf(['button', 'plain'])
-  }
+type RadioControlledProps = {|
+  label: string,
+  name: string,
+  value: string,
+  options: RadioOption[],
+  onChange: (value: string) => void,
+  style: 'button' | 'plain'
+|}
 
+type RadioUncontrolledProps = {|
+  label: string,
+  name: string,
+  defaultValue: string,
+  options: RadioOption[],
+  style: 'button' | 'plain'
+|}
+
+type RadioProps = RadioControlledProps | RadioUncontrolledProps
+
+export class Radio extends React.PureComponent<RadioProps> {
   static defaultProps = {
     style: 'plain'
   }
 
-  constructor(props) {
+  isControlled: boolean
+  value: string
+  styleClassName: string
+
+  constructor(props: Radio) {
+    const value =
+      typeof props.onChange === 'undefined' ? props.defaultValue : props.value
+
     super(props)
 
-    this.isControlled =
-      !isUndefined(props.value) && !isUndefined(props.onChange)
-
     // Set 'value' so that selected value is available in form's onSubmit handler
-    this.value = this.isControlled ? this.props.value : this.props.defaultValue
+    this.value = value
     this.styleClassName = styleClassMap[props.style]
   }
 
-  isDefaultChecked(option) {
+  isDefaultChecked(option: RadioOption) {
     return option.value === this.value
   }
 
-  getOptionInputId(option) {
+  getOptionInputId(option: RadioOption) {
     return `${this.props.name}_${option.value}`
   }
 
-  onChange = changeEvent => {
+  onChange = (changeEvent: SyntheticInputEvent<HTMLInputElement>) => {
     const value = changeEvent.target.value
 
-    if (this.isControlled) {
+    if (typeof this.props.onChange !== 'undefined') {
       this.props.onChange(value)
     } else {
       this.value = value

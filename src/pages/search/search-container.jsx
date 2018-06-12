@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify'
@@ -38,22 +39,26 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = { setSearchParams: setParams, fetchFilms }
 
-export class SearchContainer extends React.PureComponent {
-  static propTypes = {
-    match: PropTypes.object,
-    history: PropTypes.object,
-    searchBy: PropTypes.string.isRequired,
-    sortBy: PropTypes.string.isRequired,
-    films: PropTypes.arrayOf(PropTypes.object),
-    filmsError: PropTypes.object,
-    foundCount: PropTypes.number.isRequired,
-    displayCount: PropTypes.number.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    setSearchParams: PropTypes.func.isRequired,
-    fetchFilms: PropTypes.func.isRequired
-  }
+type SearchContainerProps = {
+  match: {
+    params: { search: string }
+  },
+  history: {
+    push: (url: string) => void
+  },
+  searchBy: string,
+  sortBy: string,
+  films: object[],
+  filmsError: Error,
+  foundCount: number,
+  displayCount: number,
+  isFetching: boolean,
+  setSearchParams: ({ search?: string, searchBy?: string }) => void,
+  fetchFilms: Function
+}
 
-  constructor(props) {
+export class SearchContainer extends React.PureComponent<SearchContainerProps> {
+  constructor(props: SearchContainerProps) {
     super(props)
 
     if (IS_SERVER) {
@@ -61,7 +66,7 @@ export class SearchContainer extends React.PureComponent {
     }
   }
 
-  initialLoad(props) {
+  initialLoad(props: SearchContainerProps) {
     const { search = '' } = props.match.params
     // Always take last query value from the route
     this.props.setSearchParams({ search })
@@ -82,7 +87,7 @@ export class SearchContainer extends React.PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: SearchContainerProps) {
     const {
       sortBy: prevSortBy,
       searchBy: prevSearchBy,
@@ -120,12 +125,18 @@ export class SearchContainer extends React.PureComponent {
     this.props.fetchFilms()
   }
 
-  onSearchChange = ({ search, searchBy }) => {
+  onSearchChange = ({
+    search,
+    searchBy
+  }: {
+    search: string,
+    searchBy: string
+  }) => {
     this.props.setSearchParams({ search, searchBy })
     this.props.history.push(`/search/${search}`)
   }
 
-  onSortByChange = sortBy => {
+  onSortByChange = (sortBy: string) => {
     this.props.setSearchParams({ sortBy })
   }
 

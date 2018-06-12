@@ -1,19 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
 
-ToastError.propTypes = {
-  message: PropTypes.string.isRequired,
-  error: PropTypes.any
+import React from 'react'
+
+type ToastErrorProps = {
+  message: string,
+  error: Error
 }
 
-export function ToastError(props) {
+export function ToastError({ message, error }: ToastErrorProps) {
   return (
     <div>
-      {props.message}
-      {props.error ? (
+      {message}
+      {error ? (
         <React.Fragment>
           <br />
-          {props.error.toString()}
+          {error.toString()}
         </React.Fragment>
       ) : null}
     </div>

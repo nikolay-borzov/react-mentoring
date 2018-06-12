@@ -1,8 +1,9 @@
+// @flow
+
 import React from 'react'
 import { hot } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import { Route, Redirect, Switch } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { ToastContainer, Slide, toast } from 'react-toastify'
 
 import { GetLoadable } from './components/helpers'
@@ -19,16 +20,11 @@ const FilmContainer = GetLoadable(() => import('./pages/film/film-container'))
 /* istanbul ignore next */
 const NotFound = GetLoadable(() => import('./pages/not-found'))
 
-App.propTypes = {
-  Router: PropTypes.func.isRequired,
-  location: PropTypes.string,
-  context: PropTypes.shape({
-    url: PropTypes.string
-  }),
-  store: PropTypes.shape({
-    dispatch: PropTypes.func.isRequired,
-    getState: PropTypes.func.isRequired
-  }).isRequired
+type AppProps = {
+  Router: Function,
+  location: string,
+  context: { url: string },
+  store: { dispatch: Function, getState: Function }
 }
 
 App.defaultProps = {
@@ -37,7 +33,7 @@ App.defaultProps = {
   persistor: null
 }
 
-export function App({ Router, location, context, store }) {
+export function App({ Router, location, context, store }: AppProps) {
   return (
     <Provider store={store}>
       <ErrorBoundary>

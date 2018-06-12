@@ -1,12 +1,13 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import { LoadingIndicator } from './loading-indicator'
 
-LoadingBlock.propTypes = {
-  isLoaded: PropTypes.bool.isRequired,
-  children: PropTypes.any.isRequired,
-  hideText: PropTypes.bool
+type LoadingBlockProps = {
+  isLoaded: boolean,
+  children: any,
+  hideText: boolean
 }
 
 LoadingBlock.defaultProps = {
@@ -14,7 +15,7 @@ LoadingBlock.defaultProps = {
 }
 
 // TODO: Investigate why this is called four times (film-container.js) while props.isLoaded is changed only once
-export function LoadingBlock(props) {
+export function LoadingBlock(props: LoadingBlockProps) {
   if (props.isLoaded) {
     return props.children
   }

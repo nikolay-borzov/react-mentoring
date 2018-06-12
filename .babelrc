@@ -7,8 +7,10 @@
   ],
   "presets": [
     ["env", { "modules": false }],
+    "flow",
     "react"
   ],
+  "retainLines": true,
   "env": {
     "development": {
       "plugins": ["react-hot-loader/babel"]

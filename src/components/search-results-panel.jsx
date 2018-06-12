@@ -1,13 +1,14 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import './search-results-panel.css'
 
-SearchResultsPanel.propTypes = {
-  children: PropTypes.any
+type SearchResultsPanelProps = {
+  children: any
 }
 
-export function SearchResultsPanel(props) {
+export function SearchResultsPanel(props: SearchResultsPanelProps) {
   return (
     <div
       className="search-results-panel font-bold padding-controls"

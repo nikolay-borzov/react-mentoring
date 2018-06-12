@@ -1,15 +1,16 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import './films-grid.css'
 
 import { FilmsGridItem } from './films-grid-item'
 
-FilmsGrid.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object).isRequired
+type FilmsGridProps = {
+  films: Array<Object>
 }
 
-export function FilmsGrid(props) {
+export function FilmsGrid(props: FilmsGridProps) {
   return (
     <div className="film-grid padding-content" data-cy="film-grid">
       {props.films.map(film => <FilmsGridItem film={film} key={film.id} />)}

@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import './search-form.css'
 
@@ -7,13 +8,13 @@ import { searchBy } from '../../../enums'
 
 import { Radio } from '../../../components'
 
-export class SearchForm extends React.PureComponent {
-  static propTypes = {
-    search: PropTypes.string.isRequired,
-    searchBy: PropTypes.oneOf(Object.values(searchBy)).isRequired,
-    onSearchChange: PropTypes.func.isRequired
-  }
+type SearchFormProps = {
+  search: string,
+  searchBy: string,
+  onSearchChange: ({ search: string, searchBy: string }) => void
+}
 
+export class SearchForm extends React.PureComponent<SearchFormProps> {
   searchByOptions = [
     {
       name: 'Title',
@@ -25,7 +26,7 @@ export class SearchForm extends React.PureComponent {
     }
   ]
 
-  onSubmit = event => {
+  onSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     this.props.onSearchChange({

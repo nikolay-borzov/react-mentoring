@@ -22,7 +22,6 @@ exports[`FilmDetails component renders correctly when film is provided 1`] = `
       >
         <h1>
           Film title
-           
         </h1>
         <span
           className="film-details__rating"

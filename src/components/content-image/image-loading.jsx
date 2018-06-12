@@ -1,19 +1,20 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import './image-loading.css'
 
-ImageLoading.propTypes = {
-  className: PropTypes.string
+type ImageLoadingProps = {
+  className: string
 }
 
 ImageLoading.defaultProps = {
   className: ''
 }
 
-export function ImageLoading(props) {
+export function ImageLoading({ className }: ImageLoadingProps) {
   return (
-    <div className={`image-loading-indicator ${props.className}`}>
+    <div className={`image-loading-indicator ${className}`}>
       <div className="image-spinner">
         <div className="image-spinner__bounce1" />
         <div className="image-spinner__bounce2" />

@@ -1,22 +1,23 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import './content-image.css'
 
 import ImageLoader from 'react-load-image'
 import { ImageLoading } from './image-loading'
 
-ContentImage.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
-  title: PropTypes.string
+type ContentImageProps = {
+  src: string,
+  alt: string,
+  title: string
 }
 
 ContentImage.defaultProps = {
   title: ''
 }
 
-export function ContentImage({ src, title, alt }) {
+export function ContentImage({ src, title, alt }: ContentImageProps) {
   return (
     <ImageLoader src={src}>
       <img className="content-image" title={title} alt={alt} />
