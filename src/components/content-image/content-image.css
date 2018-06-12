@@ -20,7 +20,7 @@
   }
 }
 
-.imageloader-failed {
+.imageloader {
   /* Take all available width (needed for keeping aspect ratio)*/
   width: 100%;
 }

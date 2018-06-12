@@ -88,9 +88,10 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
             ],
             "id": 1,
             "overview": "Film overview",
-            "poster_path": "http://via.placeholder.com/500x750",
+            "poster_path": "https://picsum.photos/g/300/450/?random",
             "release_date": "2018-05-04",
             "title": "Film title",
+            "vote_average": 7.5,
           }
         }
       />
@@ -118,9 +119,10 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
               ],
               "id": 1,
               "overview": "Film overview",
-              "poster_path": "http://via.placeholder.com/500x750",
+              "poster_path": "https://picsum.photos/g/300/450/?random",
               "release_date": "2018-05-04",
               "title": "Film title",
+              "vote_average": 7.5,
             },
           ]
         }
@@ -172,9 +174,10 @@ exports[`FilmContainer page component renders correctly when no related films fo
             ],
             "id": 1,
             "overview": "Film overview",
-            "poster_path": "http://via.placeholder.com/500x750",
+            "poster_path": "https://picsum.photos/g/300/450/?random",
             "release_date": "2018-05-04",
             "title": "Film title",
+            "vote_average": 7.5,
           }
         }
       />
@@ -244,9 +247,10 @@ exports[`FilmContainer page component renders correctly when related films had f
             ],
             "id": 1,
             "overview": "Film overview",
-            "poster_path": "http://via.placeholder.com/500x750",
+            "poster_path": "https://picsum.photos/g/300/450/?random",
             "release_date": "2018-05-04",
             "title": "Film title",
+            "vote_average": 7.5,
           }
         }
       />
@@ -327,9 +331,10 @@ exports[`FilmContainer page component renders correctly when the film is unavail
               ],
               "id": 1,
               "overview": "Film overview",
-              "poster_path": "http://via.placeholder.com/500x750",
+              "poster_path": "https://picsum.photos/g/300/450/?random",
               "release_date": "2018-05-04",
               "title": "Film title",
+              "vote_average": 7.5,
             },
           ]
         }

@@ -16,10 +16,10 @@ ContentImage.defaultProps = {
   title: ''
 }
 
-export function ContentImage(props) {
+export function ContentImage({ src, title, alt }) {
   return (
-    <ImageLoader src={props.src}>
-      <img className="content-image" title={props.title} alt={props.alt} />
+    <ImageLoader src={src}>
+      <img className="content-image" title={title} alt={alt} />
       <div className="content-image-placeholder color-alt">
         <span>Image unavailable</span>
       </div>

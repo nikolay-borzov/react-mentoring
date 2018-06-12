@@ -11,9 +11,10 @@ Object {
     ],
     "id": 1,
     "overview": "Film overview",
-    "poster_path": "http://via.placeholder.com/500x750",
+    "poster_path": "https://picsum.photos/g/300/450/?random",
     "release_date": "2018-05-04",
     "title": "Film title",
+    "vote_average": 7.5,
   },
 }
 `;

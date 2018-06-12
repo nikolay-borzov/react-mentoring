@@ -10,7 +10,7 @@ exports[`FilmDetails component renders correctly when film is provided 1`] = `
     >
       <ContentImage
         alt="Film title"
-        src="http://via.placeholder.com/500x750"
+        src="https://picsum.photos/g/300/450/?random"
         title=""
       />
     </div>
@@ -26,7 +26,9 @@ exports[`FilmDetails component renders correctly when film is provided 1`] = `
         </h1>
         <span
           className="film-details__rating"
-        />
+        >
+          7.5
+        </span>
       </div>
       <p
         className="font-size-big"
