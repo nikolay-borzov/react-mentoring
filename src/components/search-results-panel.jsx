@@ -5,7 +5,7 @@ import React from 'react'
 import './search-results-panel.css'
 
 type SearchResultsPanelProps = {
-  children: any
+  children: React.ChildrenArray<React.Element<any>>
 }
 
 export function SearchResultsPanel(props: SearchResultsPanelProps) {

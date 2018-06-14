@@ -1,9 +1,9 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 
 type ContentMessageProps = {
-  children: any,
+  children: React.ChildrenArray<React.Element<any>>,
   className: string
 }
 

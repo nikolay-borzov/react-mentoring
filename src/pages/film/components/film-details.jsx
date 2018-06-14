@@ -6,16 +6,6 @@ import './film-details.css'
 
 import { ContentImage } from '../../../components'
 
-type Film = {
-  id: string,
-  poster_path: string,
-  title: string,
-  vote_average: number,
-  genres: string[],
-  release_date: string,
-  overview: string
-}
-
 type FilmDetailsProps = {
   film: Film
 }

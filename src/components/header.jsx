@@ -1,9 +1,9 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 
 type HeaderProps = {
-  children: any
+  children: React.ChildrenArray<React.Element<any>>
 }
 
 export function Header(props: HeaderProps) {

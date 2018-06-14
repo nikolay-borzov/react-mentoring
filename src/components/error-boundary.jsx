@@ -5,11 +5,15 @@ import * as React from 'react'
 import './error-boundary.css'
 
 type ErrorBoundaryProps = {
-  children: any
+  children: React.ChildrenArray<React.Element<any>>
 }
 
 type ErrorBoundaryState = {
-  hasError: boolean
+  hasError: boolean,
+  error?: Error,
+  errorInfo?: {
+    componentStack: any
+  }
 }
 
 export class ErrorBoundary extends React.PureComponent<

@@ -6,7 +6,7 @@ import { LoadingIndicator } from './loading-indicator'
 
 type LoadingBlockProps = {
   isLoaded: boolean,
-  children: any,
+  children: React.ChildrenArray<React.Element<any>>,
   hideText: boolean
 }
 

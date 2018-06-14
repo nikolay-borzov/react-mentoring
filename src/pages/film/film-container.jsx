@@ -51,17 +51,15 @@ type FilmContainerProps = {
   match: {
     params: { id: string }
   },
-  film: {
-    id: string
-  },
+  film: Film,
   filmIsFetching: boolean,
   filmError: Error,
   genre: string,
-  relatedFilms: object[],
+  relatedFilms: Film[],
   relatedFilmsIsFetching: boolean,
   relatedFilmsError: Error,
-  fetchFilm: Function,
-  reFetchFilms: Function
+  fetchFilm: (id: string) => void,
+  reFetchFilms: () => void
 }
 
 export class FilmContainer extends React.Component<FilmContainerProps> {
@@ -110,7 +108,7 @@ export class FilmContainer extends React.Component<FilmContainerProps> {
     }
   }
 
-  loadFilm(id: number) {
+  loadFilm(id: string) {
     this.props.fetchFilm(id)
   }
 

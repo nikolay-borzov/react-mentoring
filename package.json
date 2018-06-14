@@ -4,6 +4,7 @@
   "description": "React study project",
   "private": true,
   "scripts": {
+    "preinstall": "npm run flow:install-types",
     "start": "node ./server",
     "build": "webpack --config ./webpack",
     "start:prod": "npm run build:prod && npm run server:prod",
@@ -17,7 +18,8 @@
     "build:prod:analyze": "cross-env ANALYZE=true npm run build:prod",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "flow": "flow"
+    "flow": "flow",
+    "flow:install-types": "flow-typed install"
   },
   "husky": {
     "hooks": {
@@ -88,6 +90,7 @@
     "favicons-webpack-plugin": "0.0.9",
     "file-loader": "^1.1.11",
     "flow-bin": "^0.74.0",
+    "flow-typed": "^2.4.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.0.0-rc.8",
     "jest": "^23.1.0",
@@ -135,6 +138,7 @@
     "redux-actions": "^2.4.0",
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
-    "serialize-javascript": "^1.5.0"
+    "serialize-javascript": "^1.5.0",
+    "styled-components": "^3.3.2"
   }
 }
