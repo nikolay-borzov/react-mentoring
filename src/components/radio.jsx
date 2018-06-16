@@ -1,13 +1,12 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
+import styled, { css } from 'styled-components'
 
-import './radio.css'
+import { HoverEffectMixin, FormLabel } from '../styles'
 
-const styleClassMap = {
-  button: 'radio-input--style-button',
-  plain: 'radio-input--style-plain'
-}
+const STYLE_BUTTON = 'button'
+const STYLE_PLAIN = 'plain'
 
 type RadioOption = {|
   name: string,
@@ -33,24 +32,77 @@ type RadioUncontrolledProps = {|
 
 type RadioProps = RadioControlledProps | RadioUncontrolledProps
 
+const RadioInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const labelMixinMap = {
+  [STYLE_BUTTON]: css`
+    display: flex;
+    padding: var(--padding-button-small);
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 700;
+    box-sizing: border-box;
+    border: none;
+    color: var(--color-text-light);
+    background-color: var(--color-default);
+
+    ${HoverEffectMixin};
+
+    input:checked + & {
+      background-color: var(--color-primary);
+    }
+  `,
+  [STYLE_PLAIN]: css`
+    padding: 0.25rem 0.5rem;
+
+    input:checked + & {
+      color: var(--color-primary);
+    }
+  `
+}
+
+const RadioInputLabel = styled.label`
+  user-select: none;
+  white-space: nowrap;
+
+  ${props => labelMixinMap[props.inputStyle]};
+`
+
+const RadioInput = styled.div`
+  margin-right: var(--margin-input);
+
+  input {
+    opacity: 0;
+    position: absolute;
+  }
+
+  input:focus + ${RadioInputLabel} {
+    outline: var(--focus);
+  }
+`
+
 export class Radio extends React.PureComponent<RadioProps> {
   static defaultProps = {
     style: 'plain'
   }
 
-  isControlled: boolean
   value: string
-  styleClassName: string
 
-  constructor(props: Radio) {
-    const value =
-      typeof props.onChange === 'undefined' ? props.defaultValue : props.value
+  constructor(props: RadioProps) {
+    let value
+    if (props.onChange) {
+      value = props.value
+    } else {
+      value = props.defaultValue
+    }
 
     super(props)
 
     // Set 'value' so that selected value is available in form's onSubmit handler
     this.value = value
-    this.styleClassName = styleClassMap[props.style]
   }
 
   isDefaultChecked(option: RadioOption) {
@@ -72,13 +124,13 @@ export class Radio extends React.PureComponent<RadioProps> {
   }
 
   render() {
+    const { label, options, style } = this.props
+
     return (
-      <div className="radio-input-wrapper">
-        <label className="form-label nowrap">{this.props.label}</label>
-        {this.props.options.map(option => (
-          <div
-            key={option.value}
-            className={`radio-input ${this.styleClassName}`}>
+      <RadioInputWrapper>
+        <FormLabel className="nowrap">{label}</FormLabel>
+        {options.map(option => (
+          <RadioInput key={option.value}>
             <input
               type="radio"
               id={this.getOptionInputId(option)}
@@ -87,14 +139,14 @@ export class Radio extends React.PureComponent<RadioProps> {
               defaultChecked={this.isDefaultChecked(option)}
               onChange={this.onChange}
             />
-            <label
+            <RadioInputLabel
               htmlFor={this.getOptionInputId(option)}
-              className="radio-input__label">
+              inputStyle={style}>
               {option.name}
-            </label>
-          </div>
+            </RadioInputLabel>
+          </RadioInput>
         ))}
-      </div>
+      </RadioInputWrapper>
     )
   }
 }

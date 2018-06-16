@@ -1,34 +1,42 @@
 // @flow
 
 import * as React from 'react'
-
-import './error-boundary.css'
+import styled from 'styled-components'
 
 type ErrorBoundaryProps = {
-  children: React.ChildrenArray<React.Element<any>>
+  children: React.ChildrenArray<React.Node>
+}
+
+type ErrorInfo = {
+  componentStack: string
 }
 
 type ErrorBoundaryState = {
   hasError: boolean,
-  error?: Error,
-  errorInfo?: {
-    componentStack: any
-  }
+  error: ?Error,
+  errorInfo: ?ErrorInfo
 }
+
+const ErrorBoundaryDetails = styled.details`
+  whitespace: 'pre-wrap';
+`
 
 export class ErrorBoundary extends React.PureComponent<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
   state = {
-    hasError: false
+    hasError: false,
+    error: null,
+    errorInfo: null
   }
 
-  componentDidCatch(error, errorInfo) {
+  // https://github.com/facebook/flow/pull/6044
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       hasError: true,
-      error: error,
-      errorInfo: errorInfo
+      error,
+      errorInfo
     })
 
     // TIP: Send error details to the server
@@ -43,14 +51,14 @@ export class ErrorBoundary extends React.PureComponent<
           <div className="padding-content">
             <h1>Something went wrong.</h1>
 
-            <details>
+            <ErrorBoundaryDetails>
               <summary>
                 Details<br />
               </summary>
               {error && error.toString()}
               <br />
-              {errorInfo.componentStack}
-            </details>
+              {errorInfo && errorInfo.componentStack}
+            </ErrorBoundaryDetails>
 
             <p itemProp="telephone">
               Please try again later or contact support at&nbsp;

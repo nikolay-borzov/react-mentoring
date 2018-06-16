@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResultsPanel component renders correctly 1`] = `
-<div
-  className="search-results-panel font-bold padding-controls"
+<SearchResultsPanelStyled
+  className="font-bold padding-controls"
   data-cy="search-results-panel"
 >
   <p>
@@ -11,5 +11,5 @@ exports[`SearchResultsPanel component renders correctly 1`] = `
   <p>
     Another content
   </p>
-</div>
+</SearchResultsPanelStyled>
 `;

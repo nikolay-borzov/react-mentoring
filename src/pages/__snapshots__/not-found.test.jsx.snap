@@ -20,13 +20,11 @@ exports[`NotFound page component renders correctly 1`] = `
         <br />
         Page not found
       </p>
-      <Link
-        className="button button--primary"
-        replace={false}
+      <Button
         to="/"
       >
         Go home
-      </Link>
+      </Button>
     </ContentMessage>
   </main>
   <Footer />

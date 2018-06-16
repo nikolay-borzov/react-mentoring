@@ -1,34 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchForm component renders correctly 1`] = `
-<div
-  className="search-form-container"
->
+<SearchFormContainer>
   <form
     name="search-form"
     onSubmit={[Function]}
   >
-    <div
-      className="form-row"
-    >
-      <label
-        className="form-label uppercase"
+    <FormRow>
+      <FormLabel
+        className="uppercase"
       >
         Find your movie
-      </label>
-    </div>
-    <div
-      className="form-row"
-    >
-      <input
-        className="text-input"
+      </FormLabel>
+    </FormRow>
+    <FormRow>
+      <SearchInput
         defaultValue=""
+        innerRef={
+          Object {
+            "current": null,
+          }
+        }
         name="search"
         type="text"
       />
-    </div>
-    <div
-      className="form-row uppercase"
+    </FormRow>
+    <FormRow
+      className="uppercase"
     >
       <Radio
         defaultValue="title"
@@ -51,13 +49,13 @@ exports[`SearchForm component renders correctly 1`] = `
       <div
         className="flex-grow align-right"
       >
-        <input
-          className="button button--primary"
+        <Button
+          primary={true}
           type="submit"
           value="Search"
         />
       </div>
-    </div>
+    </FormRow>
   </form>
-</div>
+</SearchFormContainer>
 `;

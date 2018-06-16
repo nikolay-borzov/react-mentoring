@@ -1,10 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilmsGridItem component renders correctly 1`] = `
-<Link
-  className="film-grid-item hover-effect"
+<FilmGridItem
+  className="hover-effect"
   data-cy="film-grid-item"
-  replace={false}
   tabIndex={0}
   to="/film/1"
 >
@@ -13,28 +12,22 @@ exports[`FilmsGridItem component renders correctly 1`] = `
     src="https://picsum.photos/g/300/450/?random"
     title="Film overview"
   />
-  <div
-    className="film-grid-item__info"
-  >
-    <div
-      className="film-grid-item__row film-grid-item__title"
-    >
+  <FilmGridItemInfo>
+    <FilmGridItemRow>
       <span
         className="uppercase font-bold"
       >
         Film title
       </span>
-      <span
-        className="film-grid-item__date font-size-small color-alt"
-      >
+      <FilmGridItemDate>
         2018
-      </span>
-    </div>
-    <div
-      className="film-grid-item__row color-alt"
+      </FilmGridItemDate>
+    </FilmGridItemRow>
+    <FilmGridItemRow
+      className="color-alt"
     >
       some genre, another genre
-    </div>
-  </div>
-</Link>
+    </FilmGridItemRow>
+  </FilmGridItemInfo>
+</FilmGridItem>
 `;

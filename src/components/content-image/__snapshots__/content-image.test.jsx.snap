@@ -1,45 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContentImage component renders correctly 1`] = `
-<ImageLoader
+<ImageLoaderStyled
   src="http://images/test.png"
 >
-  <img
+  <ContentImageStyled
     alt="Image alt text"
-    className="content-image"
     title=""
   />
-  <div
-    className="content-image-placeholder color-alt"
+  <ContentImagePlaceholder
+    className="color-alt"
   >
     <span>
       Image unavailable
     </span>
-  </div>
-  <ImageLoading
-    className="content-image-placeholder"
-  />
-</ImageLoader>
+  </ContentImagePlaceholder>
+  <ContentImagePlaceholder>
+    <ImageLoading />
+  </ContentImagePlaceholder>
+</ImageLoaderStyled>
 `;
 
 exports[`ContentImage component renders correctly with title specified 1`] = `
-<ImageLoader
+<ImageLoaderStyled
   src="http://images/test.png"
 >
-  <img
+  <ContentImageStyled
     alt="Image alt text"
-    className="content-image"
     title="Image title"
   />
-  <div
-    className="content-image-placeholder color-alt"
+  <ContentImagePlaceholder
+    className="color-alt"
   >
     <span>
       Image unavailable
     </span>
-  </div>
-  <ImageLoading
-    className="content-image-placeholder"
-  />
-</ImageLoader>
+  </ContentImagePlaceholder>
+  <ContentImagePlaceholder>
+    <ImageLoading />
+  </ContentImagePlaceholder>
+</ImageLoaderStyled>
 `;

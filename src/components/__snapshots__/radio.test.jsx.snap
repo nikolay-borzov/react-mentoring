@@ -1,16 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Radio component if controlled renders correctly 1`] = `
-<div
-  className="radio-input-wrapper"
->
-  <label
-    className="form-label nowrap"
+<RadioInputWrapper>
+  <FormLabel
+    className="nowrap"
   >
     Radio label
-  </label>
-  <div
-    className="radio-input radio-input--style-button"
+  </FormLabel>
+  <RadioInput
     key="cat"
   >
     <input
@@ -21,15 +18,14 @@ exports[`Radio component if controlled renders correctly 1`] = `
       type="radio"
       value="cat"
     />
-    <label
-      className="radio-input__label"
+    <RadioInputLabel
       htmlFor="radioName_cat"
+      inputStyle="button"
     >
       Cat
-    </label>
-  </div>
-  <div
-    className="radio-input radio-input--style-button"
+    </RadioInputLabel>
+  </RadioInput>
+  <RadioInput
     key="dog"
   >
     <input
@@ -40,27 +36,24 @@ exports[`Radio component if controlled renders correctly 1`] = `
       type="radio"
       value="dog"
     />
-    <label
-      className="radio-input__label"
+    <RadioInputLabel
       htmlFor="radioName_dog"
+      inputStyle="button"
     >
       Dog
-    </label>
-  </div>
-</div>
+    </RadioInputLabel>
+  </RadioInput>
+</RadioInputWrapper>
 `;
 
 exports[`Radio component if uncontrolled renders correctly 1`] = `
-<div
-  className="radio-input-wrapper"
->
-  <label
-    className="form-label nowrap"
+<RadioInputWrapper>
+  <FormLabel
+    className="nowrap"
   >
     Radio label
-  </label>
-  <div
-    className="radio-input radio-input--style-plain"
+  </FormLabel>
+  <RadioInput
     key="cat"
   >
     <input
@@ -71,15 +64,14 @@ exports[`Radio component if uncontrolled renders correctly 1`] = `
       type="radio"
       value="cat"
     />
-    <label
-      className="radio-input__label"
+    <RadioInputLabel
       htmlFor="radioName_cat"
+      inputStyle="plain"
     >
       Cat
-    </label>
-  </div>
-  <div
-    className="radio-input radio-input--style-plain"
+    </RadioInputLabel>
+  </RadioInput>
+  <RadioInput
     key="dog"
   >
     <input
@@ -90,12 +82,12 @@ exports[`Radio component if uncontrolled renders correctly 1`] = `
       type="radio"
       value="dog"
     />
-    <label
-      className="radio-input__label"
+    <RadioInputLabel
       htmlFor="radioName_dog"
+      inputStyle="plain"
     >
       Dog
-    </label>
-  </div>
-</div>
+    </RadioInputLabel>
+  </RadioInput>
+</RadioInputWrapper>
 `;

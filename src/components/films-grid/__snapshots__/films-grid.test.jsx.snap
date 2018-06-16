@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilmsGrid component renders correctly 1`] = `
-<div
-  className="film-grid padding-content"
+<FilmGrid
+  className="padding-content"
   data-cy="film-grid"
 >
   <FilmsGridItem
@@ -22,5 +22,5 @@ exports[`FilmsGrid component renders correctly 1`] = `
     }
     key="1"
   />
-</div>
+</FilmGrid>
 `;

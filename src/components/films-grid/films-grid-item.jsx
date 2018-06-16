@@ -2,14 +2,41 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-import './films-grid-item.css'
+import styled from 'styled-components'
 
 import { ContentImage } from '../'
 
 type FilmsGridItemProps = {
-  film: Object
+  film: Film
 }
+
+const FilmGridItem = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  color: var(--color-default);
+  text-decoration: none;
+`
+
+const FilmGridItemInfo = styled.div`
+  margin-top: 0.5rem;
+`
+
+const FilmGridItemRow = styled.div`
+  padding: 0.4rem 0.5rem;
+`
+
+const FilmGridItemTitle = FilmGridItemRow.extend`
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+`
+
+const FilmGridItemDate = styled.span`
+  border: solid 1px var(--color-alt);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.2rem;
+  margin-left: 1rem;
+`
 
 export function FilmsGridItem(props: FilmsGridItemProps) {
   const {
@@ -23,25 +50,23 @@ export function FilmsGridItem(props: FilmsGridItemProps) {
   } = props
 
   return (
-    <Link
+    <FilmGridItem
       to={`/film/${id}`}
-      className="film-grid-item hover-effect"
+      className="hover-effect"
       tabIndex={0}
       data-cy="film-grid-item">
       <ContentImage src={posterPath} alt={title} title={overview} />
 
-      <div className="film-grid-item__info">
-        <div className="film-grid-item__row film-grid-item__title">
+      <FilmGridItemInfo>
+        <FilmGridItemTitle>
           <span className="uppercase font-bold">{title}</span>
-          <span className="film-grid-item__date font-size-small color-alt">
-            {releaseDate.substring(0, 4)}
-          </span>
-        </div>
+          <FilmGridItemDate>{releaseDate.substring(0, 4)}</FilmGridItemDate>
+        </FilmGridItemTitle>
 
-        <div className="film-grid-item__row color-alt">
+        <FilmGridItemRow className="color-alt">
           {props.film.genres.join(', ')}
-        </div>
-      </div>
-    </Link>
+        </FilmGridItemRow>
+      </FilmGridItemInfo>
+    </FilmGridItem>
   )
 }

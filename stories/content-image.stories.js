@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import { ContentImage } from '../src/components'
+import { ContentImage, ContentImagePlaceholder } from '../src/components'
 import { ImageLoading } from '../src/components/content-image/image-loading'
 
 import { Centered } from '../.storybook/decorators'
@@ -22,7 +22,7 @@ storiesOf('ContentImage', module)
     <ContentImage src={'https://foo.jpg'} alt="What?" />
   ))
   .add('Loading', () => (
-    <div className="content-image-placeholder">
+    <ContentImagePlaceholder>
       <ImageLoading />
-    </div>
+    </ContentImagePlaceholder>
   ))

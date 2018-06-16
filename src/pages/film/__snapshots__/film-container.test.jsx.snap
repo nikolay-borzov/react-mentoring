@@ -67,13 +67,13 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
       >
         <SiteName />
       </div>
-      <Link
-        className="button button--small button--primary"
-        replace={false}
+      <Button
+        primary={true}
+        small={true}
         to="/search"
       >
         Search
-      </Link>
+      </Button>
     </div>
     <LoadingBlock
       hideText={true}
@@ -153,13 +153,13 @@ exports[`FilmContainer page component renders correctly when no related films fo
       >
         <SiteName />
       </div>
-      <Link
-        className="button button--small button--primary"
-        replace={false}
+      <Button
+        primary={true}
+        small={true}
         to="/search"
       >
         Search
-      </Link>
+      </Button>
     </div>
     <LoadingBlock
       hideText={true}
@@ -226,13 +226,13 @@ exports[`FilmContainer page component renders correctly when related films had f
       >
         <SiteName />
       </div>
-      <Link
-        className="button button--small button--primary"
-        replace={false}
+      <Button
+        primary={true}
+        small={true}
         to="/search"
       >
         Search
-      </Link>
+      </Button>
     </div>
     <LoadingBlock
       hideText={true}
@@ -292,13 +292,13 @@ exports[`FilmContainer page component renders correctly when the film is unavail
       >
         <SiteName />
       </div>
-      <Link
-        className="button button--small button--primary"
-        replace={false}
+      <Button
+        primary={true}
+        small={true}
         to="/search"
       >
         Search
-      </Link>
+      </Button>
     </div>
     <LoadingBlock
       hideText={true}

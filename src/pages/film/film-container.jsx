@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify'
 
@@ -18,6 +17,7 @@ import {
   ToastError,
   SearchResultsPanel
 } from '../../components'
+import { NavigateButton } from '../../styles'
 
 import { FilmDetails } from './components/film-details'
 
@@ -156,9 +156,9 @@ export class FilmContainer extends React.Component<FilmContainerProps> {
             <div className="flex-grow">
               <SiteName />
             </div>
-            <Link to="/search" className="button button--small button--primary">
+            <NavigateButton to="/search" primary small>
               Search
-            </Link>
+            </NavigateButton>
           </div>
           <LoadingBlock isLoaded={!filmIsFetching} hideText={true}>
             <FilmDetails film={film} />

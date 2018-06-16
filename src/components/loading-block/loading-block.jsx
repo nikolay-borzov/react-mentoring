@@ -1,12 +1,12 @@
 // @flow
 
-import React from 'react'
+import * as React from 'react'
 
 import { LoadingIndicator } from './loading-indicator'
 
 type LoadingBlockProps = {
   isLoaded: boolean,
-  children: React.ChildrenArray<React.Element<any>>,
+  children: React.ChildrenArray<React.Node>,
   hideText: boolean
 }
 

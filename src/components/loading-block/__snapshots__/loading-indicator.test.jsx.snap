@@ -1,48 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoadingIndicator component renders correctly 1`] = `
-<div
-  className="centered loading-indicator font-bold"
+<LoadingIndicatorStyled
+  className="centered font-bold"
 >
   <div>
-    <div
-      className="loading-spinner"
-    >
-      <div
-        className="loading-spinner__bounce loading-spinner__bounce--1"
-      />
-      <div
-        className="loading-spinner__bounce loading-spinner__bounce--2"
-      />
-      <div
-        className="loading-spinner__bounce"
-      />
-    </div>
+    <LoadingSpinner>
+      <LoadingSpinnerBounce />
+      <LoadingSpinnerBounce />
+      <LoadingSpinnerBounce />
+    </LoadingSpinner>
     <React.Fragment>
       Loading…
     </React.Fragment>
   </div>
-</div>
+</LoadingIndicatorStyled>
 `;
 
 exports[`LoadingIndicator component renders correctly without 'loading' text 1`] = `
-<div
-  className="centered loading-indicator font-bold"
+<LoadingIndicatorStyled
+  className="centered font-bold"
 >
   <div>
-    <div
-      className="loading-spinner"
-    >
-      <div
-        className="loading-spinner__bounce loading-spinner__bounce--1"
-      />
-      <div
-        className="loading-spinner__bounce loading-spinner__bounce--2"
-      />
-      <div
-        className="loading-spinner__bounce"
-      />
-    </div>
+    <LoadingSpinner>
+      <LoadingSpinnerBounce />
+      <LoadingSpinnerBounce />
+      <LoadingSpinnerBounce />
+    </LoadingSpinner>
   </div>
-</div>
+</LoadingIndicatorStyled>
 `;
