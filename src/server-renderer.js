@@ -15,10 +15,16 @@ import apiService from './services/api-service'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
-function renderHTML(html, helmet, styles, bundles, preloadedState) {
+function renderHTML({
+  htmlString,
+  helmet,
+  faviconHtml,
+  styles,
+  bundles,
+  preloadedState
+}) {
   const safePreloadedState = serialize(preloadedState)
   // TODO: Add hash to resource URIs
-  // TODO: Add favicon
   return `
       <!doctype html>
       <html lang="en">
@@ -27,6 +33,7 @@ function renderHTML(html, helmet, styles, bundles, preloadedState) {
           <meta http-equiv="x-ua-compatible" content="ie=edge">
           <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
           ${helmet.title.toString()}
+          ${faviconHtml}
           ${
             isDevelopment
               ? ''
@@ -35,7 +42,7 @@ function renderHTML(html, helmet, styles, bundles, preloadedState) {
           ${styles}
         </head>
         <body>
-          <div id="root" class="root-container">${html}</div>
+          <div id="root" class="root-container">${htmlString}</div>
           <script>
             window.PRELOADED_STATE = ${safePreloadedState}
           </script>
@@ -52,7 +59,13 @@ function renderHTML(html, helmet, styles, bundles, preloadedState) {
 
 apiService.init()
 
-export default function serverRenderer({ stats }) {
+export default function serverRenderer({
+  stats,
+  faviconHtml = ''
+}: {
+  stats: Object,
+  faviconHtml: string
+}) {
   return (req: express$Request, res: express$Response) => {
     const { store } = configureStore()
     // This context object contains the results of the render
@@ -94,7 +107,16 @@ export default function serverRenderer({ stats }) {
 
       const preloadedState = store.getState()
 
-      res.send(renderHTML(htmlString, helmet, styles, bundles, preloadedState))
+      res.send(
+        renderHTML({
+          htmlString,
+          helmet,
+          faviconHtml,
+          styles,
+          bundles,
+          preloadedState
+        })
+      )
     })
 
     // Do first render, starts initial actions.
