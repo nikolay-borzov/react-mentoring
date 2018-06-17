@@ -4,7 +4,7 @@
   "description": "React study project",
   "private": true,
   "scripts": {
-    "preinstall": "npm run flow:install-types",
+    "postinstall": "npm run flow:install-types",
     "start": "node ./server",
     "build": "webpack --config ./webpack",
     "start:prod": "npm run build:prod && npm run server:prod",
