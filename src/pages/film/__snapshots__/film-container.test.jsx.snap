@@ -133,6 +133,52 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
 </React.Fragment>
 `;
 
+exports[`FilmContainer page component renders correctly when no film found nor related films found  1`] = `
+<React.Fragment>
+  <Header>
+    <div
+      className="padding-controls flex flex-align-center"
+    >
+      <div
+        className="flex-grow"
+      >
+        <SiteName />
+      </div>
+      <Button
+        primary={true}
+        small={true}
+        to="/search"
+      >
+        Search
+      </Button>
+    </div>
+    <LoadingBlock
+      hideText={true}
+      isLoaded={true}
+    >
+      <FilmDetails
+        film={null}
+      />
+    </LoadingBlock>
+  </Header>
+  <main
+    className="content"
+  >
+    <LoadingBlock
+      hideText={false}
+      isLoaded={true}
+    >
+      <SearchResultsPanel>
+        Films by 
+        Horror
+         genre
+      </SearchResultsPanel>
+    </LoadingBlock>
+  </main>
+  <Footer />
+</React.Fragment>
+`;
+
 exports[`FilmContainer page component renders correctly when no related films found 1`] = `
 <React.Fragment>
   <HelmetWrapper

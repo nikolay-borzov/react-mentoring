@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`media sets styles for 'bigger' media 1`] = `
+@media (min-width:768px) {
+  .c0 {
+    z-index: 2;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`media sets styles for 'large' media 1`] = `
+@media (min-width:1200px) {
+  .c0 {
+    z-index: 2;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`media sets styles for 'medium' media 1`] = `
+@media (min-width:992px) and (max-width:1199px) {
+  .c0 {
+    z-index: 2;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`media sets styles for 'small' media 1`] = `
+@media (min-width:768px) and (max-width:991px) {
+  .c0 {
+    z-index: 2;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;

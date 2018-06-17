@@ -33,6 +33,7 @@ export const Button = styled.input`
 
 // https://github.com/styled-components/styled-components/issues/1198
 export const NavigateButton = Button.withComponent(
+  /* istanbul ignore next */
   ({ primary, small, ...rest }) => <Link {...rest} />
 ).extend`
   ${props =>

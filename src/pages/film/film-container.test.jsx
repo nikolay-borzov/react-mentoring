@@ -44,7 +44,7 @@ describe('FilmContainer page component', () => {
     props.film = film
     props.filmError = null
     props.relatedFilms = films
-    props.relatedFilmsError = null 
+    props.relatedFilmsError = null
   })
 
   afterEach(() => {
@@ -82,6 +82,12 @@ describe('FilmContainer page component', () => {
       props.relatedFilmsError = new Error('Load error')
       return <FilmContainer {...props} />
     }, 'when related films had failed to load')
+
+    itRendersCorrectlyShallow(() => {
+      props.film = null
+      props.relatedFilms = []
+      return <FilmContainer {...props} />
+    }, 'when no film found nor related films found ')
   })
 
   it('loads film on sever side', () => {
