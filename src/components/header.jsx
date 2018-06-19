@@ -1,10 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
 
-Header.propTypes = {
-  children: PropTypes.any.isRequired
+import * as React from 'react'
+
+type HeaderProps = {
+  children: React.ChildrenArray<React.Node>
 }
 
-export function Header(props) {
+export function Header(props: HeaderProps) {
   return <header className="alt-background">{props.children}</header>
 }

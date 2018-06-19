@@ -1,7 +1,9 @@
+// @flow
+
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import { Header, Footer, SiteName, ContentMessage } from '../components'
+import { NavigateButton } from '../styles'
 
 export function NotFound() {
   return (
@@ -17,9 +19,7 @@ export function NotFound() {
             404<br />
             Page not found
           </p>
-          <Link to="/" className="button button--primary">
-            Go home
-          </Link>
+          <NavigateButton to="/">Go home</NavigateButton>
         </ContentMessage>
       </main>
       <Footer />

@@ -1,19 +1,26 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
 
-import './films-grid.css'
+import React from 'react'
+import styled from 'styled-components'
 
 import { FilmsGridItem } from './films-grid-item'
 
-FilmsGrid.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.object).isRequired
+type FilmsGridProps = {
+  films: Array<Film>
 }
 
-export function FilmsGrid(props) {
+const FilmGrid = styled.div`
+  display: grid;
+  grid-gap: 3.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  justify-content: center;
+`
+
+export function FilmsGrid(props: FilmsGridProps) {
   return (
-    <div className="film-grid padding-content" data-cy="film-grid">
+    <FilmGrid className="padding-content" data-cy="film-grid">
       {props.films.map(film => <FilmsGridItem film={film} key={film.id} />)}
-    </div>
+    </FilmGrid>
   )
 }
 

@@ -1,7 +1,11 @@
 import React from 'react'
+import styled from 'styled-components'
 
-import './site-name.css'
+const SiteNameStyled = styled.span`
+  color: var(--color-primary);
+  font-weight: 700;
+`
 
 export function SiteName() {
-  return <span className="site-name">Movie Search</span>
+  return <SiteNameStyled>Movie Search</SiteNameStyled>
 }

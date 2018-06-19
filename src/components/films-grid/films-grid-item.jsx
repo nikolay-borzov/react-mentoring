@@ -1,40 +1,72 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+// @flow
 
-import './films-grid-item.css'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import { ContentImage } from '../'
 
-FilmsGridItem.propTypes = {
-  film: PropTypes.object.isRequired
+type FilmsGridItemProps = {
+  film: Film
 }
 
-export function FilmsGridItem(props) {
+const FilmGridItem = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  color: var(--color-default);
+  text-decoration: none;
+`
+
+const FilmGridItemInfo = styled.div`
+  margin-top: 0.5rem;
+`
+
+const FilmGridItemRow = styled.div`
+  padding: 0.4rem 0.5rem;
+`
+
+const FilmGridItemTitle = FilmGridItemRow.extend`
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+`
+
+const FilmGridItemDate = styled.span`
+  border: solid 1px var(--color-alt);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.2rem;
+  margin-left: 1rem;
+`
+
+export function FilmsGridItem(props: FilmsGridItemProps) {
+  const {
+    film: {
+      id,
+      poster_path: posterPath,
+      title,
+      overview,
+      release_date: releaseDate
+    }
+  } = props
+
   return (
-    <Link
-      to={`/film/${props.film.id}`}
-      className="film-grid-item hover-effect"
+    <FilmGridItem
+      to={`/film/${id}`}
+      className="hover-effect"
       tabIndex={0}
       data-cy="film-grid-item">
-      <ContentImage
-        src={props.film.poster_path}
-        alt={props.film.title}
-        title={props.film.overview}
-      />
+      <ContentImage src={posterPath} alt={title} title={overview} />
 
-      <div className="film-grid-item__info">
-        <div className="film-grid-item__row film-grid-item__title">
-          <span className="uppercase font-bold">{props.film.title}</span>
-          <span className="film-grid-item__date font-size-small color-alt">
-            {props.film.release_date.substring(0, 4)}
-          </span>
-        </div>
+      <FilmGridItemInfo>
+        <FilmGridItemTitle>
+          <span className="uppercase font-bold">{title}</span>
+          <FilmGridItemDate>{releaseDate.substring(0, 4)}</FilmGridItemDate>
+        </FilmGridItemTitle>
 
-        <div className="film-grid-item__row color-alt">
+        <FilmGridItemRow className="color-alt">
           {props.film.genres.join(', ')}
-        </div>
-      </div>
-    </Link>
+        </FilmGridItemRow>
+      </FilmGridItemInfo>
+    </FilmGridItem>
   )
 }

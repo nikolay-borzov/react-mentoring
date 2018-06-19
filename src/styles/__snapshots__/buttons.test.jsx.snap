@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonStyled default 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: var(--padding-button);
+  text-transform: uppercase;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  box-sizing: border-box;
+  border: none;
+  color: var(--color-text-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+}
+
+.c0:hover {
+  box-shadow: 0 0 20px var(--color-primary),2px 2px 2px rgba(0,0,0,0.5);
+}
+
+<input
+  className="c0"
+/>
+`;
+
+exports[`ButtonStyled primary 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: var(--padding-button);
+  text-transform: uppercase;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  box-sizing: border-box;
+  border: none;
+  color: var(--color-text-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  background-color: var(--color-primary);
+}
+
+.c0:hover {
+  box-shadow: 0 0 20px var(--color-primary),2px 2px 2px rgba(0,0,0,0.5);
+}
+
+<input
+  className="c0"
+/>
+`;
+
+exports[`ButtonStyled small 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: var(--padding-button);
+  text-transform: uppercase;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  box-sizing: border-box;
+  border: none;
+  color: var(--color-text-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  padding: var(--padding-button-small);
+  font-size: 1rem;
+}
+
+.c0:hover {
+  box-shadow: 0 0 20px var(--color-primary),2px 2px 2px rgba(0,0,0,0.5);
+}
+
+<input
+  className="c0"
+/>
+`;
+
+exports[`NavigateButtonStyled default 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: var(--padding-button);
+  text-transform: uppercase;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  box-sizing: border-box;
+  border: none;
+  color: var(--color-text-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+}
+
+.c0:hover {
+  box-shadow: 0 0 20px var(--color-primary),2px 2px 2px rgba(0,0,0,0.5);
+}
+
+<Component
+  className="c0"
+/>
+`;
+
+exports[`NavigateButtonStyled primary 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: var(--padding-button);
+  text-transform: uppercase;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  box-sizing: border-box;
+  border: none;
+  color: var(--color-text-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  background-color: var(--color-primary);
+  color: var(--color-text-light) !important;
+}
+
+.c0:hover {
+  box-shadow: 0 0 20px var(--color-primary),2px 2px 2px rgba(0,0,0,0.5);
+}
+
+<Component
+  className="c0"
+  primary={true}
+/>
+`;
+
+exports[`NavigateButtonStyled small 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: var(--padding-button);
+  text-transform: uppercase;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  box-sizing: border-box;
+  border: none;
+  color: var(--color-text-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  transition: background-color var(--transition-duration),box-shadow var(--transition-duration);
+  padding: var(--padding-button-small);
+  font-size: 1rem;
+}
+
+.c0:hover {
+  box-shadow: 0 0 20px var(--color-primary),2px 2px 2px rgba(0,0,0,0.5);
+}
+
+<Component
+  className="c0"
+  small={true}
+/>
+`;

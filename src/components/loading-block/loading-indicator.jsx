@@ -1,25 +1,62 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
+import styled, { keyframes } from 'styled-components'
 
-import './loading-indicator.css'
+const LoadingIndicatorStyled = styled.div`
+  font-size: 250%;
+`
 
-LoadingIndicator.propTypes = {
-  hideText: PropTypes.bool.isRequired
-}
+/* Animation from https://github.com/tobiasahlin/SpinKit */
+const LoadingSpinner = styled.div`
+  text-align: center;
+`
 
-export function LoadingIndicator(props) {
+const bounce = keyframes`
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+`
+
+const LoadingSpinnerBounce = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--color-default);
+
+  border-radius: 100%;
+  display: inline-block;
+  animation: ${bounce} 1.4s infinite ease-in-out both;
+  transform-origin: center center;
+
+  .alt-background & {
+    background-color: var(--color-text-light);
+  }
+`
+
+const LoadingSpinnerBounceDelayedMore = LoadingSpinnerBounce.extend`
+  animation-delay: -0.32s;
+`
+
+const LoadingSpinnerBounceDelayed = LoadingSpinnerBounce.extend`
+  animation-delay: -0.16s;
+`
+
+export function LoadingIndicator({ hideText }: { hideText: boolean }) {
   return (
-    <div className="centered loading-indicator font-bold">
+    <LoadingIndicatorStyled className="centered font-bold">
       <div>
-        <div className="loading-spinner">
-          <div className="loading-spinner__bounce loading-spinner__bounce--1" />
-          <div className="loading-spinner__bounce loading-spinner__bounce--2" />
-          <div className="loading-spinner__bounce" />
-        </div>
-        {props.hideText ? null : (
-          <React.Fragment>Loading&hellip;</React.Fragment>
-        )}
+        <LoadingSpinner>
+          <LoadingSpinnerBounceDelayedMore />
+          <LoadingSpinnerBounceDelayed />
+          <LoadingSpinnerBounce />
+        </LoadingSpinner>
+        {hideText ? null : <React.Fragment>Loading&hellip;</React.Fragment>}
       </div>
-    </div>
+    </LoadingIndicatorStyled>
   )
 }

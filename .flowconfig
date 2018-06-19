@@ -1,0 +1,17 @@
+[ignore]
+<PROJECT_ROOT>/dist
+<PROJECT_ROOT>/**.test.*
+
+[include]
+
+
+[libs]
+
+[lints]
+all=warn
+
+[options]
+emoji=true
+include_warnings=true
+
+[strict]

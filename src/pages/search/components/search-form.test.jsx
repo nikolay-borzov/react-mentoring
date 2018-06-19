@@ -33,4 +33,18 @@ describe('SearchForm component', () => {
       searchBy: props.searchBy
     })
   })
+
+  it(`doesn't call 'onSearchChange' if 'searchInput' doesn't exist`, () => {
+    const wrapper = mount(<SearchForm {...props} />)
+    const eventMock = {
+      preventDefault: jest.fn()
+    }
+
+    wrapper.instance().searchInput.current = undefined
+
+    wrapper.find('form').simulate('submit', eventMock)
+
+    expect(eventMock.preventDefault).toHaveBeenCalled()
+    expect(props.onSearchChange).not.toHaveBeenCalled()
+  })
 })

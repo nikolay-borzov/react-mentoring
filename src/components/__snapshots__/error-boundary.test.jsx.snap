@@ -12,7 +12,9 @@ exports[`ErrorBoundary component renders correctly when an error has happened 1`
     <h1>
       Something went wrong.
     </h1>
-    <details>
+    <details
+      className="ErrorBoundaryDetails-elLoSA lcWFug"
+    >
       <summary>
         Details
         <br />

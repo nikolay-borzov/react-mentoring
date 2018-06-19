@@ -1,42 +1,64 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
 
-import './error-boundary.css'
+import * as React from 'react'
+import styled from 'styled-components'
 
-export class ErrorBoundary extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.any.isRequired
-  }
+type ErrorBoundaryProps = {
+  children: React.ChildrenArray<React.Node>
+}
 
+type ErrorInfo = {
+  componentStack: string
+}
+
+type ErrorBoundaryState = {
+  hasError: boolean,
+  error: ?Error,
+  errorInfo: ?ErrorInfo
+}
+
+const ErrorBoundaryDetails = styled.details`
+  whitespace: 'pre-wrap';
+`
+
+export class ErrorBoundary extends React.PureComponent<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   state = {
-    hasError: false
+    hasError: false,
+    error: null,
+    errorInfo: null
   }
 
-  componentDidCatch(error, errorInfo) {
+  // https://github.com/facebook/flow/pull/6044
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       hasError: true,
-      error: error,
-      errorInfo: errorInfo
+      error,
+      errorInfo
     })
 
     // TIP: Send error details to the server
   }
 
   render() {
-    if (this.state.hasError) {
+    const { hasError, error, errorInfo } = this.state
+
+    if (hasError) {
       return (
         <div className="error-boundary centered alt-background">
           <div className="padding-content">
             <h1>Something went wrong.</h1>
 
-            <details>
+            <ErrorBoundaryDetails>
               <summary>
                 Details<br />
               </summary>
-              {this.state.error && this.state.error.toString()}
+              {error && error.toString()}
               <br />
-              {this.state.errorInfo.componentStack}
-            </details>
+              {errorInfo && errorInfo.componentStack}
+            </ErrorBoundaryDetails>
 
             <p itemProp="telephone">
               Please try again later or contact support at&nbsp;

@@ -1,19 +1,35 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+// @flow
 
-import './search-form.css'
+import * as React from 'react'
+import styled from 'styled-components'
 
 import { searchBy } from '../../../enums'
 
 import { Radio } from '../../../components'
+import { Button, FormRow, FormLabel } from '../../../styles'
 
-export class SearchForm extends React.PureComponent {
-  static propTypes = {
-    search: PropTypes.string.isRequired,
-    searchBy: PropTypes.oneOf(Object.values(searchBy)).isRequired,
-    onSearchChange: PropTypes.func.isRequired
-  }
+type SearchFormProps = {
+  search: string,
+  searchBy: string,
+  onSearchChange: ({ search: string, searchBy: string }) => void
+}
 
+const SearchFormContainer = styled.div`
+  margin-top: 1rem;
+`
+
+const SearchInput = styled.input`
+  width: 100%;
+  font-family: 'Regular';
+  font-size: 1.3rem;
+  background-color: var(--color-bc-alt);
+  border: none;
+  border-bottom: 2px solid var(--color-primary);
+  padding: var(--padding-input);
+  color: var(--color-text-light);
+`
+
+export class SearchForm extends React.PureComponent<SearchFormProps> {
   searchByOptions = [
     {
       name: 'Title',
@@ -25,38 +41,52 @@ export class SearchForm extends React.PureComponent {
     }
   ]
 
-  onSubmit = event => {
+  searchInput: ?HTMLInputElement
+  searchByInput: ?Radio
+
+  constructor(props) {
+    super(props)
+
+    this.searchInput = React.createRef()
+    this.searchByInput = React.createRef()
+  }
+
+  onSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    this.props.onSearchChange({
-      search: this.searchInput.value,
-      searchBy: this.searchByInput.value
-    })
+    const searchInput = this.searchInput.current
+    const searchByInput = this.searchByInput.current
+
+    if (searchInput && searchByInput) {
+      this.props.onSearchChange({
+        search: searchInput.value,
+        searchBy: searchByInput.value
+      })
+    }
   }
 
   render() {
     const { search, searchBy } = this.props
 
     return (
-      <div className="search-form-container">
+      <SearchFormContainer>
         <form name="search-form" onSubmit={this.onSubmit}>
-          <div className="form-row">
-            <label className="form-label uppercase">Find your movie</label>
-          </div>
+          <FormRow>
+            <FormLabel className="uppercase">Find your movie</FormLabel>
+          </FormRow>
 
-          <div className="form-row">
-            <input
+          <FormRow>
+            <SearchInput
               name="search"
-              ref={input => (this.searchInput = input)}
+              innerRef={this.searchInput}
               type="text"
-              className="text-input"
               defaultValue={search}
             />
-          </div>
+          </FormRow>
 
-          <div className="form-row uppercase">
+          <FormRow className="uppercase">
             <Radio
-              ref={input => (this.searchByInput = input)}
+              ref={this.searchByInput}
               name="searchBy"
               label="Search by"
               defaultValue={searchBy}
@@ -65,15 +95,11 @@ export class SearchForm extends React.PureComponent {
             />
 
             <div className="flex-grow align-right">
-              <input
-                type="submit"
-                className="button button--primary"
-                value="Search"
-              />
+              <Button type="submit" primary value="Search" />
             </div>
-          </div>
+          </FormRow>
         </form>
-      </div>
+      </SearchFormContainer>
     )
   }
 }

@@ -103,16 +103,6 @@ describe('SearchContainer page component', () => {
     expect(fetchFilmsMock).toHaveBeenCalled()
   })
 
-  /*   it(`saves 'search' from route to store`, () => {
-    props.match.params.search = 'Comedy'
-
-    render()
-
-    expect(setSearchParamsMock).toHaveBeenCalledWith({
-      search: props.match.params.search
-    })
-  }) */
-
   it(`'search' is empty by default`, () => {
     props.foundCount = 0
     props.match.params.search = undefined

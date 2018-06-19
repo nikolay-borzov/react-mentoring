@@ -1,5 +1,6 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import { GetLoadable } from '../../../components/helpers'
 
@@ -12,15 +13,15 @@ const FilmsGrid = GetLoadable(() =>
   import('../../../components/films-grid/films-grid')
 )
 
-export class SearchResults extends React.PureComponent {
-  static propTypes = {
-    foundCount: PropTypes.number.isRequired,
-    displayCount: PropTypes.number.isRequired,
-    films: PropTypes.arrayOf(PropTypes.object).isRequired,
-    sortBy: PropTypes.oneOf(Object.values(sortBy)).isRequired,
-    onSortByChange: PropTypes.func.isRequired
-  }
+type SearchResultsProps = {
+  foundCount: number,
+  displayCount: number,
+  films: object[],
+  sortBy: string,
+  onSortByChange: Function
+}
 
+export class SearchResults extends React.PureComponent<SearchResultsProps> {
   sortOptions = [
     {
       name: 'release date',

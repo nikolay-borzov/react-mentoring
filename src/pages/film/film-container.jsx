@@ -1,7 +1,7 @@
+// @flow
+
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { toast } from 'react-toastify'
 
@@ -17,6 +17,7 @@ import {
   ToastError,
   SearchResultsPanel
 } from '../../components'
+import { NavigateButton } from '../../styles'
 
 import { FilmDetails } from './components/film-details'
 
@@ -46,21 +47,23 @@ const mapDispatchToProps = {
   reFetchFilms
 }
 
-export class FilmContainer extends React.Component {
-  static propTypes = {
-    match: PropTypes.object,
-    film: PropTypes.object,
-    filmIsFetching: PropTypes.bool.isRequired,
-    filmError: PropTypes.object,
-    genre: PropTypes.string.isRequired,
-    relatedFilms: PropTypes.arrayOf(PropTypes.object),
-    relatedFilmsIsFetching: PropTypes.bool.isRequired,
-    relatedFilmsError: PropTypes.object,
-    fetchFilm: PropTypes.func.isRequired,
-    reFetchFilms: PropTypes.func.isRequired
-  }
+type FilmContainerProps = {
+  match: {
+    params: { id: string }
+  },
+  film: Film,
+  filmIsFetching: boolean,
+  filmError: Error,
+  genre: string,
+  relatedFilms: Film[],
+  relatedFilmsIsFetching: boolean,
+  relatedFilmsError: Error,
+  fetchFilm: (id: string) => void,
+  reFetchFilms: () => void
+}
 
-  constructor(props) {
+export class FilmContainer extends React.Component<FilmContainerProps> {
+  constructor(props: FilmContainerProps) {
     super(props)
 
     if (IS_SERVER) {
@@ -68,7 +71,7 @@ export class FilmContainer extends React.Component {
     }
   }
 
-  initialLoad(props) {
+  initialLoad(props: FilmContainerProps) {
     this.loadFilm(props.match.params.id)
   }
 
@@ -83,7 +86,7 @@ export class FilmContainer extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: FilmContainerProps) {
     const filmId = this.props.match.params.id
     const { filmError, relatedFilmsError } = this.props
     // Load film if film id has changed
@@ -105,7 +108,7 @@ export class FilmContainer extends React.Component {
     }
   }
 
-  loadFilm(id) {
+  loadFilm(id: string) {
     this.props.fetchFilm(id)
   }
 
@@ -153,9 +156,9 @@ export class FilmContainer extends React.Component {
             <div className="flex-grow">
               <SiteName />
             </div>
-            <Link to="/search" className="button button--small button--primary">
+            <NavigateButton to="/search" primary small>
               Search
-            </Link>
+            </NavigateButton>
           </div>
           <LoadingBlock isLoaded={!filmIsFetching} hideText={true}>
             <FilmDetails film={film} />
