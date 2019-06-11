@@ -13,7 +13,7 @@ exports[`ErrorBoundary component renders correctly when an error has happened 1`
       Something went wrong.
     </h1>
     <details
-      className="ErrorBoundaryDetails-elLoSA lcWFug"
+      className="ErrorBoundaryDetails-ymaymh-0 jykFMN"
     >
       <summary>
         Details

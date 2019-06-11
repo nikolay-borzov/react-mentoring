@@ -6,13 +6,11 @@ exports[`LoadingIndicator component renders correctly 1`] = `
 >
   <div>
     <LoadingSpinner>
-      <LoadingSpinnerBounce />
-      <LoadingSpinnerBounce />
+      <LoadingSpinnerBounceDelayedMore />
+      <LoadingSpinnerBounceDelayed />
       <LoadingSpinnerBounce />
     </LoadingSpinner>
-    <React.Fragment>
-      Loading…
-    </React.Fragment>
+    Loading…
   </div>
 </LoadingIndicatorStyled>
 `;
@@ -23,8 +21,8 @@ exports[`LoadingIndicator component renders correctly without 'loading' text 1`]
 >
   <div>
     <LoadingSpinner>
-      <LoadingSpinnerBounce />
-      <LoadingSpinnerBounce />
+      <LoadingSpinnerBounceDelayedMore />
+      <LoadingSpinnerBounceDelayed />
       <LoadingSpinnerBounce />
     </LoadingSpinner>
   </div>

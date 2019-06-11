@@ -17,5 +17,5 @@ module.exports = {
   ],
   coverageReporters: ['lcov', 'text'],
   transformIgnorePatterns: ['node_modules/(?!(lodash-es)/)'],
-  setupTestFrameworkScriptFile: '<rootDir>jest/setup.js'
+  setupFilesAfterEnv: ['<rootDir>jest/setup.js']
 }

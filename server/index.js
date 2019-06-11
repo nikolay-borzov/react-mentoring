@@ -11,8 +11,8 @@ Loadable.preloadAll().then(() => {
 
     if (isDevelopment) {
       const url = `http://localhost:${port}`
-      const opn = require('opn')
-      opn(url)
+      const open = require('open')
+      open(url)
     }
   })
 })

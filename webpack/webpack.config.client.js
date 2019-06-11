@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
@@ -12,7 +12,8 @@ const baseConfig = common.getConfig()
 const isDevelopment = common.isDevelopment
 
 const entry = [
-  'babel-polyfill',
+  'core-js/stable',
+  'regenerator-runtime/runtime',
   'url-search-params-polyfill',
   './src/client.jsx'
 ]
@@ -34,9 +35,8 @@ if (isDevelopment) {
   plugins.push(new webpack.HotModuleReplacementPlugin())
 } else {
   plugins.push(
-    new CleanWebpackPlugin([common.distRoot], {
-      // Plugin skips folders outside project root
-      root: path.resolve(__dirname, '../')
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: []
     }),
     new UglifyJSPlugin({
       sourceMap: true

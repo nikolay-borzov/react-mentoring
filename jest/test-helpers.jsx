@@ -86,7 +86,7 @@ export const runSaga = (saga, state = {}, arg1 = undefined) => {
     },
     saga,
     arg1
-  ).done.then(() => {
-    return dispatched
-  })
+  )
+    .toPromise()
+    .then(() => dispatched)
 }

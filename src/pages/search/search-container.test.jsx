@@ -175,7 +175,7 @@ describe('SearchContainer page component', () => {
     expect(fetchFilmsMock).not.toHaveBeenCalled()
   })
 
-  it('displays an error when unable to load the films', async () => {
+  it('displays an error when unable to load the films', () => {
     const error = new Error('Films load error')
 
     const { wrapper, instance } = render()

@@ -3,6 +3,6 @@
 exports[`ImageLoading component renders correctly 1`] = `
 <ImageSpinner>
   <ImageSpinnerBounce1 />
-  <ImageSpinnerBounce1 />
+  <ImageSpinnerBounce2 />
 </ImageSpinner>
 `;

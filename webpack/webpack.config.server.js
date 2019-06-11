@@ -8,7 +8,11 @@ module.exports = merge(common.getConfig(), {
   name: 'server',
   target: 'node',
 
-  entry: ['babel-polyfill', './src/server-renderer.js'],
+  entry: [
+    'core-js/stable',
+    'regenerator-runtime/runtime',
+    './src/server-renderer.js'
+  ],
 
   externals: [nodeExternals()],
 

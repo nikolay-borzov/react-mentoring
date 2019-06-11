@@ -13,7 +13,7 @@ exports[`FilmsGridItem component renders correctly 1`] = `
     title="Film overview"
   />
   <FilmGridItemInfo>
-    <FilmGridItemRow>
+    <FilmGridItemTitle>
       <span
         className="uppercase font-bold"
       >
@@ -22,7 +22,7 @@ exports[`FilmsGridItem component renders correctly 1`] = `
       <FilmGridItemDate>
         2018
       </FilmGridItemDate>
-    </FilmGridItemRow>
+    </FilmGridItemTitle>
     <FilmGridItemRow
       className="color-alt"
     >

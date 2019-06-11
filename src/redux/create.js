@@ -21,7 +21,7 @@ const configureStore = preloadedState => {
 
   sagaMiddleware.run(rootSaga)
   /* istanbul ignore next */
-  store.runSaga = () => sagaMiddleware.run(rootSaga)
+  store.runSaga = () => sagaMiddleware.run(rootSaga).toPromise()
   /* istanbul ignore next */
   store.close = () => store.dispatch(END)
 

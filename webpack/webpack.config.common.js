@@ -25,9 +25,11 @@ module.exports = {
         API_URL: JSON.stringify(process.env.API_URL),
         IS_DEVELOPMENT: isDevelopment
       }),
+
       isDevelopment
         ? new webpack.NamedModulesPlugin()
         : new webpack.HashedModuleIdsPlugin(),
+
       new Loadable.ReactLoadablePlugin({
         filename: path.join(distRoot, 'react-loadable.json')
       })

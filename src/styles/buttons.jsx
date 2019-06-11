@@ -31,11 +31,7 @@ export const Button = styled.input`
   ${props => (props.primary ? `background-color: var(--color-primary);` : '')}
 `
 
-// https://github.com/styled-components/styled-components/issues/1198
-export const NavigateButton = Button.withComponent(
-  /* istanbul ignore next */
-  ({ primary, small, ...rest }) => <Link {...rest} />
-).extend`
+export const NavigateButton = styled(props => <Button as={Link} {...props} />)`
   ${props =>
     props.primary ? `color: var(--color-text-light) !important;` : ''}
 `

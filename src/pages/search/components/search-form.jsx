@@ -78,7 +78,7 @@ export class SearchForm extends React.PureComponent<SearchFormProps> {
           <FormRow>
             <SearchInput
               name="search"
-              innerRef={this.searchInput}
+              ref={this.searchInput}
               type="text"
               defaultValue={search}
             />

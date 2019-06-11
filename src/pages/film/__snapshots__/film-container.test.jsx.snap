@@ -1,38 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FilmContainer page component renders correctly when connected to the store 1`] = `
-<FilmContainer
-  fetchFilm={[Function]}
-  film={null}
-  filmError={null}
-  filmIsFetching={false}
-  genre=""
-  reFetchFilms={[Function]}
-  relatedFilms={Array []}
-  relatedFilmsError={null}
-  relatedFilmsIsFetching={false}
-  store={
-    Object {
-      "close": [Function],
-      "dispatch": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "runSaga": [Function],
-      "subscribe": [Function],
-      Symbol(observable): [Function],
-    }
-  }
-  storeSubscription={
-    Subscription {
-      "listeners": Object {
-        "clear": [Function],
-        "get": [Function],
-        "notify": [Function],
-        "subscribe": [Function],
-      },
-      "onStateChange": [Function],
-      "parentSub": undefined,
-      "store": Object {
+<ContextProvider
+  value={null}
+>
+  <FilmContainer
+    fetchFilm={[Function]}
+    film={null}
+    filmError={null}
+    filmIsFetching={false}
+    genre=""
+    reFetchFilms={[Function]}
+    relatedFilms={Array []}
+    relatedFilmsError={null}
+    relatedFilmsIsFetching={false}
+    store={
+      Object {
         "close": [Function],
         "dispatch": [Function],
         "getState": [Function],
@@ -40,15 +23,14 @@ exports[`FilmContainer page component renders correctly when connected to the st
         "runSaga": [Function],
         "subscribe": [Function],
         Symbol(observable): [Function],
-      },
-      "unsubscribe": [Function],
+      }
     }
-  }
-/>
+  />
+</ContextProvider>
 `;
 
 exports[`FilmContainer page component renders correctly when film and relatedFilms are provided 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -67,13 +49,13 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
       >
         <SiteName />
       </div>
-      <Button
+      <NavigateButton
         primary={true}
         small={true}
         to="/search"
       >
         Search
-      </Button>
+      </NavigateButton>
     </div>
     <LoadingBlock
       hideText={true}
@@ -130,11 +112,11 @@ exports[`FilmContainer page component renders correctly when film and relatedFil
     </LoadingBlock>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`FilmContainer page component renders correctly when no film found nor related films found  1`] = `
-<React.Fragment>
+<Fragment>
   <Header>
     <div
       className="padding-controls flex flex-align-center"
@@ -144,13 +126,13 @@ exports[`FilmContainer page component renders correctly when no film found nor r
       >
         <SiteName />
       </div>
-      <Button
+      <NavigateButton
         primary={true}
         small={true}
         to="/search"
       >
         Search
-      </Button>
+      </NavigateButton>
     </div>
     <LoadingBlock
       hideText={true}
@@ -176,11 +158,11 @@ exports[`FilmContainer page component renders correctly when no film found nor r
     </LoadingBlock>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`FilmContainer page component renders correctly when no related films found 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -199,13 +181,13 @@ exports[`FilmContainer page component renders correctly when no related films fo
       >
         <SiteName />
       </div>
-      <Button
+      <NavigateButton
         primary={true}
         small={true}
         to="/search"
       >
         Search
-      </Button>
+      </NavigateButton>
     </div>
     <LoadingBlock
       hideText={true}
@@ -249,11 +231,11 @@ exports[`FilmContainer page component renders correctly when no related films fo
     </LoadingBlock>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`FilmContainer page component renders correctly when related films had failed to load 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -272,13 +254,13 @@ exports[`FilmContainer page component renders correctly when related films had f
       >
         <SiteName />
       </div>
-      <Button
+      <NavigateButton
         primary={true}
         small={true}
         to="/search"
       >
         Search
-      </Button>
+      </NavigateButton>
     </div>
     <LoadingBlock
       hideText={true}
@@ -322,13 +304,13 @@ exports[`FilmContainer page component renders correctly when related films had f
     </LoadingBlock>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`FilmContainer page component renders correctly when the film is not found 1`] = `<LoadableComponent />`;
 
 exports[`FilmContainer page component renders correctly when the film is unavailable 1`] = `
-<React.Fragment>
+<Fragment>
   <Header>
     <div
       className="padding-controls flex flex-align-center"
@@ -338,13 +320,13 @@ exports[`FilmContainer page component renders correctly when the film is unavail
       >
         <SiteName />
       </div>
-      <Button
+      <NavigateButton
         primary={true}
         small={true}
         to="/search"
       >
         Search
-      </Button>
+      </NavigateButton>
     </div>
     <LoadingBlock
       hideText={true}
@@ -388,5 +370,5 @@ exports[`FilmContainer page component renders correctly when the film is unavail
     </LoadingBlock>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;

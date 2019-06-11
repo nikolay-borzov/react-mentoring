@@ -16,11 +16,6 @@ exports[`SearchForm component renders correctly 1`] = `
     <FormRow>
       <SearchInput
         defaultValue=""
-        innerRef={
-          Object {
-            "current": null,
-          }
-        }
         name="search"
         type="text"
       />

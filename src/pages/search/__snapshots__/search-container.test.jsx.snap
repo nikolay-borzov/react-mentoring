@@ -1,39 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchContainer page component it renders correctly when connected to the store 1`] = `
-<SearchContainer
-  displayCount={0}
-  fetchFilms={[Function]}
-  films={Array []}
-  filmsError={null}
-  foundCount={0}
-  isFetching={false}
-  search=""
-  searchBy="title"
-  setSearchParams={[Function]}
-  sortBy="release_date"
-  store={
-    Object {
-      "close": [Function],
-      "dispatch": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "runSaga": [Function],
-      "subscribe": [Function],
-      Symbol(observable): [Function],
-    }
-  }
-  storeSubscription={
-    Subscription {
-      "listeners": Object {
-        "clear": [Function],
-        "get": [Function],
-        "notify": [Function],
-        "subscribe": [Function],
-      },
-      "onStateChange": [Function],
-      "parentSub": undefined,
-      "store": Object {
+<ContextProvider
+  value={null}
+>
+  <SearchContainer
+    displayCount={0}
+    fetchFilms={[Function]}
+    films={Array []}
+    filmsError={null}
+    foundCount={0}
+    isFetching={false}
+    search=""
+    searchBy="title"
+    setSearchParams={[Function]}
+    sortBy="release_date"
+    store={
+      Object {
         "close": [Function],
         "dispatch": [Function],
         "getState": [Function],
@@ -41,15 +24,14 @@ exports[`SearchContainer page component it renders correctly when connected to t
         "runSaga": [Function],
         "subscribe": [Function],
         Symbol(observable): [Function],
-      },
-      "unsubscribe": [Function],
+      }
     }
-  }
-/>
+  />
+</ContextProvider>
 `;
 
 exports[`SearchContainer page component it renders correctly when films are provided 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -102,11 +84,11 @@ exports[`SearchContainer page component it renders correctly when films are prov
     </LoadingBlock>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`SearchContainer page component it renders correctly when no films found 1`] = `
-<React.Fragment>
+<Fragment>
   <HelmetWrapper
     defer={true}
     encodeSpecialCharacters={true}
@@ -142,5 +124,5 @@ exports[`SearchContainer page component it renders correctly when no films found
     </LoadingBlock>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;

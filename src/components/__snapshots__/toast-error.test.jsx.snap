@@ -9,9 +9,7 @@ exports[`ToastError component renders correctly with message 1`] = `
 exports[`ToastError component renders correctly with message and error details 1`] = `
 <div>
   Error happened
-  <React.Fragment>
-    <br />
-    Error: Some generic error
-  </React.Fragment>
+  <br />
+  Error: Some generic error
 </div>
 `;

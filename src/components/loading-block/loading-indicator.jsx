@@ -38,11 +38,11 @@ const LoadingSpinnerBounce = styled.div`
   }
 `
 
-const LoadingSpinnerBounceDelayedMore = LoadingSpinnerBounce.extend`
+const LoadingSpinnerBounceDelayedMore = styled(LoadingSpinnerBounce)`
   animation-delay: -0.32s;
 `
 
-const LoadingSpinnerBounceDelayed = LoadingSpinnerBounce.extend`
+const LoadingSpinnerBounceDelayed = styled(LoadingSpinnerBounce)`
   animation-delay: -0.16s;
 `
 

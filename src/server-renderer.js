@@ -80,7 +80,7 @@ export default function serverRenderer({
       />
     )
 
-    store.runSaga().done.then(() => {
+    store.runSaga().then(() => {
       // Dynamic modules that were rendered
       const modules = []
 

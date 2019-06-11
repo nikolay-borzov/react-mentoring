@@ -31,7 +31,7 @@ const ImageSpinnerBounce1 = styled.div`
 
   animation: ${bounce} 2s infinite ease-in-out;
 `
-const ImageSpinnerBounce2 = ImageSpinnerBounce1.extend`
+const ImageSpinnerBounce2 = styled(ImageSpinnerBounce1)`
   animation-delay: -1s;
 `
 

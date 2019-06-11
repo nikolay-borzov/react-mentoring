@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResults component renders correctly 1`] = `
-<React.Fragment>
+<Fragment>
   <SearchResultsPanel>
     <div>
       3000
@@ -34,11 +34,11 @@ exports[`SearchResults component renders correctly 1`] = `
   <LoadableComponent
     films={Array []}
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`SearchResults component renders correctly when found count is bigger than limit value 1`] = `
-<React.Fragment>
+<Fragment>
   <SearchResultsPanel>
     <div>
       10
@@ -70,11 +70,11 @@ exports[`SearchResults component renders correctly when found count is bigger th
   <LoadableComponent
     films={Array []}
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`SearchResults component renders correctly when only one movie is found 1`] = `
-<React.Fragment>
+<Fragment>
   <SearchResultsPanel>
     <div>
       1
@@ -106,5 +106,5 @@ exports[`SearchResults component renders correctly when only one movie is found 
   <LoadableComponent
     films={Array []}
   />
-</React.Fragment>
+</Fragment>
 `;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NotFound page component renders correctly 1`] = `
-<React.Fragment>
+<Fragment>
   <Header>
     <div
       className="padding-controls"
@@ -20,13 +20,13 @@ exports[`NotFound page component renders correctly 1`] = `
         <br />
         Page not found
       </p>
-      <Button
+      <NavigateButton
         to="/"
       >
         Go home
-      </Button>
+      </NavigateButton>
     </ContentMessage>
   </main>
   <Footer />
-</React.Fragment>
+</Fragment>
 `;

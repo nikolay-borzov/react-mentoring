@@ -1,15 +1,15 @@
 {
   "plugins": [
     [ "styled-components", { "displayName": false, "ssr": true }],
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-syntax-dynamic-import",
     "react-loadable/babel"
   ],
   "presets": [
-    ["env", { "modules": false }],
-    "flow",
-    "react"
+    ["@babel/preset-env", { "modules": false }],
+    "@babel/preset-flow",
+    "@babel/preset-react"
   ],
   "retainLines": true,
   "env": {
@@ -22,10 +22,10 @@
     "test": {
       "plugins": [
         [ "styled-components", { "fileName": false }],
-        "transform-class-properties",
+        "@babel/plugin-proposal-class-properties",
         "dynamic-import-node"
       ],
-      "presets": ["env", "react"]
+      "presets": ["@babel/preset-env", "@babel/preset-react"]
     }
   }
 }

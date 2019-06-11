@@ -25,7 +25,7 @@ const FilmGridItemRow = styled.div`
   padding: 0.4rem 0.5rem;
 `
 
-const FilmGridItemTitle = FilmGridItemRow.extend`
+const FilmGridItemTitle = styled(FilmGridItemRow)`
   display: flex;
   justify-content: space-between;
   align-items: start;
