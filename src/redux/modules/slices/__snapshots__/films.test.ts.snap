@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Films state slice reducer returns initial state 1`] = `
+Object {
+  "error": [Error: Generic error],
+  "isFetching": true,
+  "items": Array [
+    Object {
+      "budget": 15000000,
+      "genres": Array [
+        "some genre",
+        "another genre",
+      ],
+      "id": 1,
+      "overview": "Once upon a time...",
+      "poster_path": "https://picsum.photos/g/300/450/?random",
+      "release_date": "2018-05-04",
+      "revenue": 59735548,
+      "tagline": "Put that cookie down",
+      "title": "Film title",
+      "vote_average": 7.5,
+      "vote_count": 667,
+    },
+  ],
+  "limit": 15,
+  "total": 3000,
+}
+`;

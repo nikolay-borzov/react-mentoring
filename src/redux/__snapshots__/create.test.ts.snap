@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`store creates store with initial state 1`] = `
+Object {
+  "search": Object {
+    "films": Object {
+      "isFetching": false,
+      "items": Array [],
+      "limit": 0,
+      "total": 0,
+    },
+    "searchParams": Object {
+      "filter": Array [],
+      "limit": 15,
+      "search": "",
+      "searchBy": "title",
+      "sortBy": "release_date",
+      "sortOrder": "desc",
+    },
+  },
+  "view": Object {
+    "film": Object {
+      "isFetching": false,
+    },
+    "relatedFilms": Object {
+      "films": Object {
+        "isFetching": false,
+        "items": Array [],
+        "limit": 0,
+        "total": 0,
+      },
+      "searchParams": Object {
+        "filter": Array [],
+        "limit": 20,
+        "search": "",
+        "searchBy": "genres",
+        "sortBy": "vote_average",
+        "sortOrder": "desc",
+      },
+    },
+  },
+}
+`;

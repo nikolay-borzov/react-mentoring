@@ -57,9 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-# Flow type definitions
-flow-typed/npm
-
 dist
+storybook-static
 
 .vscode

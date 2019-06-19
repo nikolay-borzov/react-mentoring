@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmsGrid component renders correctly 1`] = `
+<FilmGrid
+  className="padding-content"
+  data-cy="film-grid"
+>
+  <FilmsGridItem
+    film={
+      Object {
+        "budget": 15000000,
+        "genres": Array [
+          "some genre",
+          "another genre",
+        ],
+        "id": 1,
+        "overview": "Once upon a time...",
+        "poster_path": "https://picsum.photos/g/300/450/?random",
+        "release_date": "2018-05-04",
+        "revenue": 59735548,
+        "tagline": "Put that cookie down",
+        "title": "Film title",
+        "vote_average": 7.5,
+        "vote_count": 667,
+      }
+    }
+    key="1"
+  />
+</FilmGrid>
+`;

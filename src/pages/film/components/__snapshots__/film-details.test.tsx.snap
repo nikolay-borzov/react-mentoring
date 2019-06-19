@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmDetails component renders correctly when film is provided 1`] = `
+<FilmDetailsStyled
+  className="flex padding-content"
+>
+  <FilmDetailsImage>
+    <ContentImage
+      alt="Film title"
+      src="https://picsum.photos/g/300/450/?random"
+      title=""
+    />
+  </FilmDetailsImage>
+  <FilmDetailsDescription>
+    <div
+      className="flex flex-align-center"
+    >
+      <h1>
+        Film title
+      </h1>
+      <FilmDetailsRating>
+        7.5
+      </FilmDetailsRating>
+    </div>
+    <p
+      className="font-size-big"
+    >
+      some genre, another genre
+    </p>
+    <p
+      className="font-bold"
+    >
+      2018
+    </p>
+    <p
+      className="font-size-big"
+    >
+      Once upon a time...
+    </p>
+  </FilmDetailsDescription>
+</FilmDetailsStyled>
+`;
+
+exports[`FilmDetails component renders correctly when film isn't provided 1`] = `
+<FilmDetailsStyled
+  className="flex padding-content"
+>
+  <div
+    className="error-message centered"
+  >
+    Unable to load the movie
+  </div>
+</FilmDetailsStyled>
+`;

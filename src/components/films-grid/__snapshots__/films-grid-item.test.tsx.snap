@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilmsGridItem component renders correctly 1`] = `
+<FilmGridItem
+  className="hover-effect"
+  data-cy="film-grid-item"
+  tabIndex={0}
+  to="/film/1"
+>
+  <ContentImage
+    alt="Film title"
+    src="https://picsum.photos/g/300/450/?random"
+    title="Once upon a time..."
+  />
+  <FilmGridItemInfo>
+    <FilmGridItemTitle>
+      <span
+        className="uppercase font-bold"
+      >
+        Film title
+      </span>
+      <FilmGridItemDate>
+        2018
+      </FilmGridItemDate>
+    </FilmGridItemTitle>
+    <FilmGridItemRow
+      className="color-alt"
+    >
+      some genre, another genre
+    </FilmGridItemRow>
+  </FilmGridItemInfo>
+</FilmGridItem>
+`;

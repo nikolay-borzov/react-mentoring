@@ -11,7 +11,7 @@ module.exports = merge(common.getConfig(), {
   entry: [
     'core-js/stable',
     'regenerator-runtime/runtime',
-    './src/server-renderer.js'
+    './src/server-renderer'
   ],
 
   externals: [nodeExternals()],

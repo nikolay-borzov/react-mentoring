@@ -53,15 +53,14 @@ module.exports = {
 
       resolve: {
         modules: ['node_modules', 'src'],
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         symlinks: false
       },
 
       module: {
         rules: [
-          // JS/JSX
           {
-            test: /\.jsx?$/,
+            test: /\.(t|j)sx?$/,
             // exclude: /node_modules/,
             include: srcRoot,
             loader: 'babel-loader',

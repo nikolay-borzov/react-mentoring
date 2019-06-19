@@ -15,7 +15,7 @@ const entry = [
   'core-js/stable',
   'regenerator-runtime/runtime',
   'url-search-params-polyfill',
-  './src/client.jsx'
+  './src/client'
 ]
 
 const fileLoaderFilename = isDevelopment

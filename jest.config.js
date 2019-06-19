@@ -7,12 +7,12 @@ module.exports = {
     '\\.(css)$': '<rootDir>/__mocks__/styleMock.js'
   },
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  collectCoverageFrom: ['src/**/*.{js,jsx}'],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coverageDirectory: 'coverage',
   coveragePathIgnorePatterns: [
     '/node_modules/',
-    'index.js',
-    'client.jsx',
+    'index.ts',
+    'client.tsx',
     'server-renderer.js'
   ],
   coverageReporters: ['lcov', 'text'],

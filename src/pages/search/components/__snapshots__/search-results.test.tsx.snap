@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchResults component renders correctly 1`] = `
+<Fragment>
+  <SearchResultsPanel>
+    <div>
+      3000
+       
+      movies
+       found
+       
+      (15 shown)
+    </div>
+    <RadioControlled
+      label="Sort by"
+      name="sortBy"
+      onChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "name": "release date",
+            "value": "release_date",
+          },
+          Object {
+            "name": "rating",
+            "value": "vote_average",
+          },
+        ]
+      }
+      value="release_date"
+    />
+  </SearchResultsPanel>
+  <LoadableComponent
+    films={Array []}
+  />
+</Fragment>
+`;
+
+exports[`SearchResults component renders correctly when found count is bigger than limit value 1`] = `
+<Fragment>
+  <SearchResultsPanel>
+    <div>
+      10
+       
+      movies
+       found
+       
+    </div>
+    <RadioControlled
+      label="Sort by"
+      name="sortBy"
+      onChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "name": "release date",
+            "value": "release_date",
+          },
+          Object {
+            "name": "rating",
+            "value": "vote_average",
+          },
+        ]
+      }
+      value="release_date"
+    />
+  </SearchResultsPanel>
+  <LoadableComponent
+    films={Array []}
+  />
+</Fragment>
+`;
+
+exports[`SearchResults component renders correctly when only one movie is found 1`] = `
+<Fragment>
+  <SearchResultsPanel>
+    <div>
+      1
+       
+      movie
+       found
+       
+    </div>
+    <RadioControlled
+      label="Sort by"
+      name="sortBy"
+      onChange={[MockFunction]}
+      options={
+        Array [
+          Object {
+            "name": "release date",
+            "value": "release_date",
+          },
+          Object {
+            "name": "rating",
+            "value": "vote_average",
+          },
+        ]
+      }
+      value="release_date"
+    />
+  </SearchResultsPanel>
+  <LoadableComponent
+    films={Array []}
+  />
+</Fragment>
+`;

@@ -13,16 +13,18 @@ module.exports = {
     render: true,
     mount: true
   },
-  plugins: ['react', 'flowtype'],
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true
-    }
+    },
+    project: './tsconfig.json'
   },
+  plugins: ['react', 'prettier', '@typescript-eslint', 'flowtype'],
   extends: [
+    'plugin:@typescript-eslint/recommended',
     'prettier-standard',
     'plugin:react/recommended',
-    'plugin:flowtype/recommended'
+    'prettier/@typescript-eslint'
   ]
 }
